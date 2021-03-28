@@ -1,12 +1,13 @@
-import "./App.css";
+// Components
 import SignUp from "./components/User/SignUp";
+import NavBar from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <SignUp />
+    <NavBar/>
+    <SignUp />
     </div>
   );
-}
 
 export default App;
