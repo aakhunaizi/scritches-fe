@@ -2,7 +2,7 @@ import instance from "./instance";
 import decode from "jwt-decode";
 import Cookies from "js-cookie";
 
-import * as types from "../actions/types";
+import * as types from "./types";
 
 // Check Token
 export const checkForToken = () => (dispatch) => {
