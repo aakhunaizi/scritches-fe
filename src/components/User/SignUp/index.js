@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 //Actions
+import { signup } from "../../../store/actions/userActions";
 
 //Components
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -16,6 +16,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import { useTheme } from "@material-ui/core/styles";
+import {
+  StyledAvatar,
+  StyledButton,
+  StyledMdVisibility,
+  StyledMdVisibilityOff,
+} from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -39,19 +46,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
+  const theme = useTheme();
   const { register, handleSubmit, errors } = useForm();
+  const [password, setPassword] = useState(true);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(signup(data, history));
   };
 
   return (
     <Container component="main" maxWidth="xs">
+      <Helmet>
+        <title>Sign Up </title>
+      </Helmet>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <StyledAvatar className={classes.avatar} theme={theme}>
           <FaPaw />
-        </Avatar>
+        </StyledAvatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -116,7 +129,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                type="password"
+                type={password ? "password" : "text"}
                 name="password"
                 required
                 variant="outlined"
@@ -125,6 +138,17 @@ export default function SignUp() {
                 helperText={errors.password && "Password is required"}
                 fullWidth
                 label="Password"
+                InputProps={{
+                  endAdornment: password ? (
+                    <StyledMdVisibility
+                      onClick={() => setPassword(!password)}
+                    />
+                  ) : (
+                    <StyledMdVisibilityOff
+                      onClick={() => setPassword(!password)}
+                    />
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,20 +165,20 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Button
+          <StyledButton
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
+            theme={theme}
           >
             Sign Up
-          </Button>
+          </StyledButton>
           <Grid container justify="flex-end">
             <Grid item>
-              {/* <Link to="/#" variant="body2">
+              <Link to="/signin" variant="body2">
                 Already have an account? Sign in
-              </Link> */}
+              </Link>
             </Grid>
           </Grid>
         </form>
