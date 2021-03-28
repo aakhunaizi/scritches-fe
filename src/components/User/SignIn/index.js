@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 //Actions
-import { signup } from "../../../store/actions/userActions";
+import { signin } from "../../../store/actions/userActions";
 
 //Components
 import TextField from "@material-ui/core/TextField";
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignIn() {
   const classes = useStyles();
   const theme = useTheme();
   const { register, handleSubmit, errors } = useForm();
@@ -52,20 +52,20 @@ export default function SignUp() {
   const history = useHistory();
 
   const onSubmit = (data) => {
-    dispatch(signup(data, history));
+    dispatch(signin(data, history));
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <Helmet>
-        <title>Sign Up </title>
+        <title>Sign In </title>
       </Helmet>
       <div className={classes.paper}>
         <StyledAvatar className={classes.avatar} theme={theme}>
           <FaPaw />
         </StyledAvatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
         <form
           className={classes.form}
@@ -73,46 +73,6 @@ export default function SignUp() {
           noValidate
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                type="text"
-                name="firstName"
-                required
-                variant="outlined"
-                inputRef={register({ required: true })}
-                error={errors.firstName ? true : false}
-                helperText={errors.firstName && "First Name is required"}
-                fullWidth
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                type="text"
-                name="lastName"
-                required
-                variant="outlined"
-                inputRef={register({ required: true })}
-                error={errors.lastName ? true : false}
-                helperText={errors.lastName && "Last Name is required"}
-                fullWidth
-                label="Last Name"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="email"
-                name="email"
-                required
-                variant="outlined"
-                inputRef={register({ required: true })}
-                error={errors.email ? true : false}
-                helperText={errors.email && "Email is required"}
-                fullWidth
-                label="Email"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 type="text"
@@ -124,6 +84,7 @@ export default function SignUp() {
                 helperText={errors.username && "Username is required"}
                 fullWidth
                 label="Username"
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>
@@ -150,19 +111,6 @@ export default function SignUp() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="input"
-                name="phoneNumber"
-                required
-                variant="outlined"
-                inputRef={register({ required: true })}
-                error={errors.phoneNumber ? true : false}
-                helperText={errors.phoneNumber && "Phone Number is required"}
-                fullWidth
-                label="Phone Number"
-              />
-            </Grid>
           </Grid>
           <StyledButton
             type="submit"
@@ -171,12 +119,12 @@ export default function SignUp() {
             className={classes.submit}
             theme={theme}
           >
-            Sign Up
+            Sign in
           </StyledButton>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/signin" variant="body2">
-                Already have an account? Sign in
+              <Link to="/signup" variant="body2">
+                Don't have an account? Sign up
               </Link>
             </Grid>
           </Grid>
