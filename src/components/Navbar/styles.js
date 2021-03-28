@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import AppBar from "@material-ui/core/AppBar";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MenuItem } from "@material-ui/core";

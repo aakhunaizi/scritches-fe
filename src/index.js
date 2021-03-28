@@ -1,6 +1,7 @@
 // Styling
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 // React
 import React from "react";
@@ -14,14 +15,29 @@ import { BrowserRouter } from "react-router-dom";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    lightBlue: {
+      main: "#87BCDE",
+    },
+    orange: {
+      main: "#EB5E28",
+      light: "#EE7343",
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

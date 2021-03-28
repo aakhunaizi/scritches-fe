@@ -5,9 +5,10 @@ import NavBar from "./components/Navbar";
 function App() {
   return (
     <div className="App">
-    <NavBar/>
-    <SignUp />
+      <NavBar />
+      <SignUp />
     </div>
   );
+}
 
 export default App;
