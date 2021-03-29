@@ -16,7 +16,8 @@ export const LogoLink = styled(Link)`
 `;
 
 export const StyledFaRegUserCircle = styled(FaRegUserCircle)`
-  margin-right: 10px;
+  margin-right: 20px;
+  margin-left: 15px;
   cursor: pointer;
 `;
 
@@ -58,4 +59,8 @@ export const StyledMenuItem = styled(MenuItem)`
 
 export const StyledAppBar = styled(AppBar)`
   background-color: ${(props) => props.theme.palette.lightBlue.main};
+`;
+
+export const StyledLabel = styled.label`
+  cursor: pointer;
 `;

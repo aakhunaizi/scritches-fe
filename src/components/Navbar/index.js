@@ -11,16 +11,14 @@ import { useTheme } from "@material-ui/core";
 import {
   LogoLink,
   StyledFaRegUserCircle,
-  MenuLink,
   MenuLinkWhite,
-  StyledMenuItem,
   StyledAppBar,
+  StyledLabel,
 } from "./styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,16 +43,6 @@ const Navbar = () => {
     history.replace("/");
   };
 
-  const [anchorEl, setAnchorEl] = useState(false);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(false);
-  };
-
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -66,36 +54,19 @@ const Navbar = () => {
           {user ? (
             <>
               <div>
-                <StyledFaRegUserCircle
-                  color="#fff"
-                  size="1.5em"
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                />
-                <label>{user.firstName}</label>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
+                <MenuLinkWhite
+                  to={user.type === "petOwner" ? "/profile" : "/profile/sitter"}
                 >
-                  {user.type === "petOwner" ? (
-                    <MenuLink to="/profile">
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    </MenuLink>
-                  ) : (
-                    user.type === "petSitter" && (
-                      <MenuLink to="/profile/sitter">
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      </MenuLink>
-                    )
-                  )}
-                  <StyledMenuItem onClick={handleSignout}>
-                    Sign out
-                  </StyledMenuItem>
-                </Menu>
+                  <StyledLabel>{user.firstName}</StyledLabel>
+                  <StyledFaRegUserCircle color="#fff" size="2em" />
+                </MenuLinkWhite>
+                <MenuLinkWhite to="/">
+                  <AiOutlineLogout
+                    color="#fff"
+                    size="2em"
+                    onClick={handleSignout}
+                  />
+                </MenuLinkWhite>
               </div>
             </>
           ) : (
