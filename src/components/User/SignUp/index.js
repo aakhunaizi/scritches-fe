@@ -79,7 +79,12 @@ export default function SignUp() {
                 name="firstName"
                 required
                 variant="outlined"
-                inputRef={register({ required: true })}
+                inputRef={register({
+                  required: true,
+                  pattern: {
+                    value: /[a-zA-Z]+/,
+                  },
+                })}
                 error={errors.firstName ? true : false}
                 helperText={errors.firstName && "First Name is required"}
                 fullWidth
@@ -93,7 +98,12 @@ export default function SignUp() {
                 name="lastName"
                 required
                 variant="outlined"
-                inputRef={register({ required: true })}
+                inputRef={register({
+                  required: true,
+                  pattern: {
+                    value: /[a-zA-Z]+/,
+                  },
+                })}
                 error={errors.lastName ? true : false}
                 helperText={errors.lastName && "Last Name is required"}
                 fullWidth
@@ -106,11 +116,34 @@ export default function SignUp() {
                 name="email"
                 required
                 variant="outlined"
-                inputRef={register({ required: true })}
+                inputRef={register({
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  },
+                })}
                 error={errors.email ? true : false}
                 helperText={errors.email && "Email is required"}
                 fullWidth
                 label="Email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="input"
+                name="phoneNumber"
+                required
+                variant="outlined"
+                inputRef={register({
+                  required: true,
+                  pattern: {
+                    value: /^([0-9]\d*)$/,
+                  },
+                })}
+                error={errors.phoneNumber ? true : false}
+                helperText={errors.phoneNumber && "Phone Number is required"}
+                fullWidth
+                label="Phone Number"
               />
             </Grid>
             <Grid item xs={12}>
@@ -148,19 +181,6 @@ export default function SignUp() {
                     />
                   ),
                 }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="input"
-                name="phoneNumber"
-                required
-                variant="outlined"
-                inputRef={register({ required: true })}
-                error={errors.phoneNumber ? true : false}
-                helperText={errors.phoneNumber && "Phone Number is required"}
-                fullWidth
-                label="Phone Number"
               />
             </Grid>
           </Grid>
