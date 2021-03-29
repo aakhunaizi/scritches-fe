@@ -48,14 +48,14 @@ const Navbar = () => {
     history.replace("/");
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
   };
 
   const classes = useStyles();
@@ -63,19 +63,9 @@ const Navbar = () => {
     <div className={classes.root}>
       <StyledAppBar elevation={0} theme={theme}>
         <Toolbar>
-          {user === null || user.type === "petOwner" ? (
-            <Typography variant="h6" className={classes.title}>
-              <LogoLink
-              //   to="/"
-              >
-                Scritches
-              </LogoLink>
-            </Typography>
-          ) : (
-            <Typography variant="h6" className={classes.title}>
-              Scritches
-            </Typography>
-          )}
+          <Typography variant="h6" className={classes.title}>
+            <LogoLink to="/">Scritches</LogoLink>
+          </Typography>
           {user ? (
             <>
               <div>
@@ -100,12 +90,11 @@ const Navbar = () => {
                     </MenuLink>
                   ) : (
                     user.type === "petSitter" && (
-                      <MenuLink to="/sitter">
-                        <MenuItem onClick={handleClose}>Pet Sitters</MenuItem>
+                      <MenuLink to="/profile/sitter">
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
                       </MenuLink>
                     )
                   )}
-
                   <StyledMenuItem onClick={handleSignout}>
                     Sign out
                   </StyledMenuItem>
