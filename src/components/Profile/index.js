@@ -7,12 +7,15 @@ import { BsCalendar } from "react-icons/bs";
 import { FaCalendarCheck } from "react-icons/fa";
 import { Avatar } from "@material-ui/core";
 
+
 // Components
 import UserInfo from "./UserInfo";
 import UserData from "./UserData";
 import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
+import Pets from "./Pets";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +50,9 @@ export default function Profile() {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className={classes.paper}> Pets / Services</Paper>
+          <Paper className={classes.paper}>
+            <Pets />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>
