@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import AppBar from "@material-ui/core/AppBar";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-import { MenuItem } from "@material-ui/core";
+import { AppBar, MenuItem } from "@material-ui/core";
 
 export const LogoLink = styled(Link)`
   text-decoration: none;
@@ -17,7 +16,8 @@ export const LogoLink = styled(Link)`
 `;
 
 export const StyledFaRegUserCircle = styled(FaRegUserCircle)`
-  margin-right: 5px;
+  margin-right: 10px;
+  cursor: pointer;
 `;
 
 export const MenuLink = styled(Link)`
@@ -54,4 +54,8 @@ export const StyledMenuItem = styled(MenuItem)`
     text-decoration: none;
     color: black;
   }
+`;
+
+export const StyledAppBar = styled(AppBar)`
+  background-color: ${(props) => props.theme.palette.lightBlue.main};
 `;

@@ -1,8 +1,8 @@
 import instance from "./instance";
 import decode from "jwt-decode";
 import Cookies from "js-cookie";
-
 import * as types from "./types";
+import Swal from "sweetalert2";
 
 // Check Token
 export const checkForToken = () => (dispatch) => {
@@ -27,9 +27,17 @@ export const signin = (userData, history) => async (dispatch) => {
   try {
     const res = await instance.post("/signin", userData);
     dispatch(setUser(res.data.token));
-    history.goBack();
+    history.replace("/");
+    Swal.fire({
+      icon: "success",
+      title: "Welcome back!",
+    });
   } catch (error) {
     console.log("Error: ", error);
+    Swal.fire({
+      icon: "error",
+      title: "Invalid username or password",
+    });
   }
 };
 
@@ -39,6 +47,10 @@ export const signup = (newUser, history) => async (dispatch) => {
     const res = await instance.post("/signup", newUser);
     dispatch(setUser(res.data.token));
     history.replace("/");
+    Swal.fire({
+      icon: "success",
+      title: "Your account has been successfully created!",
+    });
   } catch (error) {
     console.log("Error: ", error);
   }
@@ -48,5 +60,9 @@ export const signup = (newUser, history) => async (dispatch) => {
 export const signout = () => {
   Cookies.remove("token");
   delete instance.defaults.headers.common.Authorization;
+  Swal.fire({
+    icon: "success",
+    title: "Signed out successfully",
+  });
   return { type: types.SET_USER, payload: null };
 };

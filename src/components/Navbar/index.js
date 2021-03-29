@@ -10,6 +10,7 @@ import {
   MenuLink,
   MenuLinkWhite,
   StyledMenuItem,
+  StyledAppBar,
 } from "./styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -18,11 +19,11 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 //Actions
-// import { signout } from "../../store/actions/authActions";
+import { signout } from "../../store/actions/userActions";
 
 //Styling
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +41,13 @@ const Navbar = () => {
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   const history = useHistory();
+  const theme = useTheme();
 
-  //   const handleSignout = () => {
-  //     dispatch(signout());
-  //     history.replace("/");
-  //   };
+  const handleSignout = () => {
+    dispatch(signout());
+    history.replace("/");
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -58,7 +61,7 @@ const Navbar = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar elevation={0} className="navbar-light shadow ">
+      <StyledAppBar elevation={0} theme={theme}>
         <Toolbar>
           {user === null || user.type === "petOwner" ? (
             <Typography variant="h6" className={classes.title}>
@@ -83,7 +86,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   onClick={handleClick}
                 />
-                <label>{user.username}</label>
+                <label>{user.firstName}</label>
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
@@ -103,7 +106,9 @@ const Navbar = () => {
                     )
                   )}
 
-                  <StyledMenuItem>Sign out</StyledMenuItem>
+                  <StyledMenuItem onClick={handleSignout}>
+                    Sign out
+                  </StyledMenuItem>
                 </Menu>
               </div>
             </>
@@ -119,7 +124,7 @@ const Navbar = () => {
             </>
           )}
         </Toolbar>
-      </AppBar>
+      </StyledAppBar>
     </div>
   );
 };
