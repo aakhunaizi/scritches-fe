@@ -53,9 +53,7 @@ const Navbar = () => {
           {user ? (
             <>
               <div>
-                <MenuLinkWhite
-                  to={user.type === "petOwner" ? "/profile" : "/profile/sitter"}
-                >
+                <MenuLinkWhite to="/profile">
                   <StyledLabel>{user.firstName}</StyledLabel>
                   <StyledFaUserCircle color="#fff" size="2em" />
                 </MenuLinkWhite>

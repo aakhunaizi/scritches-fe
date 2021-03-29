@@ -11,8 +11,6 @@ const Routes = () => {
     <Switch>
       <Route path="/404">{/* <NotFound /> */}</Route>
 
-      <Route path="/profile/sitter"></Route>
-
       <Route path="/profile">
         <Profile />
       </Route>
