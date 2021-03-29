@@ -1,12 +1,11 @@
-//React Imports
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-//Actions
+// Actions
 import { signin } from "../../../store/actions/userActions";
 
-//Components
+// Styling
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { FaPaw } from "react-icons/fa";

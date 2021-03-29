@@ -2,6 +2,7 @@
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 // React
 import React from "react";
@@ -15,7 +16,6 @@ import { BrowserRouter } from "react-router-dom";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
-import { ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {

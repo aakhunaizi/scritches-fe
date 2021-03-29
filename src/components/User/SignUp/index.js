@@ -1,12 +1,11 @@
-//React Imports
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
-//Actions
+// Actions
 import { signup } from "../../../store/actions/userActions";
 
-//Components
+// Styling
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { FaPaw } from "react-icons/fa";
@@ -46,12 +45,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const theme = useTheme();
-  const { register, handleSubmit, errors } = useForm();
-  const [password, setPassword] = useState(true);
+
   const dispatch = useDispatch();
   const history = useHistory();
+  const type = useLocation().state.type;
+
+  const { register, handleSubmit, errors } = useForm();
+  const [password, setPassword] = useState(true);
 
   const onSubmit = (data) => {
+    if (type === "petSitter") {
+      data.type = "petSitter";
+    }
+    console.log(data);
     dispatch(signup(data, history));
   };
 

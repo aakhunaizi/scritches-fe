@@ -1,9 +1,13 @@
-//React Imports
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { useState } from "react";
 
-//Components
+// Actions
+import { signout } from "../../store/actions/userActions";
+
+// Styling
+import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core";
 import {
   LogoLink,
   StyledFaRegUserCircle,
@@ -17,13 +21,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-
-//Actions
-import { signout } from "../../store/actions/userActions";
-
-//Styling
-import { makeStyles } from "@material-ui/core/styles";
-import { useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +100,9 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <MenuLinkWhite to="/signup">
+              <MenuLinkWhite
+                to={{ pathname: "/signup", state: { type: "petOwner" } }}
+              >
                 <Button color="inherit">Sign up</Button>
               </MenuLinkWhite>
 
