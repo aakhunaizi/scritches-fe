@@ -53,6 +53,10 @@ export const signup = (newUser, history) => async (dispatch) => {
     });
   } catch (error) {
     console.log("Error: ", error);
+    Swal.fire({
+      icon: "error",
+      title: "An error has occured while creating your account",
+    });
   }
 };
 
