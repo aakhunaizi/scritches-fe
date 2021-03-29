@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core";
 import {
   LogoLink,
-  StyledFaRegUserCircle,
+  StyledFaUserCircle,
   MenuLinkWhite,
   StyledAppBar,
   StyledLabel,
@@ -58,7 +58,7 @@ const Navbar = () => {
                   to={user.type === "petOwner" ? "/profile" : "/profile/sitter"}
                 >
                   <StyledLabel>{user.firstName}</StyledLabel>
-                  <StyledFaRegUserCircle color="#fff" size="2em" />
+                  <StyledFaUserCircle color="#fff" size="2em" />
                 </MenuLinkWhite>
                 <MenuLinkWhite to="/">
                   <AiOutlineLogout

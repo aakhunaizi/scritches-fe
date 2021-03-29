@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { AppBar, MenuItem } from "@material-ui/core";
 
 export const LogoLink = styled(Link)`
@@ -15,7 +15,7 @@ export const LogoLink = styled(Link)`
   }
 `;
 
-export const StyledFaRegUserCircle = styled(FaRegUserCircle)`
+export const StyledFaUserCircle = styled(FaUserCircle)`
   margin-right: 20px;
   margin-left: 15px;
   cursor: pointer;
