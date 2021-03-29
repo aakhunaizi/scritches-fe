@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import UserInfo from "./UserInfo";
+import { useSelector } from "react-redux";
+import UserData from "./UserData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,17 +22,21 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile() {
   const classes = useStyles();
 
+  const user = useSelector((state) => state.userReducer.user);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
-          <Paper className={classes.paper}>Image + Username Image</Paper>
+          <Paper className={classes.paper}>
+            <UserData />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Paper className={classes.paper}>Account Details</Paper>
+          <Paper className={classes.paper}>
+            <UserInfo user={user} />
+          </Paper>
         </Grid>
-      </Grid>
-      <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper}> Pets / Services</Paper>
         </Grid>
