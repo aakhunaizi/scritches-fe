@@ -1,4 +1,3 @@
-//Components
 import { Link } from "react-router-dom";
 
 // Styling
@@ -22,7 +21,7 @@ const Home = () => {
         <Link to="/search">
           <Button>Search</Button>
         </Link>
-        <Link to="/signup">
+        <Link to={{ pathname: "/signup", state: { type: "petSitter" } }}>
           <Button primary>Become a Pet Sitter</Button>
         </Link>
       </Container>

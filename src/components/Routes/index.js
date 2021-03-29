@@ -1,24 +1,32 @@
-//React Imports
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 
-//Components
+// Components
 import Home from "../Home";
 import SignUp from "../User/SignUp";
 import SignIn from "../User/SignIn";
 
-
 const Routes = () => {
   return (
     <Switch>
-      <Route path={"/signup"}>
+      <Route path="/404">{/* <NotFound /> */}</Route>
+
+      <Route path="/profile/sitter"></Route>
+
+      <Route path="/profile"></Route>
+
+      <Route path="/signup">
         <SignUp />
       </Route>
-      <Route path={"/signin"}>
+
+      <Route path="/signin">
         <SignIn />
       </Route>
-      <Route path="/">
+
+      <Route exact path="/">
         <Home />
       </Route>
+
+      <Redirect to="/404" />
     </Switch>
   );
 };
