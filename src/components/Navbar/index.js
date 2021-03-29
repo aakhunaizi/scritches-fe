@@ -68,12 +68,12 @@ const Navbar = () => {
               <LogoLink
               //   to="/"
               >
-                Pet Owner View
+                Scritches
               </LogoLink>
             </Typography>
           ) : (
             <Typography variant="h6" className={classes.title}>
-              Pet Sitter View
+              Scritches
             </Typography>
           )}
           {user ? (
@@ -100,8 +100,8 @@ const Navbar = () => {
                     </MenuLink>
                   ) : (
                     user.type === "petSitter" && (
-                      <MenuLink to="/flights">
-                        <MenuItem onClick={handleClose}>Flights</MenuItem>
+                      <MenuLink to="/sitter">
+                        <MenuItem onClick={handleClose}>Pet Sitters</MenuItem>
                       </MenuLink>
                     )
                   )}
