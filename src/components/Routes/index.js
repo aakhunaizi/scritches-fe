@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router";
 import Home from "../Home";
 import SignUp from "../User/SignUp";
 import SignIn from "../User/SignIn";
+import Profile from "../Profile";
 
 const Routes = () => {
   return (
@@ -12,7 +13,9 @@ const Routes = () => {
 
       <Route path="/profile/sitter"></Route>
 
-      <Route path="/profile"></Route>
+      <Route path="/profile">
+        <Profile />
+      </Route>
 
       <Route path="/signup">
         <SignUp />
