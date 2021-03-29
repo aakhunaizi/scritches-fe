@@ -34,6 +34,9 @@ export default function Profile() {
           <Paper className={classes.paper}> Pets / Services</Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
+          <Paper className={classes.paper}>Schedule</Paper>
+        </Grid>
+        <Grid item xs={12} sm={12}>
           <Paper className={classes.paper}>Bookings</Paper>
         </Grid>
       </Grid>
