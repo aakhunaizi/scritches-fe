@@ -1,3 +1,6 @@
+//Components
+import { Link } from "react-router-dom";
+
 // Styling
 import { Description, Image, Title, Button, Container } from "./styles";
 
@@ -16,8 +19,12 @@ const Home = () => {
       />
       <br />
       <Container>
-        <Button>Sign in as a Pet Owner</Button>
-        <Button primary>Become a Pet Sitter</Button>
+        <Link to="/search">
+          <Button>Search</Button>
+        </Link>
+        <Link to="/signup">
+          <Button primary>Become a Pet Sitter</Button>
+        </Link>
       </Container>
     </>
   );
