@@ -1,9 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import UserInfo from "./UserInfo";
 import { useSelector } from "react-redux";
+
+// Components
+import UserInfo from "./UserInfo";
 import UserData from "./UserData";
+import Pets from "./Pets";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +41,9 @@ export default function Profile() {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className={classes.paper}> Pets / Services</Paper>
+          <Paper className={classes.paper}>
+            <Pets />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>Schedule</Paper>
