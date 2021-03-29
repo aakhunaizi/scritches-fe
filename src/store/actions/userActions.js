@@ -31,12 +31,18 @@ export const signin = (userData, history) => async (dispatch) => {
     Swal.fire({
       icon: "success",
       title: "Welcome back!",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
     });
   } catch (error) {
     console.log("Error: ", error);
     Swal.fire({
       icon: "error",
       title: "Invalid username or password",
+      timer: 1800,
+      timerProgressBar: true,
+      showConfirmButton: false,
     });
   }
 };
@@ -50,12 +56,20 @@ export const signup = (newUser, history) => async (dispatch) => {
     Swal.fire({
       icon: "success",
       title: "Your account has been successfully created!",
+      toast: true,
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
     });
   } catch (error) {
     console.log("Error: ", error);
     Swal.fire({
       icon: "error",
       title: "An error has occured while creating your account",
+      toast: true,
+      timer: 5000,
+      timerProgressBar: true,
+      showConfirmButton: false,
     });
   }
 };
@@ -67,6 +81,9 @@ export const signout = () => {
   Swal.fire({
     icon: "success",
     title: "Signed out successfully",
+    timer: 2000,
+    timerProgressBar: true,
+    showConfirmButton: false,
   });
   return { type: types.SET_USER, payload: null };
 };
