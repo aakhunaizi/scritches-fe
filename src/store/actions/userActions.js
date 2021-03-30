@@ -22,46 +22,6 @@ const setUser = (token) => {
   return { type: types.SET_USER, payload: decode(token) };
 };
 
-// Update User
-export const updateUser = (updatedUser) => async (dispatch) => {
-  try {
-    const res = await instance.put("/", updatedUser);
-    dispatch(setUser(res.data.token));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Fetch Sitter
-export const fetchSitter = (userId) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.get("/sitter", userId);
-      dispatch({
-        type: types.SET_SITTER,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-
-// Update Sitter
-export const updateSitter = (updatedSitter) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.put("/sitter", updatedSitter);
-      dispatch({
-        type: types.SET_SITTER,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.log("error:", error);
-    }
-  };
-};
-
 // Sign In
 export const signin = (userData, history) => async (dispatch) => {
   try {
@@ -115,7 +75,7 @@ export const signup = (newUser, history) => async (dispatch) => {
 };
 
 // Sign Out
-export const signout = () => {
+export const signout = () => (dispatch) => {
   Cookies.remove("token");
   delete instance.defaults.headers.common.Authorization;
   Swal.fire({
@@ -125,5 +85,46 @@ export const signout = () => {
     timerProgressBar: true,
     showConfirmButton: false,
   });
-  return { type: types.SET_USER, payload: null };
+  dispatch({ type: types.SET_SITTER, payload: null });
+  dispatch({ type: types.SET_USER, payload: null });
+};
+
+// Update User
+export const updateUser = (updatedUser) => async (dispatch) => {
+  try {
+    const res = await instance.put("/", updatedUser);
+    dispatch(setUser(res.data.token));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Fetch Sitter
+export const fetchSitter = (userId) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.get("/sitter", userId);
+      dispatch({
+        type: types.SET_SITTER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+// Update Sitter
+export const updateSitter = (updatedSitter) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.put("/sitter", updatedSitter);
+      dispatch({
+        type: types.SET_SITTER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
 };
