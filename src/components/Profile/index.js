@@ -2,7 +2,7 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import UserInfo from "./UserInfo";
@@ -14,6 +14,9 @@ import { Helmet } from "react-helmet";
 import OwnerPetList from "./OwnerPetList";
 import SitterPetPref from "./SitterPetPref";
 import { StyledPaper } from "./styles";
+import { Redirect } from "react-router";
+import { fetchSitter } from "../../store/actions/userActions";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,10 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
+  const sitter = useSelector((state) => state.userReducer.sitter);
+  console.log(sitter);
+
+  useEffect(() => {
+    if (user && user.type === "petSitter")
+      dispatch(fetchSitter({ userId: user.id }));
+  }, [dispatch, user]);
 
   const theme = useTheme();
+
+  if (!user) return <Redirect to="/" />;
 
   return (
     <>
