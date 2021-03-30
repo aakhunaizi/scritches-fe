@@ -12,7 +12,8 @@ import UserData from "./UserData";
 import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
-import Pets from "./Pets";
+import OwnerPetList from "./OwnerPetList";
+import SitterPetPref from "./SitterPetPref";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +47,11 @@ export default function Profile() {
           </Paper>
           <br />
           <Paper className={classes.paper}>
-            <Pets />
+            {user.type === "petOwner" ? (
+              <OwnerPetList />
+            ) : (
+              user.type === "petSitter" && <SitterPetPref />
+            )}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={8}>
