@@ -10,8 +10,9 @@ import UserData from "./UserData";
 import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
-import Pets from "./Pets";
 import { Helmet } from "react-helmet";
+import OwnerPetList from "./OwnerPetList";
+import SitterPetPref from "./SitterPetPref";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,8 +62,39 @@ export default function Profile() {
                 </Paper>
                 <br />
               </>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={4}>
+          <Paper className={classes.paper}>
+            <UserData user={user} />
+          </Paper>
+          <br />
+          <Paper className={classes.paper}>
+            <UserInfo user={user} />
+          </Paper>
+          <br />
+          <Paper className={classes.paper}>
+            {user.type === "petOwner" ? (
+              <OwnerPetList />
+            ) : (
+              user.type === "petSitter" && <SitterPetPref />
             )}
-
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Paper className={classes.paper}>
+            <SitterSchedule user={user} />
+          </Paper>
+          <br />
+          <Paper className={classes.paper}>
+            <Avatar>
+              <FaCalendarCheck />
+            </Avatar>
+            {user.type === "petOwner" ? (
+              <OwnerBookingData />
+            ) : (
+              user.type === "petSitter" && <SitterBookingData />
+            )}
             <Paper className={classes.paper}>
               {user.type === "petOwner" ? (
                 <OwnerBookingData />
