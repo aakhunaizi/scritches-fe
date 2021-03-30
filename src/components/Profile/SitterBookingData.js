@@ -6,7 +6,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { FaCalendarCheck } from "react-icons/fa";
-import { useTheme } from "@material-ui/core";
 import { StyledAvatar, StyledDetailsButton } from "./styles";
 
 // Dummy data
@@ -24,9 +23,7 @@ function createData(
   return { reference, petName, ownerName, from, to, price, status, options };
 }
 
-const SitterBookingData = () => {
-  const theme = useTheme();
-
+const SitterBookingData = ({ theme }) => {
   const rows = [
     createData(
       "32",

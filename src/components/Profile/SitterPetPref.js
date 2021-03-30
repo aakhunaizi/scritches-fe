@@ -1,12 +1,12 @@
-import { Chip, Grid, Typography } from "@material-ui/core";
-import { Button } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
+import { StyledEditButtonMargin } from "./styles";
 
-const SitterPetPref = () => {
+const SitterPetPref = ({ theme }) => {
   const user = useSelector((state) => state.userReducer.user);
   return (
     // Display Pet Preferences
-    <div style={{ marginRight: 200 }}>
+    <div>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Pet Preference</Typography>
@@ -21,9 +21,9 @@ const SitterPetPref = () => {
           </Typography>
         </Grid>
       </Grid>
-      <Button variant="outlined" color="primary" style={{ marginTop: "2%" }}>
+      <StyledEditButtonMargin variant="outlined" color="inherit" theme={theme}>
         Edit
-      </Button>
+      </StyledEditButtonMargin>
     </div>
   );
 };

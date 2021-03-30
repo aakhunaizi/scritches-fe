@@ -1,12 +1,11 @@
 // Styling
-import { Typography, useTheme } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { StyledEditButtonMargin, StyledProfileImage } from "./styles";
 
 //Components
 import SitterData from "./SitterData";
 
-const UserData = ({ user }) => {
-  const theme = useTheme();
+const UserData = ({ user, theme }) => {
   return (
     <>
       <StyledProfileImage
@@ -15,10 +14,18 @@ const UserData = ({ user }) => {
         roundedCircle
       />
       <Typography variant="h6">@{user.username}</Typography>
-      {user.type === "petSitter" && <SitterData />}
-      <StyledEditButtonMargin variant="outlined" color="inherit" theme={theme}>
-        Edit
-      </StyledEditButtonMargin>
+      {user.type === "petSitter" && (
+        <>
+          <SitterData />
+          <StyledEditButtonMargin
+            variant="outlined"
+            color="inherit"
+            theme={theme}
+          >
+            Edit
+          </StyledEditButtonMargin>
+        </>
+      )}
     </>
   );
 };
