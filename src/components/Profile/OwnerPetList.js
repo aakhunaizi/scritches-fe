@@ -11,7 +11,7 @@ import {
   ListItemAvatar,
   ListItemText,
 } from "@material-ui/core";
-import { StyledAddButton } from "./styles";
+import { StyledAddButton, StyledModal } from "./styles";
 
 const OwnerPetList = ({ theme }) => {
   const history = useHistory();
@@ -44,7 +44,7 @@ const OwnerPetList = ({ theme }) => {
 
   return (
     <div>
-      <Modal show={show} onHide={handleClose} style={{ marginTop: 150 }}>
+      <StyledModal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add a pet</Modal.Title>
         </Modal.Header>
@@ -89,7 +89,7 @@ const OwnerPetList = ({ theme }) => {
             Add
           </StyledAddButton>
         </Modal.Footer>
-      </Modal>
+      </StyledModal>
       {/* Display Pet List */}
       <List>
         <ListItem>
