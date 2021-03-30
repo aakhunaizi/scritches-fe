@@ -7,7 +7,6 @@ import { BsCalendar } from "react-icons/bs";
 import { FaCalendarCheck } from "react-icons/fa";
 import { Avatar } from "@material-ui/core";
 
-
 // Components
 import UserInfo from "./UserInfo";
 import UserData from "./UserData";
@@ -15,7 +14,6 @@ import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
 import Pets from "./Pets";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,15 +39,13 @@ export default function Profile() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper}>
-            <UserData />
+            <UserData user={user} />
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={8}>
+          <br />
           <Paper className={classes.paper}>
             <UserInfo user={user} />
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4}>
+          <br />
           <Paper className={classes.paper}>
             <Pets />
           </Paper>
@@ -61,8 +57,7 @@ export default function Profile() {
             </Avatar>
             <SitterSchedule user={user} />
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={12}>
+          <br />
           <Paper className={classes.paper}>
             <Avatar>
               <FaCalendarCheck />
@@ -74,6 +69,7 @@ export default function Profile() {
             )}
           </Paper>
         </Grid>
+        <Grid item xs={12} sm={12}></Grid>
       </Grid>
     </div>
   );

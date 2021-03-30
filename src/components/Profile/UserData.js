@@ -1,23 +1,21 @@
-import { Avatar } from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import { Image } from "react-bootstrap";
+import SitterData from "./SitterData";
 
-const UserData = () => {
-  const classes = useStyles();
+const UserData = ({ user }) => {
   return (
-    <div className={classes.large}>
-      <Avatar className={classes.green}>
-        <AssignmentIcon />
-      </Avatar>
+    <div>
+      <Grid item xs={12} sm={4}>
+        <Image
+          src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
+          fluid
+          roundedCircle
+        />
+      </Grid>
+      <br />
+      <Typography>@{user.username}</Typography>
+      {user.type === "petSitter" && <SitterData />}
     </div>
   );
 };
