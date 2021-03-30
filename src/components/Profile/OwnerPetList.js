@@ -1,25 +1,19 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-// Styles
-import { makeStyles } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
-import { Button, Form, Modal } from "react-bootstrap";
-import { Avatar, Chip, Grid } from "@material-ui/core";
+// Styling
 
-// Theme
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import { Form, Modal } from "react-bootstrap";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from "@material-ui/core";
+import { StyledAddButton } from "./styles";
 
-const OwnerPetList = () => {
-  const classes = useStyles();
-
+const OwnerPetList = ({ theme }) => {
   const history = useHistory();
 
   // States
@@ -49,11 +43,7 @@ const OwnerPetList = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <div className={classes.large}>
-      {/* Add Button */}
-      <AddIcon size="3em" onClick={handleShow} style={{ float: "left" }} />
-
-      {/* Modal */}
+    <div>
       <Modal show={show} onHide={handleClose} style={{ marginTop: 150 }}>
         <Modal.Header closeButton>
           <Modal.Title>Add a pet</Modal.Title>
@@ -70,7 +60,6 @@ const OwnerPetList = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Pet Type</Form.Label>
               <Form.Control
@@ -96,31 +85,31 @@ const OwnerPetList = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-
-          <Button variant="primary" onClick={handleClose}>
-            Submit
-          </Button>
+          <StyledAddButton variant="outlined" color="inherit" theme={theme}>
+            Add
+          </StyledAddButton>
         </Modal.Footer>
       </Modal>
-
       {/* Display Pet List */}
-      <div style={{ marginRight: 200 }}>
-        <Avatar
-          alt="Pet image"
-          src="https://img.favpng.com/13/0/13/cat-computer-icons-user-profile-avatar-png-favpng-0aXfSAjB7FwDVpeuUDXvWRLzd.jpg"
-        />
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            Pet Name: {pet.name}
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            Pet Type: {pet.type}
-          </Grid>
-        </Grid>
-      </div>
+      <List>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar
+              alt="Pet image"
+              src="https://img.favpng.com/13/0/13/cat-computer-icons-user-profile-avatar-png-favpng-0aXfSAjB7FwDVpeuUDXvWRLzd.jpg"
+            />
+          </ListItemAvatar>
+          <ListItemText primary="Oreo" secondary="Cat" />
+        </ListItem>
+      </List>
+      <StyledAddButton
+        variant="outlined"
+        color="inherit"
+        theme={theme}
+        onClick={handleShow}
+      >
+        Add
+      </StyledAddButton>
     </div>
   );
 };

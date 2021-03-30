@@ -1,9 +1,8 @@
 // Styling
-import { Grid, Typography, useTheme } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { StyledEditButtonMargin } from "./styles";
 
-const UserInfo = ({ user }) => {
-  const theme = useTheme();
+const UserInfo = ({ user, theme }) => {
   return (
     <>
       <Grid container spacing={2}>

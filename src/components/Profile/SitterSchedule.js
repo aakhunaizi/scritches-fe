@@ -5,9 +5,9 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Avatar, Button, useTheme } from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 import { BsCalendar } from "react-icons/bs";
-import { StyledEditButton, StyledAddButton, StyledAvatar } from "./styles";
+import { StyledEditButton, StyledAddButtonFloat, StyledAvatar } from "./styles";
 
 // Dummy data
 
@@ -29,9 +29,9 @@ const SitterSchedule = ({ user }) => {
   return (
     <>
       {user.type === "petSitter" && (
-        <StyledAddButton variant="outlined" color="inherit" theme={theme}>
+        <StyledAddButtonFloat variant="outlined" color="inherit" theme={theme}>
           Add
-        </StyledAddButton>
+        </StyledAddButtonFloat>
       )}
       <StyledAvatar theme={theme}>
         <BsCalendar />
