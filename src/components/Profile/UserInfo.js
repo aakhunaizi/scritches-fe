@@ -1,23 +1,11 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Grid, Typography } from "@material-ui/core";
-import { useForm } from "react-hook-form";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "30ch",
-    },
-  },
-}));
+// Styling
+import { Grid, Typography, useTheme } from "@material-ui/core";
+import { StyledEditButtonMargin } from "./styles";
 
 const UserInfo = ({ user }) => {
-  const classes = useStyles();
-
-  const { register, handleSubmit, errors } = useForm();
-
+  const theme = useTheme();
   return (
-    <div>
+    <>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">First Name</Typography>
@@ -44,91 +32,10 @@ const UserInfo = ({ user }) => {
           </Typography>
         </Grid>
       </Grid>
-      <Button variant="outlined" color="primary" style={{ marginTop: "2%" }}>
+      <StyledEditButtonMargin variant="outlined" color="inherit" theme={theme}>
         Edit
-      </Button>
-      {/* <form
-        className={classes.form}
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="text"
-              name="firstName"
-              required
-              variant="outlined"
-              inputRef={register({
-                required: true,
-                pattern: {
-                  value: /[a-zA-Z]+/,
-                },
-              })}
-              error={errors.firstName ? true : false}
-              helperText={errors.firstName && "First Name is required"}
-              fullWidth
-              label="First Name"
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="text"
-              name="lastName"
-              required
-              variant="outlined"
-              inputRef={register({
-                required: true,
-                pattern: {
-                  value: /[a-zA-Z]+/,
-                },
-              })}
-              error={errors.lastName ? true : false}
-              helperText={errors.lastName && "Last Name is required"}
-              fullWidth
-              label="Last Name"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="email"
-              name="email"
-              required
-              variant="outlined"
-              inputRef={register({
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                },
-              })}
-              error={errors.email ? true : false}
-              helperText={errors.email && "Email is required"}
-              fullWidth
-              label="Email"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type="input"
-              name="phoneNumber"
-              required
-              variant="outlined"
-              inputRef={register({
-                required: true,
-                pattern: {
-                  value: /^([0-9]\d*)$/,
-                },
-              })}
-              error={errors.phoneNumber ? true : false}
-              helperText={errors.phoneNumber && "Phone Number is required"}
-              fullWidth
-              label="Phone Number"
-            />
-          </Grid>
-        </Grid>
-      </form> */}
-    </div>
+      </StyledEditButtonMargin>
+    </>
   );
 };
 
