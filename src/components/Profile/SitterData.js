@@ -1,14 +1,16 @@
 import { Grid, Typography } from "@material-ui/core";
 
-const SitterData = () => {
+const SitterData = ({ sitter }) => {
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography>location</Typography>
+          <Typography>
+            {sitter.city.name}, {sitter.city.country.name}
+          </Typography>
           <Typography>Bio</Typography>
           <Typography style={{ wordWrap: "break-word" }}>
-            hgegiruhgiihgolghlfkhgfghfggkfghrigljdm.sfnlbfj's;lkdfngjkfbg
+            {sitter.bio}
           </Typography>
         </Grid>
       </Grid>

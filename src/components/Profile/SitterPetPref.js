@@ -2,7 +2,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { StyledEditButtonMargin } from "./styles";
 
-const SitterPetPref = ({ theme }) => {
+const SitterPetPref = ({ theme, sitter }) => {
   const user = useSelector((state) => state.userReducer.user);
   return (
     // Display Pet Preferences
@@ -11,13 +11,13 @@ const SitterPetPref = ({ theme }) => {
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Pet Preference</Typography>
           <Typography variant="h5" component="h2">
-            -
+            {sitter.petRef}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Price</Typography>
           <Typography variant="h5" component="h2">
-            0
+            {sitter.price}
           </Typography>
         </Grid>
       </Grid>

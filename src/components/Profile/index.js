@@ -38,7 +38,6 @@ export default function Profile() {
 
   const user = useSelector((state) => state.userReducer.user);
   const sitter = useSelector((state) => state.userReducer.sitter);
-  console.log(sitter);
 
   useEffect(() => {
     if (user && user.type === "petSitter")
@@ -58,7 +57,7 @@ export default function Profile() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <StyledPaper className={classes.paper}>
-              <UserData user={user} theme={theme} />
+              <UserData user={user} theme={theme} sitter={sitter} />
             </StyledPaper>
             <StyledPaper className={classes.paper}>
               <UserInfo user={user} theme={theme} />
@@ -67,15 +66,15 @@ export default function Profile() {
               {user.type === "petOwner" ? (
                 <OwnerPetList theme={theme} />
               ) : (
-                user.type === "petSitter" && <SitterPetPref theme={theme} />
+                sitter && <SitterPetPref theme={theme} sitter={sitter} />
               )}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={8}>
-            {user.type === "petSitter" && (
+            {sitter && (
               <>
                 <StyledPaper className={classes.paper}>
-                  <SitterSchedule user={user} theme={theme} />
+                  <SitterSchedule user={user} theme={theme} sitter={sitter} />
                 </StyledPaper>
               </>
             )}
