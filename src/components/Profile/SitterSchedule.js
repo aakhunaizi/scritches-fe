@@ -15,7 +15,7 @@ function createData(from, to, options) {
   return { from, to, options };
 }
 
-const SitterSchedule = ({ user }) => {
+const SitterSchedule = ({ user, sitter }) => {
   const theme = useTheme();
   const rows = [
     createData(

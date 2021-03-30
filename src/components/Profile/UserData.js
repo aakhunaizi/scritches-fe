@@ -5,7 +5,7 @@ import { StyledEditButtonMargin, StyledProfileImage } from "./styles";
 //Components
 import SitterData from "./SitterData";
 
-const UserData = ({ user, theme }) => {
+const UserData = ({ user, theme, sitter }) => {
   return (
     <>
       <StyledProfileImage
@@ -14,9 +14,9 @@ const UserData = ({ user, theme }) => {
         roundedCircle
       />
       <Typography variant="h6">@{user.username}</Typography>
-      {user.type === "petSitter" && (
+      {sitter && (
         <>
-          <SitterData />
+          <SitterData sitter={sitter} />
           <StyledEditButtonMargin
             variant="outlined"
             color="inherit"
