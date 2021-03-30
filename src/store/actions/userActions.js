@@ -22,6 +22,46 @@ const setUser = (token) => {
   return { type: types.SET_USER, payload: decode(token) };
 };
 
+// Update User
+export const updateUser = (updatedUser) => async (dispatch) => {
+  try {
+    const res = await instance.put("/", updatedUser);
+    dispatch(setUser(res.data.token));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Fetch Sitter
+export const fetchSitter = (userId) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.get("/sitter", userId);
+      dispatch({
+        type: types.SET_SITTER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+// Update Sitter
+export const updateSitter = (updatedSitter) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.put("/sitter", updatedSitter);
+      dispatch({
+        type: types.SET_SITTER,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+};
+
 // Sign In
 export const signin = (userData, history) => async (dispatch) => {
   try {
