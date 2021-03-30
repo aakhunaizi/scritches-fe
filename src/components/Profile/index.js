@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useSelector } from "react-redux";
-import { BsCalendar } from "react-icons/bs";
 import { FaCalendarCheck } from "react-icons/fa";
 import { Avatar } from "@material-ui/core";
 
@@ -52,9 +51,6 @@ export default function Profile() {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>
-            <Avatar>
-              <BsCalendar />
-            </Avatar>
             <SitterSchedule user={user} />
           </Paper>
           <br />

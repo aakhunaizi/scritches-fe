@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Chip, Grid } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,42 +20,33 @@ const UserInfo = ({ user }) => {
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          First Name:{" "}
-          <Chip
-            label={user.firstName}
-            clickable
-            color="secondary"
-            variant="outlined"
-          />
+          <Typography color="textSecondary">First Name</Typography>
+          <Typography variant="h5" component="h2">
+            {user.firstName}
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          Last Name:{" "}
-          <Chip
-            label={user.lastName}
-            clickable
-            color="secondary"
-            variant="outlined"
-          />
+          <Typography color="textSecondary">Last Name</Typography>
+          <Typography variant="h5" component="h2">
+            {user.lastName}
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          Email:{" "}
-          <Chip
-            label={user.email}
-            clickable
-            color="secondary"
-            variant="outlined"
-          />
+          <Typography color="textSecondary">Email</Typography>
+          <Typography variant="h5" component="h2">
+            {user.email}
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          Phone Number:{" "}
-          <Chip
-            label={user.phoneNumber}
-            clickable
-            color="secondary"
-            variant="outlined"
-          />
+          <Typography color="textSecondary">Phone Number</Typography>
+          <Typography variant="h5" component="h2">
+            {user.phoneNumber}
+          </Typography>
         </Grid>
       </Grid>
+      <Button variant="outlined" color="primary" style={{ marginTop: "2%" }}>
+        Edit
+      </Button>
       {/* <form
         className={classes.form}
         onSubmit={handleSubmit(onSubmit)}
