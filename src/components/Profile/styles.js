@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button, Avatar, Paper } from "@material-ui/core";
-import { Image } from "react-bootstrap";
+import { Image, Modal } from "react-bootstrap";
 
 export const StyledEditButton = styled(Button)`
   color: ${(props) => props.theme.palette.orange.main};
@@ -55,4 +55,17 @@ export const StyledProfileImage = styled(Image)`
 
 export const StyledPaper = styled(Paper)`
   margin-bottom: 3%;
+`;
+
+export const StyledSaveButton = styled(Button)`
+  color: ${(props) => props.theme.palette.orange.main};
+  &:hover {
+    background-color: ${(props) => props.theme.palette.orange.main};
+    color: white;
+  }
+  float: right;
+`;
+
+export const StyledModal = styled(Modal)`
+  margin-top: 10em;
 `;
