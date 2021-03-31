@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
+import Divider from "@material-ui/core/Divider";
 
 // Components
 import UserInfo from "./UserInfo";
@@ -13,10 +14,11 @@ import SitterSchedule from "./SitterSchedule";
 import { Helmet } from "react-helmet";
 import OwnerPetList from "./OwnerPetList";
 import SitterPetPref from "./SitterPetPref";
-import { StyledPaper } from "./styles";
+import { StyledDivider, StyledPaper } from "./styles";
 import { Redirect } from "react-router";
 import { fetchSitter } from "../../store/actions/userActions";
 import { useEffect } from "react";
+import SitterData from "./SitterData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,18 +59,20 @@ export default function Profile() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <StyledPaper className={classes.paper}>
-              <UserData user={user} theme={theme} sitter={sitter} />
-            </StyledPaper>
-            <StyledPaper className={classes.paper}>
               <UserInfo user={user} theme={theme} />
             </StyledPaper>
-            <Paper className={classes.paper}>
-              {user.type === "petOwner" ? (
+            {sitter && (
+              <StyledPaper className={classes.paper}>
+                <SitterData sitter={sitter} />
+                <StyledDivider />
+                <SitterPetPref sitter={sitter} theme={theme} />
+              </StyledPaper>
+            )}
+            {user.type === "petOwner" && (
+              <Paper className={classes.paper}>
                 <OwnerPetList theme={theme} />
-              ) : (
-                sitter && <SitterPetPref theme={theme} sitter={sitter} />
-              )}
-            </Paper>
+              </Paper>
+            )}
           </Grid>
           <Grid item xs={12} sm={8}>
             {sitter && (

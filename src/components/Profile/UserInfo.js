@@ -8,6 +8,9 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
 import { StyledSaveButton } from "./styles";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/actions/userActions";
+import { StyledProfileImage } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserInfo = ({ user, theme }) => {
+  const dispatch = useDispatch();
+
   // States
   const [show, setShow] = useState(false);
 
@@ -41,10 +46,23 @@ const UserInfo = ({ user, theme }) => {
   const { register, handleSubmit, errors } = useForm();
   const classes = useStyles();
   const onSubmit = (data) => {
+    data.id = user.id;
+    data.image = data.image[0];
     console.log(data);
+    dispatch(updateUser(data));
   };
+
   return (
     <>
+      <StyledProfileImage
+        src={
+          user.image ??
+          "http://localhost:8000/media/1617175202259-default_profile_pic.jpg"
+        }
+        fluid
+        roundedCircle
+      />
+      <Typography variant="h6">@{user.username}</Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">First Name</Typography>
