@@ -94,41 +94,10 @@ export const updateUser = (updatedUser) => async (dispatch) => {
   try {
     const formData = new FormData();
     for (const key in updatedUser) formData.append(key, updatedUser[key]);
-    // formData.append("image", image);
 
     const res = await instance.put("/", formData);
     dispatch(setUser(res.data.token));
   } catch (error) {
     console.log(error);
   }
-};
-
-// Fetch Sitter
-export const fetchSitter = (userId) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.get("/sitter", userId);
-      dispatch({
-        type: types.SET_SITTER,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-
-// Update Sitter
-export const updateSitter = (updatedSitter) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.put("/sitter", updatedSitter);
-      dispatch({
-        type: types.SET_SITTER,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.log("error:", error);
-    }
-  };
 };
