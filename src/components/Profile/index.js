@@ -16,6 +16,7 @@ import { Redirect } from "react-router";
 import { fetchSitter } from "../../store/actions/sitterActions";
 import { useEffect } from "react";
 import SitterData from "./SitterData";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,19 @@ export default function Profile() {
 
   const theme = useTheme();
 
+  if (
+    sitter &&
+    (!sitter.city ||
+      !sitter.bio ||
+      sitter.price === 0 ||
+      !sitter.petRef ||
+      sitter.schedule.length === 0)
+  )
+    Swal.fire({
+      icon: "info",
+      title: "Complete your profile to recieve bookings",
+    });
+
   if (!user) return <Redirect to="/" />;
 
   return (
@@ -60,7 +74,7 @@ export default function Profile() {
             </StyledPaper>
             {sitter && (
               <StyledPaper className={classes.paper}>
-                <SitterData sitter={sitter} theme={theme} />
+                <SitterData sitter={sitter} theme={theme} userId={user.id} />
               </StyledPaper>
             )}
             {user.type === "petOwner" && (
