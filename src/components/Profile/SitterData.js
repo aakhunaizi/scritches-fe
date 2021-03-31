@@ -138,6 +138,7 @@ const SitterData = ({ theme, sitter, userId }) => {
         <Modal.Body>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <Grid container spacing={2}>
+              {/* Edit Country */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Country"
@@ -172,6 +173,7 @@ const SitterData = ({ theme, sitter, userId }) => {
                     ))}
                 </TextField>
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   label="Bio"
@@ -211,6 +213,7 @@ const SitterData = ({ theme, sitter, userId }) => {
                 />
               </Grid>
 
+              {/* Save Button */}
               <Grid container justify="flex-end">
                 <StyledSaveButton
                   type="submit"
