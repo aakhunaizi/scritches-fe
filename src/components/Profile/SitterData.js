@@ -107,6 +107,7 @@ const SitterData = ({ theme, sitter }) => {
             noValidate
           >
             <Grid container spacing={2}>
+              {/* Edit Country */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Country"
@@ -127,6 +128,8 @@ const SitterData = ({ theme, sitter }) => {
                   <MenuItem value="Bahrain">Bahrain</MenuItem>
                 </Select> */}
               </Grid>
+
+              {/* Edit City */}
               {/* <Grid item xs={12} sm={6}>
                 <InputLabel>City</InputLabel>
                 <Select
@@ -139,6 +142,8 @@ const SitterData = ({ theme, sitter }) => {
                   <MenuItem value="Manama">Manama</MenuItem>
                 </Select>
               </Grid> */}
+
+              {/* Edit Pet Preferences */}
               {/* <Grid item xs={12} sm={6}>
                 <InputLabel>Pet Preference</InputLabel>
                 <Select
@@ -151,6 +156,8 @@ const SitterData = ({ theme, sitter }) => {
                   <MenuItem value="Dog">Dog</MenuItem>
                 </Select>
               </Grid> */}
+
+              {/* Edit Bio */}
               <Grid item xs={12}>
                 <TextField
                   label="Bio"
@@ -164,6 +171,7 @@ const SitterData = ({ theme, sitter }) => {
                 />
               </Grid>
 
+              {/* Save Button */}
               <Grid container justify="flex-end">
                 <StyledSaveButton
                   type="submit"
