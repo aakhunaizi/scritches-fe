@@ -8,15 +8,9 @@ import SitterData from "./SitterData";
 const UserData = ({ user, theme, sitter }) => {
   return (
     <>
-      <StyledProfileImage
-        src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
-        fluid
-        roundedCircle
-      />
-      <Typography variant="h6">@{user.username}</Typography>
       {sitter && (
         <>
-          <SitterData sitter={sitter} />
+          <SitterData sitter={sitter} theme={theme} />
           <StyledEditButtonMargin
             variant="outlined"
             color="inherit"

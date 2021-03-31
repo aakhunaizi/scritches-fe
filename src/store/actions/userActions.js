@@ -92,7 +92,11 @@ export const signout = () => (dispatch) => {
 // Update User
 export const updateUser = (updatedUser) => async (dispatch) => {
   try {
-    const res = await instance.put("/", updatedUser);
+    const formData = new FormData();
+    for (const key in updatedUser) formData.append(key, updatedUser[key]);
+    // formData.append("image", image);
+
+    const res = await instance.put("/", formData);
     dispatch(setUser(res.data.token));
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Avatar, Paper } from "@material-ui/core";
+import { Button, Avatar, Paper, Divider } from "@material-ui/core";
 import { Image, Modal } from "react-bootstrap";
 
 export const StyledEditButton = styled(Button)`
@@ -68,4 +68,9 @@ export const StyledSaveButton = styled(Button)`
 
 export const StyledModal = styled(Modal)`
   margin-top: 10em;
+`;
+
+export const StyledDivider = styled(Divider)`
+  margin-top: 2%;
+  margin-bottom: 2%;
 `;
