@@ -11,8 +11,7 @@ import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
 import { Helmet } from "react-helmet";
 import OwnerPetList from "./OwnerPetList";
-import SitterPetPref from "./SitterPetPref";
-import { StyledDivider, StyledPaper } from "./styles";
+import { StyledPaper } from "./styles";
 import { Redirect } from "react-router";
 import { fetchSitter } from "../../store/actions/sitterActions";
 import { useEffect } from "react";
@@ -61,9 +60,7 @@ export default function Profile() {
             </StyledPaper>
             {sitter && (
               <StyledPaper className={classes.paper}>
-                <SitterData sitter={sitter} />
-                <StyledDivider />
-                <SitterPetPref sitter={sitter} theme={theme} />
+                <SitterData sitter={sitter} theme={theme} />
               </StyledPaper>
             )}
             {user.type === "petOwner" && (
