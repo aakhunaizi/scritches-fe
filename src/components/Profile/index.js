@@ -3,18 +3,15 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import Divider from "@material-ui/core/Divider";
 
 // Components
 import UserInfo from "./UserInfo";
-import UserData from "./UserData";
 import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
 import { Helmet } from "react-helmet";
 import OwnerPetList from "./OwnerPetList";
-import SitterPetPref from "./SitterPetPref";
-import { StyledDivider, StyledPaper } from "./styles";
+import { StyledPaper } from "./styles";
 import { Redirect } from "react-router";
 import { fetchSitter } from "../../store/actions/userActions";
 import { useEffect } from "react";
@@ -63,9 +60,7 @@ export default function Profile() {
             </StyledPaper>
             {sitter && (
               <StyledPaper className={classes.paper}>
-                <SitterData sitter={sitter} />
-                <StyledDivider />
-                <SitterPetPref sitter={sitter} theme={theme} />
+                <SitterData sitter={sitter} theme={theme} />
               </StyledPaper>
             )}
             {user.type === "petOwner" && (
