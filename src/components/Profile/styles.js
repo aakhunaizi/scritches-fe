@@ -49,7 +49,8 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const StyledProfileImage = styled(Image)`
-  width: 50%;
+  width: 200px;
+  height: 200px;
   margin-bottom: 5%;
 `;
 
