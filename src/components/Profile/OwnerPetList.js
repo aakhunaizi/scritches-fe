@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 // Styling
-
-import { Modal } from "react-bootstrap";
 import {
   Avatar,
   IconButton,
@@ -12,23 +10,36 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
-import { StyledAddButton, StyledModal } from "./styles";
+import { StyledAddButton } from "./styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PetForm from "./PetForm";
 
 const OwnerPetList = ({ theme }) => {
   // States
-  const [show, setShow] = useState(false);
-  const [type, setType] = useState("add");
+  const [showAdd, setShowAdd] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [pet, setPet] = useState(null);
+
   // Modal Handlers
-  const handleClose = () => setShowAdd(false);
-  const handleShow = () => setShowAdd(true);
+  const handleShowAdd = async () => {
+    setPet(null);
+    setShowAdd(true);
+  };
+  const handleCloseAdd = () => setShowAdd(false);
+  const handleShowEdit = (pet) => {
+    setPet(pet);
+    setShowEdit(true);
+  };
+  const handleCloseEdit = () => setShowEdit(false);
 
   return (
     <div>
       {/* Display Pet List */}
       <List>
-        <ListItem button onClick={handleShow}>
+        <ListItem
+          button
+          onClick={() => handleShowEdit({ name: "Oreo", type: "Cat" })}
+        >
           <ListItemAvatar>
             <Avatar
               alt="Pet image"
@@ -47,11 +58,25 @@ const OwnerPetList = ({ theme }) => {
         variant="outlined"
         color="inherit"
         theme={theme}
-        onClick={handleShow}
+        onClick={handleShowAdd}
       >
         Add
       </StyledAddButton>
-      <PetForm />
+      <PetForm
+        handleClose={handleCloseAdd}
+        show={showAdd}
+        theme={theme}
+        type="add"
+      />
+      {pet && (
+        <PetForm
+          handleClose={handleCloseEdit}
+          foundPet={pet}
+          show={showEdit}
+          theme={theme}
+          type="edit"
+        />
+      )}
     </div>
   );
 };

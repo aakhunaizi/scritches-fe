@@ -40,7 +40,7 @@ const SitterData = ({ theme, sitter, userId }) => {
   const [sitterData, setSitterData] = useState({
     id: sitter.id,
     bio: sitter.bio,
-    petRef: sitter.petRef,
+    petPref: sitter.petPref,
     price: sitter.price,
     userId,
     cityId: sitter.city ? sitter.city.id : null,
@@ -97,9 +97,9 @@ const SitterData = ({ theme, sitter, userId }) => {
         {/* Display Pet Preferences */}
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Service</Typography>
-          {sitter.petRef ? (
+          {sitter.petPref ? (
             <Typography variant="h5" component="h2">
-              {sitter.petRef}
+              {sitter.petPref}
             </Typography>
           ) : (
             <Typography variant="caption">
@@ -190,8 +190,8 @@ const SitterData = ({ theme, sitter, userId }) => {
                 <TextField
                   label="Service"
                   variant="outlined"
-                  name="petRef"
-                  defaultValue={sitter.petRef}
+                  name="petPref"
+                  defaultValue={sitter.petPref}
                   onChange={handleChange}
                   fullWidth
                   select
