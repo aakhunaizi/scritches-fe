@@ -1,98 +1,34 @@
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
 // Styling
 
-import { Form, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import {
   Avatar,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
+  ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
 import { StyledAddButton, StyledModal } from "./styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+import PetForm from "./PetForm";
 
 const OwnerPetList = ({ theme }) => {
-  const history = useHistory();
-
   // States
   const [show, setShow] = useState(false);
-  const [pet, setPet] = useState({
-    name: "",
-    type: "",
-    image: "",
-  });
-
-  // Component Handlers
-  const handleChange = (event) =>
-    setPet({ ...pet, [event.target.name]: event.target.value });
-
-  const handleImage = (event) =>
-    setPet({ ...pet, image: event.target.files[0] });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // if (foundPet) dispatch(updatePet(pet));
-    // else dispatch(addPet(pet));
-    history.push("/profile");
-  };
-
+  const [type, setType] = useState("add");
   // Modal Handlers
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShowAdd(false);
+  const handleShow = () => setShowAdd(true);
 
   return (
     <div>
-      <StyledModal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add a pet</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Pet Name</Form.Label>
-              <Form.Control
-                type="name"
-                placeholder="Enter a name"
-                name="name"
-                value={pet.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Pet Type</Form.Label>
-              <Form.Control
-                as="select"
-                name="type"
-                value={pet.type}
-                onChange={handleChange}
-              >
-                <option>Cat</option>
-                <option>Dog</option>
-                <option>Fish</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.File
-                id="exampleFormControlFile1"
-                label="Pet Image"
-                name="image"
-                type="file"
-                onChange={handleImage}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <StyledAddButton variant="outlined" color="inherit" theme={theme}>
-            Add
-          </StyledAddButton>
-        </Modal.Footer>
-      </StyledModal>
       {/* Display Pet List */}
       <List>
-        <ListItem>
+        <ListItem button onClick={handleShow}>
           <ListItemAvatar>
             <Avatar
               alt="Pet image"
@@ -100,6 +36,11 @@ const OwnerPetList = ({ theme }) => {
             />
           </ListItemAvatar>
           <ListItemText primary="Oreo" secondary="Cat" />
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
         </ListItem>
       </List>
       <StyledAddButton
@@ -110,6 +51,7 @@ const OwnerPetList = ({ theme }) => {
       >
         Add
       </StyledAddButton>
+      <PetForm />
     </div>
   );
 };
