@@ -4,7 +4,7 @@ import * as types from "./types";
 // Fetch Countries
 export const fetchCountries = () => async (dispatch) => {
   try {
-    const res = await instance.get("/country");
+    const res = await instance.get("/countries");
     dispatch({ type: types.FETCH_COUNTRIES, payload: res.data });
   } catch (error) {
     console.log("Error: ", error);

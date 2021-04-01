@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Grid, makeStyles, MenuItem, TextField } from "@material-ui/core";
 import { StyledAddButton, StyledModal, StyledSaveButton } from "./styles";
+import { addPet, updatePet } from "../../store/actions/petActions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -19,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PetForm = ({ handleClose, foundPet, show, theme, type }) => {
+const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const [pet, setPet] = useState(foundPet ?? { name: "", type: "", image: "" });
-  console.log("🚀 ~ file: PetForm.js ~ line 26 ~ PetForm ~ pet", pet);
 
   // Component Handlers
   const handleChange = (event) =>
@@ -34,8 +36,8 @@ const PetForm = ({ handleClose, foundPet, show, theme, type }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // if (foundPet) dispatch(updatePet(pet));
-    // else dispatch(addPet(pet));
+    if (foundPet) dispatch(updatePet(pet));
+    else dispatch(addPet(ownerId, pet));
     setPet({ name: "", type: "", image: "" });
     handleClose();
   };

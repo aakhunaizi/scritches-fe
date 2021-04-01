@@ -13,10 +13,10 @@ import { Helmet } from "react-helmet-async";
 import OwnerPetList from "./OwnerPetList";
 import { StyledPaper } from "./styles";
 import { Redirect } from "react-router";
-import { fetchSitter } from "../../store/actions/sitterActions";
 import { useEffect } from "react";
 import SitterData from "./SitterData";
 import Swal from "sweetalert2";
+import { fetchProfile } from "../../store/actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,27 +37,26 @@ export default function Profile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
-  const sitter = useSelector((state) => state.sitterReducer.sitter);
+  const profile = useSelector((state) => state.userReducer.profile);
 
   useEffect(() => {
-    if (user && user.type === "petSitter")
-      dispatch(fetchSitter({ userId: user.id }));
+    if (user) dispatch(fetchProfile(user.type));
   }, [dispatch, user]);
 
   const theme = useTheme();
 
-  if (
-    sitter &&
-    (!sitter.city ||
-      !sitter.bio ||
-      sitter.price === 0 ||
-      !sitter.petPref ||
-      sitter.schedule.length === 0)
-  )
-    Swal.fire({
-      icon: "info",
-      title: "Complete your profile to recieve bookings",
-    });
+  // if (
+  //   sitter &&
+  //   (!sitter.city ||
+  //     !sitter.bio ||
+  //     sitter.price === 0 ||
+  //     !sitter.petPref ||
+  //     sitter.schedule.length === 0)
+  // )
+  //   Swal.fire({
+  //     icon: "info",
+  //     title: "Complete your profile to recieve bookings",
+  //   });
 
   if (!user) return <Redirect to="/" />;
 
@@ -72,22 +71,22 @@ export default function Profile() {
             <StyledPaper className={classes.paper}>
               <UserInfo user={user} theme={theme} />
             </StyledPaper>
-            {sitter && (
+            {profile && (
               <StyledPaper className={classes.paper}>
-                <SitterData sitter={sitter} theme={theme} userId={user.id} />
+                <SitterData sitter={profile} theme={theme} userId={user.id} />
               </StyledPaper>
             )}
-            {user.type === "petOwner" && (
+            {profile && (
               <Paper className={classes.paper}>
-                <OwnerPetList theme={theme} />
+                <OwnerPetList theme={theme} owner={profile} />
               </Paper>
             )}
           </Grid>
           <Grid item xs={12} sm={8}>
-            {sitter && (
+            {profile && (
               <>
                 <StyledPaper className={classes.paper}>
-                  <SitterSchedule user={user} theme={theme} sitter={sitter} />
+                  <SitterSchedule user={user} theme={theme} sitter={profile} />
                 </StyledPaper>
               </>
             )}

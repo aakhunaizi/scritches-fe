@@ -13,8 +13,12 @@ import {
 import { StyledAddButton } from "./styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PetForm from "./PetForm";
+import { deletePet } from "../../store/actions/petActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const OwnerPetList = ({ theme }) => {
+const OwnerPetList = ({ owner, theme }) => {
+  const dispatch = useDispatch();
+  const pets = useSelector((state) => state.petReducer.pets);
   // States
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -36,23 +40,30 @@ const OwnerPetList = ({ theme }) => {
     <div>
       {/* Display Pet List */}
       <List>
-        <ListItem
-          button
-          onClick={() => handleShowEdit({ name: "Oreo", type: "Cat" })}
-        >
-          <ListItemAvatar>
-            <Avatar
-              alt="Pet image"
-              src="https://img.favpng.com/13/0/13/cat-computer-icons-user-profile-avatar-png-favpng-0aXfSAjB7FwDVpeuUDXvWRLzd.jpg"
-            />
-          </ListItemAvatar>
-          <ListItemText primary="Oreo" secondary="Cat" />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+        {pets &&
+          pets.map((pet) => (
+            <ListItem key={pet.id} button onClick={() => handleShowEdit(pet)}>
+              <ListItemAvatar>
+                <Avatar
+                  alt="Pet image"
+                  src={
+                    pet.image ??
+                    "http://localhost:8000/media/1617263689195-placeholder.png"
+                  }
+                />
+              </ListItemAvatar>
+              <ListItemText primary={pet.name} secondary={pet.type} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => dispatch(deletePet(pet.id))}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </List>
       <StyledAddButton
         variant="outlined"
@@ -64,6 +75,7 @@ const OwnerPetList = ({ theme }) => {
       </StyledAddButton>
       <PetForm
         handleClose={handleCloseAdd}
+        ownerId={owner.id}
         show={showAdd}
         theme={theme}
         type="add"
