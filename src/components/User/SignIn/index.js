@@ -12,7 +12,7 @@ import { FaPaw } from "react-icons/fa";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useTheme } from "@material-ui/core/styles";
 import {

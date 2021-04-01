@@ -1,4 +1,3 @@
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
 // Styling
@@ -20,15 +19,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PetForm = (handleClose, show) => {
-  const history = useHistory();
+const PetForm = ({ handleClose, foundPet, show, theme, type }) => {
   const classes = useStyles();
 
-  const [pet, setPet] = useState({
-    name: "",
-    type: "",
-    image: "",
-  });
+  const [pet, setPet] = useState(foundPet ?? { name: "", type: "", image: "" });
+  console.log("🚀 ~ file: PetForm.js ~ line 26 ~ PetForm ~ pet", pet);
+
   // Component Handlers
   const handleChange = (event) =>
     setPet({ ...pet, [event.target.name]: event.target.value });
@@ -40,12 +36,13 @@ const PetForm = (handleClose, show) => {
     event.preventDefault();
     // if (foundPet) dispatch(updatePet(pet));
     // else dispatch(addPet(pet));
-    history.push("/profile");
+    setPet({ name: "", type: "", image: "" });
+    handleClose();
   };
   return (
     <StyledModal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Pet</Modal.Title>
+        <Modal.Title>{type === "add" ? "Add" : "Edit"} Pet</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
@@ -54,18 +51,22 @@ const PetForm = (handleClose, show) => {
               <TextField
                 label="Name"
                 variant="outlined"
+                name="name"
                 defaultValue={pet.name}
                 onChange={handleChange}
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Type"
                 variant="outlined"
+                name="type"
                 defaultValue={pet.type}
                 onChange={handleChange}
                 fullWidth
+                required
                 select
               >
                 <MenuItem key={pet.type} value="Cat">
@@ -102,8 +103,11 @@ const PetForm = (handleClose, show) => {
                 color="inherit"
                 className={classes.submit}
                 theme={theme}
+                disabled={
+                  pet.name === "" || pet.type === "" || pet.image === ""
+                }
               >
-                Save
+                {type === "add" ? "Add" : "Save"}
               </StyledAddButton>
             </Grid>
           </Grid>

@@ -9,7 +9,7 @@ import UserInfo from "./UserInfo";
 import OwnerBookingData from "./OwnerBookingData";
 import SitterBookingData from "./SitterBookingData";
 import SitterSchedule from "./SitterSchedule";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import OwnerPetList from "./OwnerPetList";
 import { StyledPaper } from "./styles";
 import { Redirect } from "react-router";
@@ -51,7 +51,7 @@ export default function Profile() {
     (!sitter.city ||
       !sitter.bio ||
       sitter.price === 0 ||
-      !sitter.petRef ||
+      !sitter.petPref ||
       sitter.schedule.length === 0)
   )
     Swal.fire({
