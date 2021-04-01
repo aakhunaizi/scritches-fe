@@ -47,8 +47,11 @@ const UserInfo = ({ user, theme }) => {
   const classes = useStyles();
   const onSubmit = (data) => {
     data.id = user.id;
-    data.image = data.image[0];
-    console.log(data);
+    if (data.image.length === 0) {
+      delete data.image;
+    } else {
+      data.image = data.image[0];
+    }
     dispatch(updateUser(data));
   };
 
@@ -61,6 +64,7 @@ const UserInfo = ({ user, theme }) => {
         }
         fluid
         roundedCircle
+        theme={theme}
       />
       <Typography variant="h6">@{user.username}</Typography>
       <Grid container spacing={2}>

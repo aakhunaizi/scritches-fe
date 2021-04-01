@@ -122,7 +122,10 @@ export default function SignIn() {
           </StyledButton>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/signup" variant="body2">
+              <Link
+                to={{ pathname: "/signup", state: { type: "petOwner" } }}
+                variant="body2"
+              >
                 Don't have an account? Sign up
               </Link>
             </Grid>
