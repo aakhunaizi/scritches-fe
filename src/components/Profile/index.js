@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import SitterData from "./SitterData";
 import Swal from "sweetalert2";
 import { fetchProfile } from "../../store/actions/userActions";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,30 +36,31 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const user = useSelector((state) => state.userReducer.user);
   const profile = useSelector((state) => state.userReducer.profile);
+  console.log("🚀 ~ file: index.js ~ line 41 ~ Profile ~ profile", profile);
 
   useEffect(() => {
     if (user) dispatch(fetchProfile(user.type));
   }, [dispatch, user]);
 
-  const theme = useTheme();
-
-  // if (
-  //   sitter &&
-  //   (!sitter.city ||
-  //     !sitter.bio ||
-  //     sitter.price === 0 ||
-  //     !sitter.petPref ||
-  //     sitter.schedule.length === 0)
-  // )
-  //   Swal.fire({
-  //     icon: "info",
-  //     title: "Complete your profile to recieve bookings",
-  //   });
-
   if (!user) return <Redirect to="/" />;
+  if (!profile) return <CircularProgress style={{ margin: "100px" }} />;
+
+  if (
+    user.type === "petSitter" &&
+    (!profile.city ||
+      !profile.bio ||
+      profile.price === 0 ||
+      !profile.petPref ||
+      profile.schedule.length === 0)
+  )
+    Swal.fire({
+      icon: "info",
+      title: "Complete your profile to recieve bookings",
+    });
 
   return (
     <>
@@ -71,31 +73,30 @@ export default function Profile() {
             <StyledPaper className={classes.paper}>
               <UserInfo user={user} theme={theme} />
             </StyledPaper>
-            {profile && (
+            {user.type === "petSitter" && (
               <StyledPaper className={classes.paper}>
                 <SitterData sitter={profile} theme={theme} userId={user.id} />
               </StyledPaper>
             )}
-            {profile && (
+            {user.type === "petOwner" && (
               <Paper className={classes.paper}>
                 <OwnerPetList theme={theme} owner={profile} />
               </Paper>
             )}
           </Grid>
           <Grid item xs={12} sm={8}>
-            {profile && (
+            {user.type === "petSitter" && (
               <>
                 <StyledPaper className={classes.paper}>
                   <SitterSchedule user={user} theme={theme} sitter={profile} />
                 </StyledPaper>
               </>
             )}
-
             <Paper className={classes.paper}>
               {user.type === "petOwner" ? (
                 <OwnerBookingData theme={theme} />
               ) : (
-                user.type === "petSitter" && <SitterBookingData theme={theme} />
+                <SitterBookingData theme={theme} />
               )}
             </Paper>
           </Grid>
