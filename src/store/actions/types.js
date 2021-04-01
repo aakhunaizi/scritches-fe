@@ -1,11 +1,12 @@
 // User Types
 export const SET_USER = "SET_USER";
-export const SET_SITTER = "SET_SITTER";
+export const FETCH_PROFILE = "FETCH_PROFILE";
 
 // Location Types
 export const FETCH_COUNTRIES = "FETCH_COUNTRIES";
 
 // Pet Types
-export const DELETE_PET = "DELETE_PET";
+export const SET_PETS = "SET_PETS";
 export const ADD_PET = "ADD_PET";
 export const UPDATE_PET = "UPDATE_PET";
+export const DELETE_PET = "DELETE_PET";

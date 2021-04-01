@@ -6,25 +6,26 @@ const initialState = {
 
 const petReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_PETS:
+      return { ...state, pets: action.payload };
+
     case types.ADD_PET:
-      return {
-        ...state,
-        pets: [...state.pets, action.payload.newPet],
-      };
+      return { ...state, pets: [...state.pets, action.payload] };
+
     case types.UPDATE_PET:
       return {
         ...state,
-        pets: state.pets.map((pet) => {
-          if (action.payload.updatedPet.id === pet.id)
-            return action.payload.updatedPet;
-          else return pet;
-        }),
+        pets: state.pets.map((pet) =>
+          action.payload.id === pet.id ? action.payload : pet
+        ),
       };
+
     case types.DELETE_PET:
       return {
         ...state,
-        pets: state.pets.filter((pet) => pet.id !== action.payload.petId),
+        pets: state.pets.filter((pet) => pet.id !== action.payload),
       };
+
     default:
       return state;
   }

@@ -2,13 +2,13 @@ import { combineReducers } from "redux";
 
 // Reducers
 import userReducer from "./userReducer";
-import sitterReducer from "./sitterReducer";
 import locationReducer from "./locationReducer";
+import petReducer from "./petReducer";
 
 const rootReducer = combineReducers({
   userReducer,
-  sitterReducer,
   locationReducer,
+  petReducer,
 });
 
 export default rootReducer;

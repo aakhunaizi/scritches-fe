@@ -12,7 +12,7 @@ import { StyledModal } from "./styles";
 import MenuItem from "@material-ui/core/MenuItem";
 
 // Actions
-import { updateSitter } from "../../store/actions/sitterActions";
+import { updateSitter } from "../../store/actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
