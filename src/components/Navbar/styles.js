@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import { AppBar, MenuItem } from "@material-ui/core";
+import { AppBar, MenuItem, Typography } from "@material-ui/core";
+
+export const StyledNavbar = styled.div`
+  flex-grow: 0;
+`;
+
+export const StyledTitle = styled(Typography)`
+  flex-grow: 1;
+`;
 
 export const LogoLink = styled(Link)`
   text-decoration: none;

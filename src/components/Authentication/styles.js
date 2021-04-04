@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import Avatar from "@material-ui/core/Avatar";
+import { Avatar, Button } from "@material-ui/core";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
-import Button from "@material-ui/core/Button";
 
 export const StyledAvatar = styled(Avatar)`
   background-color: ${(props) => props.theme.palette.orange.main};

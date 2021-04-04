@@ -1,60 +1,54 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
-// Actions
-import { signout } from "../../store/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 // Styling
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core";
+import { Button, Toolbar } from "@material-ui/core";
+import { AiOutlineLogout } from "react-icons/ai";
 import {
   LogoLink,
   StyledFaUserCircle,
   MenuLinkWhite,
   StyledAppBar,
   StyledLabel,
+  StyledTitle,
 } from "./styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { AiOutlineLogout } from "react-icons/ai";
 
-const useStyles = makeStyles((theme) => ({
+// Actions
+import { signout } from "../../store/actions/userActions";
+
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 0,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
   },
 }));
 
 const Navbar = () => {
-  const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
+  const classes = useStyles();
+
+  const user = useSelector((state) => state.userReducer.user);
 
   const handleSignout = () => {
     dispatch(signout());
     history.replace("/");
   };
 
-  const classes = useStyles();
   return (
     <div className={classes.root}>
       <StyledAppBar elevation={0} theme={theme}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <StyledTitle variant="h6">
             <LogoLink to="/">Scritches</LogoLink>
-          </Typography>
+          </StyledTitle>
           {user ? (
             <>
               <div>
                 <MenuLinkWhite to="/profile">
-                  <StyledLabel>{user.firstName}</StyledLabel>
+                  <StyledLabel>{user.username}</StyledLabel>
                   <StyledFaUserCircle color="#fff" size="2em" />
                 </MenuLinkWhite>
                 <MenuLinkWhite to="/">

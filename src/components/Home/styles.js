@@ -1,6 +1,10 @@
 import { Card, Grid } from "@material-ui/core";
 import styled, { css } from "styled-components";
 
+export const StyledHome = styled.div`
+  margin-top: 5%;
+`;
+
 export const Description = styled.h4`
   text-align: center;
 `;

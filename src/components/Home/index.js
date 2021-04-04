@@ -19,10 +19,12 @@ import BookImage from "../Media/Book.png";
 // Styling
 import {
   Description,
+
   Image,
   Title,
   Button,
   Container,
+
   BackgroundContainer,
   StyledGrid,
   StyledCard,
@@ -30,6 +32,7 @@ import {
 
 const Home = () => {
   return (
+
     <>
       <BackgroundContainer>
         <Search />
