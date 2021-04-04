@@ -1,40 +1,27 @@
-// Styling
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { useEffect } from "react";
+import { Redirect } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
+
+// Styling
+import { useTheme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+import { StyledPaper, StyledPaperMargin, StyledProfile } from "./styles";
 
 // Components
-import UserInfo from "./UserInfo";
+import Loading from "../Loading";
 import OwnerBookingData from "./OwnerBookingData";
-import SitterBookingData from "./SitterBookingData";
-import SitterSchedule from "./SitterSchedule";
-import { Helmet } from "react-helmet-async";
 import OwnerPetList from "./OwnerPetList";
-import { StyledPaper } from "./styles";
-import { Redirect } from "react-router";
-import { useEffect } from "react";
+import SitterBookingData from "./SitterBookingData";
 import SitterData from "./SitterData";
-import Swal from "sweetalert2";
-import { fetchProfile } from "../../store/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import SitterSchedule from "./SitterSchedule";
+import UserInfo from "./UserInfo";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing(10),
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// Actions
+import { fetchProfile } from "../../store/actions/userActions";
 
 export default function Profile() {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -47,7 +34,7 @@ export default function Profile() {
   }, [dispatch, user]);
 
   if (!user) return <Redirect to="/" />;
-  if (!profile) return <CircularProgress style={{ margin: "100px" }} />;
+  if (!profile) return <Loading />;
 
   if (
     user.type === "petSitter" &&
@@ -67,42 +54,42 @@ export default function Profile() {
       <Helmet>
         <title>Profile</title>
       </Helmet>
-      <div className={classes.root}>
+      <StyledProfile>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
-            <StyledPaper className={classes.paper}>
-              <UserInfo user={user} theme={theme} />
-            </StyledPaper>
+            <StyledPaperMargin>
+              <UserInfo profile={profile} theme={theme} user={user} />
+            </StyledPaperMargin>
             {user.type === "petSitter" && (
-              <StyledPaper className={classes.paper}>
+              <StyledPaperMargin>
                 <SitterData sitter={profile} theme={theme} userId={user.id} />
-              </StyledPaper>
+              </StyledPaperMargin>
             )}
             {user.type === "petOwner" && (
-              <Paper className={classes.paper}>
+              <StyledPaper>
                 <OwnerPetList theme={theme} owner={profile} />
-              </Paper>
+              </StyledPaper>
             )}
           </Grid>
           <Grid item xs={12} sm={8}>
             {user.type === "petSitter" && (
               <>
-                <StyledPaper className={classes.paper}>
+                <StyledPaperMargin>
                   <SitterSchedule user={user} theme={theme} sitter={profile} />
-                </StyledPaper>
+                </StyledPaperMargin>
               </>
             )}
-            <Paper className={classes.paper}>
+            <StyledPaper>
               {user.type === "petOwner" ? (
                 <OwnerBookingData theme={theme} />
               ) : (
                 <SitterBookingData theme={theme} />
               )}
-            </Paper>
+            </StyledPaper>
           </Grid>
           <Grid item xs={12} sm={12}></Grid>
         </Grid>
-      </div>
+      </StyledProfile>
     </>
   );
 }

@@ -1,34 +1,26 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
 // Styling
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 
-// React
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-
-// Routing
-import { BrowserRouter } from "react-router-dom";
-
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
 
+// Routing
+import { BrowserRouter } from "react-router-dom";
+
 const theme = createMuiTheme({
   palette: {
-    lightBlue: {
-      main: "#87BCDE",
-    },
-    orange: {
-      main: "#EB5E28",
-      light: "#EE7343",
-    },
-    darkGrey: {
-      main: "#292929",
-    },
+    lightBlue: { main: "#87BCDE" },
+    orange: { main: "#EB5E28", light: "#EE7343" },
+    darkGrey: { main: "#292929" },
   },
 });
 
