@@ -9,6 +9,7 @@ function App() {
     <HelmetProvider>
       <Helmet>
         <title>Scritches</title>
+        <style>{"body { background-color: #F4F3EE }"}</style>
       </Helmet>
       <NavBar />
       <Routes />
