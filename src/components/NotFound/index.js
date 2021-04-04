@@ -1,5 +1,12 @@
+// Styling
+import { Container, StyledImage } from "./styles";
+import NotFoundImage from "../Media/NotFound.png";
 const NotFound = () => {
-  return <div style={{ marginTop: "5%" }}>This page does not exist!</div>;
+  return (
+    <Container>
+      <StyledImage src={NotFoundImage} />
+    </Container>
+  );
 };
 
 export default NotFound;
