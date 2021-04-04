@@ -2,8 +2,8 @@ import { Redirect, Route, Switch } from "react-router";
 
 // Components
 import Home from "../Home";
-import SignUp from "../User/SignUp";
-import SignIn from "../User/SignIn";
+import SignUp from "../Authentication/Signup";
+import SignIn from "../Authentication/Signin";
 import Profile from "../Profile";
 import NotFound from "../NotFound";
 

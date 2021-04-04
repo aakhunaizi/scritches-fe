@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Button, Avatar, Paper, Divider } from "@material-ui/core";
-import { Image, Modal } from "react-bootstrap";
+import { Image, Modal, input } from "react-bootstrap";
+
+export const StyledProfile = styled.div`
+  flex-grow: 1;
+  margin: 5%;
+`;
 
 export const StyledEditButton = styled(Button)`
   color: ${(props) => props.theme.palette.orange.main};
@@ -54,7 +59,15 @@ export const StyledProfileImage = styled(Image)`
   margin-bottom: 5%;
 `;
 
+// color: ${(props) => props.theme.palette.orange.main};
 export const StyledPaper = styled(Paper)`
+  text-align: center;
+  padding: 3%;
+`;
+
+export const StyledPaperMargin = styled(Paper)`
+  text-align: center;
+  padding: 3%;
   margin-bottom: 3%;
 `;
 
@@ -74,4 +87,8 @@ export const StyledModal = styled(Modal)`
 export const StyledDivider = styled(Divider)`
   margin-top: 2%;
   margin-bottom: 2%;
+`;
+
+export const ImageInput = styled.input`
+  display: none;
 `;

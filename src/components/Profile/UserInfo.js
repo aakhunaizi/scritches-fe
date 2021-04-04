@@ -27,31 +27,22 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     marginTop: theme.spacing(3),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
 }));
 
-const UserInfo = ({ user, theme }) => {
+const UserInfo = ({ profile, theme, user }) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
-  // States
   const [show, setShow] = useState(false);
 
-  // Modal Handlers
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  //Form
   const { register, handleSubmit, errors } = useForm();
-  const classes = useStyles();
-  const onSubmit = (data) => {
-    data.id = user.id;
-    if (data.image.length === 0) {
-      delete data.image;
-    } else {
-      data.image = data.image[0];
-    }
+
+  const handleOnSubmit = (data) => {
+    if (data.image.length === 0) delete data.image;
+    else data.image = data.image[0];
     dispatch(updateUser(data));
   };
 
@@ -59,7 +50,7 @@ const UserInfo = ({ user, theme }) => {
     <>
       <StyledProfileImage
         src={
-          user.image ??
+          profile.user.image ??
           "http://localhost:8000/media/1617175202259-default_profile_pic.jpg"
         }
         fluid
@@ -71,25 +62,25 @@ const UserInfo = ({ user, theme }) => {
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">First Name</Typography>
           <Typography variant="h5" component="h2">
-            {user.firstName}
+            {profile.user.firstName}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Last Name</Typography>
           <Typography variant="h5" component="h2">
-            {user.lastName}
+            {profile.user.lastName}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Email</Typography>
           <Typography variant="h5" component="h2">
-            {user.email}
+            {profile.user.email}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">Phone Number</Typography>
           <Typography variant="h5" component="h2">
-            {user.phoneNumber}
+            {profile.user.phoneNumber}
           </Typography>
         </Grid>
       </Grid>
@@ -101,7 +92,7 @@ const UserInfo = ({ user, theme }) => {
       >
         Edit
       </StyledEditButtonMargin>
-      {/* Edit  */}
+
       <StyledModal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit profile</Modal.Title>
@@ -109,100 +100,98 @@ const UserInfo = ({ user, theme }) => {
         <Modal.Body>
           <form
             className={classes.form}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(handleOnSubmit)}
             noValidate
           >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  label="First Name"
                   type="text"
                   name="firstName"
-                  required
                   variant="outlined"
-                  defaultValue={user.firstName}
+                  defaultValue={profile.user.firstName}
+                  error={errors.firstName ? true : false}
+                  helperText={errors.firstName && "First Name is required"}
                   inputRef={register({
                     required: true,
                     pattern: {
                       value: /[a-zA-Z]+/,
                     },
                   })}
-                  error={errors.firstName ? true : false}
-                  helperText={errors.firstName && "First Name is required"}
+                  required
                   fullWidth
-                  label="First Name"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  label="Last Name"
                   type="text"
                   name="lastName"
-                  required
                   variant="outlined"
-                  defaultValue={user.lastName}
+                  defaultValue={profile.user.lastName}
+                  error={errors.lastName ? true : false}
+                  helperText={errors.lastName && "Last Name is required"}
                   inputRef={register({
                     required: true,
                     pattern: {
                       value: /[a-zA-Z]+/,
                     },
                   })}
-                  error={errors.lastName ? true : false}
-                  helperText={errors.lastName && "Last Name is required"}
+                  required
                   fullWidth
-                  label="First Name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  label="Email"
                   type="email"
                   name="email"
-                  required
                   variant="outlined"
-                  defaultValue={user.email}
+                  defaultValue={profile.user.email}
+                  error={errors.email ? true : false}
+                  helperText={errors.email && "Email is required"}
                   inputRef={register({
                     required: true,
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     },
                   })}
-                  error={errors.email ? true : false}
-                  helperText={errors.email && "Email is required"}
+                  required
                   fullWidth
-                  label="Email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  label="Phone Number"
                   type="input"
                   name="phoneNumber"
-                  required
                   variant="outlined"
-                  defaultValue={user.phoneNumber}
+                  defaultValue={profile.user.phoneNumber}
+                  error={errors.phoneNumber ? true : false}
+                  helperText={errors.phoneNumber && "Phone Number is required"}
                   inputRef={register({
                     required: true,
                     pattern: {
                       value: /^([0-9]\d*)$/,
                     },
                   })}
-                  error={errors.phoneNumber ? true : false}
-                  helperText={errors.phoneNumber && "Phone Number is required"}
+                  required
                   fullWidth
-                  label="Phone Number"
                 />
               </Grid>
               <Grid item xs={12}>
                 <input
-                  style={{ display: "none" }}
                   type="file"
                   name="image"
+                  style={{ display: "none" }}
                   ref={register}
-                  id="contained-button-file"
                 />
-                <label htmlFor="contained-button-file">
+                <label>
                   <StyledSaveButton
                     variant="outlined"
                     color="inherit"
                     theme={theme}
-                    component="span"
                   >
                     Upload Photo
                   </StyledSaveButton>
@@ -213,7 +202,6 @@ const UserInfo = ({ user, theme }) => {
                   type="submit"
                   variant="outlined"
                   color="inherit"
-                  className={classes.submit}
                   theme={theme}
                 >
                   Save
