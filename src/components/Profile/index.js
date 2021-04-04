@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import SitterData from "./SitterData";
 import Swal from "sweetalert2";
 import { fetchProfile } from "../../store/actions/userActions";
-import { CircularProgress } from "@material-ui/core";
+import Loading from "../Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +47,7 @@ export default function Profile() {
   }, [dispatch, user]);
 
   if (!user) return <Redirect to="/" />;
-  if (!profile) return <CircularProgress style={{ margin: "100px" }} />;
+  if (!profile) return <Loading />;
 
   if (
     user.type === "petSitter" &&
