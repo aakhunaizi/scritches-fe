@@ -5,11 +5,14 @@ import Home from "../Home";
 import SignUp from "../User/SignUp";
 import SignIn from "../User/SignIn";
 import Profile from "../Profile";
+import NotFound from "../NotFound";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/404">{/* <NotFound /> */}</Route>
+      <Route path="/404">
+        <NotFound />
+      </Route>
 
       <Route path="/profile">
         <Profile />
