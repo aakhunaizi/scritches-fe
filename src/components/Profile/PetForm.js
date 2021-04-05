@@ -1,33 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // Styling
 import { Modal } from "react-bootstrap";
-import { Grid, makeStyles, MenuItem, TextField } from "@material-ui/core";
+import { Grid, MenuItem, TextField } from "@material-ui/core";
 import { StyledAddButton, StyledModal, StyledSaveButton } from "./styles";
-import { addPet, updatePet } from "../../store/actions/petActions";
-import { useDispatch } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+// Actions
+import { addPet, updatePet } from "../../store/actions/petActions";
 
 const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const [pet, setPet] = useState(foundPet ?? { name: "", type: "", image: "" });
 
-  // Component Handlers
   const handleChange = (event) =>
     setPet({ ...pet, [event.target.name]: event.target.value });
 
@@ -41,13 +27,14 @@ const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
     setPet({ name: "", type: "", image: "" });
     handleClose();
   };
+
   return (
     <StyledModal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{type === "add" ? "Add" : "Edit"} Pet</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -103,7 +90,6 @@ const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
                 type="submit"
                 variant="outlined"
                 color="inherit"
-                className={classes.submit}
                 theme={theme}
                 disabled={
                   pet.name === "" || pet.type === "" || pet.image === ""

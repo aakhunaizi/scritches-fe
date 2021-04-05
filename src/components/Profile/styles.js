@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button, Avatar, Paper, Divider } from "@material-ui/core";
-import { Image, Modal, input } from "react-bootstrap";
+import { Image, Modal } from "react-bootstrap";
 
 export const StyledProfile = styled.div`
   flex-grow: 1;
@@ -25,6 +25,7 @@ export const StyledEditButtonMargin = styled(Button)`
 `;
 
 export const StyledAddButton = styled(Button)`
+  margin: 2%;
   color: ${(props) => props.theme.palette.orange.main};
   &:hover {
     background-color: ${(props) => props.theme.palette.orange.main};
