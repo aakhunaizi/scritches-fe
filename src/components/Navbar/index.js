@@ -2,27 +2,20 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 // Styling
-import { makeStyles } from "@material-ui/core/styles";
-import { useTheme } from "@material-ui/core";
-import { Button, Toolbar } from "@material-ui/core";
+import { Button, Toolbar, useTheme } from "@material-ui/core";
 import { AiOutlineLogout } from "react-icons/ai";
 import {
   LogoLink,
-  StyledFaUserCircle,
   MenuLinkWhite,
+  StyledFaUserCircle,
   StyledAppBar,
   StyledLabel,
   StyledTitle,
+  useStyles,
 } from "./styles";
 
 // Actions
 import { signout } from "../../store/actions/userActions";
-
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 0,
-  },
-}));
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -44,6 +37,7 @@ const Navbar = () => {
           <StyledTitle variant="h6">
             <LogoLink to="/">Scritches</LogoLink>
           </StyledTitle>
+
           {user ? (
             <>
               <div>
@@ -51,6 +45,7 @@ const Navbar = () => {
                   <StyledLabel>{user.username}</StyledLabel>
                   <StyledFaUserCircle color="#fff" size="2em" />
                 </MenuLinkWhite>
+
                 <MenuLinkWhite to="/">
                   <AiOutlineLogout
                     color="#fff"
@@ -62,6 +57,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <MenuLinkWhite
+                to={{ pathname: "/signup", state: { type: "petSitter" } }}
+              >
+                <Button color="inherit">Become a pet sitter</Button>
+              </MenuLinkWhite>
+
               <MenuLinkWhite
                 to={{ pathname: "/signup", state: { type: "petOwner" } }}
               >

@@ -1,17 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { AppBar, Typography } from "@material-ui/core";
 import { FaUserCircle } from "react-icons/fa";
-import { AppBar, MenuItem, Typography } from "@material-ui/core";
-
-export const StyledNavbar = styled.div`
-  flex-grow: 0;
-`;
-
-export const StyledTitle = styled(Typography)`
-  flex-grow: 1;
-`;
+import { makeStyles } from "@material-ui/core/styles";
 
 export const LogoLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: white;
+  }
+`;
+
+export const MenuLinkWhite = styled(Link)`
   text-decoration: none;
   &:focus,
   &:hover,
@@ -29,42 +34,6 @@ export const StyledFaUserCircle = styled(FaUserCircle)`
   cursor: pointer;
 `;
 
-export const MenuLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: black;
-  }
-`;
-
-export const MenuLinkWhite = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: white;
-  }
-`;
-
-export const StyledMenuItem = styled(MenuItem)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: black;
-  }
-`;
-
 export const StyledAppBar = styled(AppBar)`
   background-color: ${(props) => props.theme.palette.lightBlue.main};
 `;
@@ -72,3 +41,13 @@ export const StyledAppBar = styled(AppBar)`
 export const StyledLabel = styled.label`
   cursor: pointer;
 `;
+
+export const StyledTitle = styled(Typography)`
+  flex-grow: 1;
+`;
+
+export const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 0,
+  },
+}));

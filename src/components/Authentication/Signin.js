@@ -5,14 +5,20 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 
 // Styling
-import { useTheme } from "@material-ui/core/styles";
-import { Container, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  useTheme,
+} from "@material-ui/core";
 import { FaPaw } from "react-icons/fa";
 import {
   StyledAvatar,
   StyledButton,
   StyledMdVisibility,
   StyledMdVisibilityOff,
+  useStyles,
 } from "./styles";
 
 // Actions
@@ -22,6 +28,7 @@ const Signin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
+  const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
 
   const [password, setPassword] = useState(true);
@@ -33,14 +40,18 @@ const Signin = () => {
       <Helmet>
         <title>Sign in</title>
       </Helmet>
-      <div>
-        <StyledAvatar theme={theme}>
+      <div className={classes.paper}>
+        <StyledAvatar className={classes.avatar} theme={theme}>
           <FaPaw />
         </StyledAvatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form onSubmit={handleSubmit(handleOnSubmit)} noValidate>
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit(handleOnSubmit)}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -82,6 +93,7 @@ const Signin = () => {
             </Grid>
           </Grid>
           <StyledButton
+            className={classes.submit}
             type="submit"
             variant="contained"
             fullWidth

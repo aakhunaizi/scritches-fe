@@ -5,8 +5,7 @@ import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 // Styling
-import { useTheme } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, useTheme } from "@material-ui/core";
 import { StyledPaper, StyledPaperMargin, StyledProfile } from "./styles";
 
 // Components
@@ -16,18 +15,17 @@ import OwnerPetList from "./OwnerPetList";
 import SitterBookingData from "./SitterBookingData";
 import SitterData from "./SitterData";
 import SitterSchedule from "./SitterSchedule";
-import UserInfo from "./UserInfo";
+import UserData from "./UserData";
 
 // Actions
 import { fetchProfile } from "../../store/actions/userActions";
 
-export default function Profile() {
+const Profile = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
   const user = useSelector((state) => state.userReducer.user);
   const profile = useSelector((state) => state.userReducer.profile);
-  console.log("🚀 ~ file: index.js ~ line 41 ~ Profile ~ profile", profile);
 
   useEffect(() => {
     if (user) dispatch(fetchProfile(user.type));
@@ -58,14 +56,13 @@ export default function Profile() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <StyledPaperMargin>
-              <UserInfo profile={profile} theme={theme} user={user} />
+              <UserData profile={profile} theme={theme} user={user} />
             </StyledPaperMargin>
-            {user.type === "petSitter" && (
+            {user.type === "petSitter" ? (
               <StyledPaperMargin>
                 <SitterData sitter={profile} theme={theme} userId={user.id} />
               </StyledPaperMargin>
-            )}
-            {user.type === "petOwner" && (
+            ) : (
               <StyledPaper>
                 <OwnerPetList theme={theme} owner={profile} />
               </StyledPaper>
@@ -73,11 +70,9 @@ export default function Profile() {
           </Grid>
           <Grid item xs={12} sm={8}>
             {user.type === "petSitter" && (
-              <>
-                <StyledPaperMargin>
-                  <SitterSchedule user={user} theme={theme} sitter={profile} />
-                </StyledPaperMargin>
-              </>
+              <StyledPaperMargin>
+                <SitterSchedule user={user} theme={theme} sitter={profile} />
+              </StyledPaperMargin>
             )}
             <StyledPaper>
               {user.type === "petOwner" ? (
@@ -87,9 +82,10 @@ export default function Profile() {
               )}
             </StyledPaper>
           </Grid>
-          <Grid item xs={12} sm={12}></Grid>
         </Grid>
       </StyledProfile>
     </>
   );
-}
+};
+
+export default Profile;
