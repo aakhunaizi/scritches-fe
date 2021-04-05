@@ -11,20 +11,18 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import Search from "../Search";
-import SelectImage from "../Media/Select.png";
-import LocationImage from "../Media/Location.png";
-import DatesImage from "../Media/Dates.png";
-import BookImage from "../Media/Book.png";
+import SelectImage from "../../assets/Select.png";
+import LocationImage from "../../assets/Location.png";
+import DatesImage from "../../assets/Dates.png";
+import BookImage from "../../assets/Book.png";
 
 // Styling
 import {
   Description,
-
   Image,
   Title,
   Button,
   Container,
-
   BackgroundContainer,
   StyledGrid,
   StyledCard,
@@ -32,7 +30,6 @@ import {
 
 const Home = () => {
   return (
-
     <>
       <BackgroundContainer>
         <Search />

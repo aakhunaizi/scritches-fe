@@ -1,6 +1,9 @@
 // Styling
 import { Container, StyledImage } from "./styles";
-import NotFoundImage from "../Media/NotFound.png";
+
+// Assests
+import NotFoundImage from "../../assets/NotFound.png";
+
 const NotFound = () => {
   return (
     <Container>
