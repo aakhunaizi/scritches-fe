@@ -6,8 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 // Styling
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
 
 // Redux
 import { Provider } from "react-redux";
@@ -15,14 +15,6 @@ import store from "./store";
 
 // Routing
 import { BrowserRouter } from "react-router-dom";
-
-const theme = createMuiTheme({
-  palette: {
-    lightBlue: { main: "#87BCDE" },
-    orange: { main: "#EB5E28", light: "#EE7343" },
-    darkGrey: { main: "#292929" },
-  },
-});
 
 ReactDOM.render(
   <React.StrictMode>
