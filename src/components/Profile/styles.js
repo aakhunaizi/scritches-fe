@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Avatar, Paper, Divider } from "@material-ui/core";
+import { Button, Avatar, Paper, Divider, Typography } from "@material-ui/core";
 import { Image, Modal } from "react-bootstrap";
 
 export const StyledProfile = styled.div`
@@ -21,7 +21,7 @@ export const StyledEditButtonMargin = styled(Button)`
     background-color: ${(props) => props.theme.palette.orange.main};
     color: white;
   }
-  margin-top: 2%;
+  margin-top: 3%;
 `;
 
 export const StyledAddButton = styled(Button)`
@@ -79,6 +79,7 @@ export const StyledSaveButton = styled(Button)`
     color: white;
   }
   float: right;
+  margin: 2%;
 `;
 
 export const StyledModal = styled(Modal)`
@@ -92,4 +93,8 @@ export const StyledDivider = styled(Divider)`
 
 export const ImageInput = styled.input`
   display: none;
+`;
+
+export const StyledTypography = styled(Typography)`
+  word-wrap: break-word;
 `;

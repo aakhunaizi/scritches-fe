@@ -97,7 +97,10 @@ export const updateUser = (updatedUser) => async (dispatch) => {
 // Update Sitter
 export const updateSitter = (updatedSitter) => async (dispatch) => {
   try {
-    const res = await instance.put("/sitters", updatedSitter);
+    const res = await instance.put(
+      `/sitters/${updatedSitter.id}`,
+      updatedSitter
+    );
     dispatch({
       type: types.FETCH_PROFILE,
       payload: res.data,
