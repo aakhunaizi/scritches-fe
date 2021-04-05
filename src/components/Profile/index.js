@@ -16,7 +16,7 @@ import OwnerPetList from "./OwnerPetList";
 import SitterBookingData from "./SitterBookingData";
 import SitterData from "./SitterData";
 import SitterSchedule from "./SitterSchedule";
-import UserInfo from "./UserInfo";
+import UserData from "./UserData";
 
 // Actions
 import { fetchProfile } from "../../store/actions/userActions";
@@ -58,7 +58,7 @@ export default function Profile() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <StyledPaperMargin>
-              <UserInfo profile={profile} theme={theme} user={user} />
+              <UserData profile={profile} theme={theme} user={user} />
             </StyledPaperMargin>
             {user.type === "petSitter" && (
               <StyledPaperMargin>
