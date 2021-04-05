@@ -87,7 +87,7 @@ export const updateUser = (updatedUser) => async (dispatch) => {
   try {
     const formData = new FormData();
     for (const key in updatedUser) formData.append(key, updatedUser[key]);
-    const res = await instance.put("/edit/user", formData);
+    const res = await instance.put("/user", formData);
     dispatch(setUser(res.data.token));
   } catch (error) {
     console.log("Error: ", error);
