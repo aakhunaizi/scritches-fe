@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+// Styling
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Card, TextField, useTheme } from "@material-ui/core";
+import { Card, Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
 import { StyledSearchButton } from "./styles";
+
+// Components
+import Loading from "../Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,19 +23,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+const Search = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const countries = ["Bahrain"];
-  const cities = ["Manama", "Saar"];
-  const services = ["Dog Sitting", "Cat Sitting"];
+
   const [query, setQuery] = useState({
     country: "",
     city: "",
-    service: "",
+    petPref: "",
     from: "",
     to: "",
   });
+
+  const countries = useSelector((state) => state.locationReducer.countries);
+  const services = useSelector((state) => state.petReducer.petTypes);
+
+  if (!countries || !services) return <Loading />;
+
+  const _country = countries.find((_country) => _country.id === query.country);
+  const cities = _country ? _country.cities : null;
 
   const handleChange = (event) =>
     setQuery({ ...query, [event.target.name]: event.target.value });
@@ -59,55 +68,55 @@ export default function Search() {
           style={{ marginBottom: "1%" }}
         >
           <Grid item xs={12} sm={4}>
-            <Autocomplete
-              options={countries}
-              value={query.country}
-              onChange={(event, newValue) => {
-                setQuery({ ...query, country: newValue });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Country"
-                  variant="outlined"
-                  required
-                />
-              )}
-            />
+            <TextField
+              label="Country"
+              name="country"
+              variant="outlined"
+              onChange={handleChange}
+              fullWidth
+              select
+            >
+              {countries.map((country) => (
+                <MenuItem key={country.id} value={country.id}>
+                  {country.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
+          {query.country !== "" && (
+            <Grid item xs={12} sm={4}>
+              <TextField
+                label="City"
+                name="city"
+                variant="outlined"
+                onChange={handleChange}
+                fullWidth
+                select
+              >
+                {cities &&
+                  cities.map((city) => (
+                    <MenuItem key={city.id} value={city.id}>
+                      {city.name}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </Grid>
+          )}
           <Grid item xs={12} sm={4}>
-            <Autocomplete
-              options={cities}
-              onChange={(event, newValue) => {
-                setQuery({ ...query, city: newValue });
-              }}
-              name="city"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="City"
-                  variant="outlined"
-                  required
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Autocomplete
-              options={services}
-              onChange={(event, newValue) => {
-                setQuery({ ...query, service: newValue });
-              }}
-              name="service"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Service"
-                  variant="outlined"
-                  required
-                />
-              )}
-            />
+            <TextField
+              label="Service"
+              name="petPref"
+              variant="outlined"
+              onChange={handleChange}
+              fullWidth
+              select
+            >
+              {services.map((service) => (
+                <MenuItem key={service.id} value={service.type}>
+                  {service.type}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </Grid>
         <Grid container spacing={3} justify="center">
@@ -161,4 +170,6 @@ export default function Search() {
       </Card>
     </div>
   );
-}
+};
+
+export default Search;

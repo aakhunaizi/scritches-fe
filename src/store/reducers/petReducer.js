@@ -1,6 +1,11 @@
 import * as types from "../actions/types";
 
 const initialState = {
+  petTypes: [
+    { id: 1, type: "Dog" },
+    { id: 2, type: "Cat" },
+    { id: 3, type: "Bird" },
+  ],
   pets: [],
 };
 
