@@ -82,6 +82,15 @@ export const StyledSaveButton = styled(Button)`
   margin: 2%;
 `;
 
+export const StyledUploadButton = styled(Button)`
+  color: ${(props) => props.theme.palette.orange.main};
+  &:hover {
+    background-color: ${(props) => props.theme.palette.orange.main};
+    color: white;
+  }
+  float: right;
+`;
+
 export const StyledModal = styled(Modal)`
   margin-top: 10em;
 `;

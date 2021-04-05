@@ -83,12 +83,12 @@ export const fetchProfile = (type) => async (dispatch) => {
 };
 
 // Update User
-export const updateUser = (updatedUser) => async (dispatch) => {
+export const updateUser = (updatedUser, type) => async (dispatch) => {
   try {
     const formData = new FormData();
     for (const key in updatedUser) formData.append(key, updatedUser[key]);
-    const res = await instance.put("/user", formData);
-    dispatch(setUser(res.data.token));
+    await instance.put("/user", formData);
+    dispatch(fetchProfile(type));
   } catch (error) {
     console.log("Error: ", error);
   }

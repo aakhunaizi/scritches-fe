@@ -3,20 +3,19 @@ import { useForm } from "react-hook-form";
 
 // Styling
 import { Grid, TextField } from "@material-ui/core";
-import { StyledSaveButton } from "./styles";
+import { StyledSaveButton, StyledUploadButton } from "./styles";
 
 // Actions
 import { updateUser } from "../../store/actions/userActions";
 
-const UserForm = ({ profile, theme }) => {
+const UserForm = ({ profile, theme, type }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
 
   const handleOnSubmit = (data) => {
     if (data.image.length === 0) delete data.image;
     else data.image = data.image[0];
-    console.log(data);
-    // dispatch(updateUser(data));
+    dispatch(updateUser(data, type));
   };
 
   return (
@@ -104,11 +103,17 @@ const UserForm = ({ profile, theme }) => {
             name="image"
             style={{ display: "none" }}
             ref={register}
+            id="contained-button-file"
           />
-          <label>
-            <StyledSaveButton variant="outlined" color="inherit" theme={theme}>
+          <label htmlFor="contained-button-file">
+            <StyledUploadButton
+              component="span"
+              variant="outlined"
+              color="inherit"
+              theme={theme}
+            >
               Upload Photo
-            </StyledSaveButton>
+            </StyledUploadButton>
           </label>
         </Grid>
         <Grid container justify="flex-end">

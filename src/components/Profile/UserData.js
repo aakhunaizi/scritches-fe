@@ -70,7 +70,7 @@ const UserInfo = ({ profile, theme, user }) => {
           <Modal.Title>Edit profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <UserForm profile={profile} theme={theme} />
+          <UserForm profile={profile} theme={theme} type={user.type} />
         </Modal.Body>
       </StyledModal>
     </>

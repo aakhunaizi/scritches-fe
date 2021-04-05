@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 // Styling
 import { Modal } from "react-bootstrap";
 import { Grid, MenuItem, TextField } from "@material-ui/core";
-import { StyledAddButton, StyledModal, StyledSaveButton } from "./styles";
+import { StyledAddButton, StyledModal, StyledUploadButton } from "./styles";
 
 // Actions
 import { addPet, updatePet } from "../../store/actions/petActions";
@@ -75,14 +75,14 @@ const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
                 id="contained-button-file"
               />
               <label htmlFor="contained-button-file">
-                <StyledSaveButton
+                <StyledUploadButton
                   variant="outlined"
                   color="inherit"
                   theme={theme}
                   component="span"
                 >
                   Upload Photo
-                </StyledSaveButton>
+                </StyledUploadButton>
               </label>
             </Grid>
             <Grid container justify="flex-end">
