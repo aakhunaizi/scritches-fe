@@ -57,7 +57,7 @@ const Search = () => {
           padding: "5%",
           width: "80%",
           margin: "0 auto",
-          backgroundColor: "rgba(244, 243, 238, 0.9)",
+          backgroundColor: "rgba(254, 254, 253, 0.9)",
         }}
         className="shadow"
       >
