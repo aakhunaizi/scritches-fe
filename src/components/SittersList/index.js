@@ -2,51 +2,34 @@ import { useSelector } from "react-redux";
 
 // Styling
 import { Grid, useTheme } from "@material-ui/core";
-import {
-  Container,
-  NoResultsContainer,
-  NoResultsImage,
-  StyledTypography,
-  StyledSearchAgainButton,
-  StyledLink,
-} from "./styles";
+import { Container, NoResultsContainer, NoResultsImage } from "./styles";
 
 // Assets
-import SittersImage from "../../assets/Sitters.png";
+import SittersImage from "../../assets/NoSitters.png";
 
 // Components
 import Sitter from "./Sitter";
 import Loading from "../Loading";
+import SearchModifier from "./SearchModifier";
 
 const SittersList = () => {
   const sitters = useSelector((state) => state.searchReducer.sitters);
+  const query = useSelector((state) => state.searchReducer.query);
 
   const theme = useTheme();
-  if (!sitters) return <Loading />;
+  if (!sitters || !query) return <Loading />;
   const sittersList = sitters.map((sitter) => (
     <Sitter sitter={sitter} key={sitter.id} theme={theme} />
   ));
 
   return (
     <>
+      <SearchModifier foundQuery={query} />
       {sittersList.length === 0 ? (
         <>
           <NoResultsContainer>
             <NoResultsImage src={SittersImage} />
           </NoResultsContainer>
-          <StyledTypography variant="h5">
-            No sitters were found 😔
-            <br />
-            <StyledLink to="/">
-              <StyledSearchAgainButton
-                variant="outlined"
-                color="inherit"
-                theme={theme}
-              >
-                Search Again
-              </StyledSearchAgainButton>
-            </StyledLink>
-          </StyledTypography>
         </>
       ) : (
         <Container>
