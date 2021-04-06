@@ -10,3 +10,6 @@ export const SET_PETS = "SET_PETS";
 export const ADD_PET = "ADD_PET";
 export const UPDATE_PET = "UPDATE_PET";
 export const DELETE_PET = "DELETE_PET";
+
+// Search Types
+export const SEARCH_SITTERS = "SEARCH_SITTERS";
