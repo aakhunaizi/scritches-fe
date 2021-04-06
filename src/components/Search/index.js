@@ -8,6 +8,8 @@ import { StyledSearchButton } from "./styles";
 
 // Components
 import Loading from "../Loading";
+
+// Actions
 import { searchSitters } from "../../store/actions/searchActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = () => {
-  const classes = useStyles();
-  const theme = useTheme();
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const classes = useStyles();
 
   const [query, setQuery] = useState({
     country: "",

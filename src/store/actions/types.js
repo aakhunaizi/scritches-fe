@@ -12,4 +12,5 @@ export const UPDATE_PET = "UPDATE_PET";
 export const DELETE_PET = "DELETE_PET";
 
 // Search Types
+export const SET_QUERY = "SET_QUERY";
 export const SEARCH_SITTERS = "SEARCH_SITTERS";
