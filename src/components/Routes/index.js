@@ -6,6 +6,7 @@ import SignUp from "../Authentication/Signup";
 import SignIn from "../Authentication/Signin";
 import Profile from "../Profile";
 import NotFound from "../NotFound";
+import SittersList from "../SittersList";
 
 const Routes = () => {
   return (
@@ -24,6 +25,10 @@ const Routes = () => {
 
       <Route path="/signin">
         <SignIn />
+      </Route>
+
+      <Route path="/search">
+        <SittersList />
       </Route>
 
       <Route exact path="/">
