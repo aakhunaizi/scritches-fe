@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 // Styling
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const theme = useTheme();
   const classes = useStyles();
 
@@ -51,7 +53,7 @@ const Search = () => {
     setQuery({ ...query, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    dispatch(searchSitters(query));
+    dispatch(searchSitters(query, history));
   };
 
   return (
