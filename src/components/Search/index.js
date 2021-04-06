@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Styling
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import { StyledSearchButton } from "./styles";
 
 // Components
 import Loading from "../Loading";
+import { searchSitters } from "../../store/actions/searchActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Search = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const [query, setQuery] = useState({
     country: "",
@@ -47,7 +49,7 @@ const Search = () => {
     setQuery({ ...query, [event.target.name]: event.target.value });
 
   const handleSubmit = () => {
-    console.log(query);
+    dispatch(searchSitters(query));
   };
 
   return (
