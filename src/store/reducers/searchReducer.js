@@ -1,9 +1,12 @@
 import * as types from "../actions/types";
 
-const initialState = { sitters: null };
+const initialState = { query: null, sitters: null };
 
 const SearchReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_QUERY:
+      return { ...state, query: action.payload };
+
     case types.SEARCH_SITTERS:
       return { ...state, sitters: action.payload };
 
