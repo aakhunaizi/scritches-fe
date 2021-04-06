@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 
 // Styling
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
+import { Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
 import { StyledSearchButton } from "./styles";
 
 // Components
@@ -16,7 +16,7 @@ import { searchSitters } from "../../store/actions/searchActions";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(8),
     marginLeft: theme.spacing(5),
     marginRight: theme.spacing(5),
   },
@@ -27,15 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = () => {
+const SearchModifier = ({ foundQuery }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
   const classes = useStyles();
-
-  const countries = useSelector((state) => state.locationReducer.countries);
-  const services = useSelector((state) => state.petReducer.petTypes);
-  const foundQuery = useSelector((state) => state.searchReducer.query);
 
   const [query, setQuery] = useState(
     foundQuery ?? {
@@ -46,6 +42,9 @@ const Search = () => {
       to: "",
     }
   );
+
+  const countries = useSelector((state) => state.locationReducer.countries);
+  const services = useSelector((state) => state.petReducer.petTypes);
 
   if (!countries || !services) return <Loading />;
 
@@ -61,14 +60,14 @@ const Search = () => {
 
   return (
     <div className={classes.root}>
-      <Card
+      <div
         style={{
           padding: "5%",
-          width: "80%",
+          width: "90%",
           margin: "0 auto",
           backgroundColor: "rgba(254, 254, 253, 0.9)",
         }}
-        className="shadow"
+        // className="shadow"
       >
         <Grid
           container
@@ -76,7 +75,7 @@ const Search = () => {
           justify="center"
           style={{ marginBottom: "1%" }}
         >
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={2}>
             <TextField
               label="Country"
               name="country"
@@ -95,7 +94,7 @@ const Search = () => {
             </TextField>
           </Grid>
           {query.country !== "" && (
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={2}>
               <TextField
                 label="City"
                 name="city"
@@ -114,7 +113,7 @@ const Search = () => {
               </TextField>
             </Grid>
           )}
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={2}>
             <TextField
               label="Service"
               name="petPref"
@@ -131,9 +130,7 @@ const Search = () => {
               ))}
             </TextField>
           </Grid>
-        </Grid>
-        <Grid container spacing={3} justify="center">
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={2}>
             <TextField
               variant="outlined"
               fullWidth
@@ -147,7 +144,7 @@ const Search = () => {
               }}
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={2}>
             <TextField
               variant="outlined"
               fullWidth
@@ -168,10 +165,11 @@ const Search = () => {
           justify="center"
           style={{ marginTop: "1%" }}
         >
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={2}>
             <StyledSearchButton
               variant="outlined"
               color="inherit"
+              size="large"
               theme={theme}
               fullWidth
               onClick={handleSubmit}
@@ -181,9 +179,9 @@ const Search = () => {
             </StyledSearchButton>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </div>
   );
 };
 
-export default Search;
+export default SearchModifier;
