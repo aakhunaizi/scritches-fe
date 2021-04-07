@@ -7,7 +7,6 @@ import { Grid, useTheme } from "@material-ui/core";
 import { StyledPaperMargin, StyledProfile } from "./styles";
 
 // Components
-import Loading from "../Loading";
 import UserData from "./UserData";
 import SitterData from "./SitterData";
 import SitterSchedule from "./SitterSchedule";

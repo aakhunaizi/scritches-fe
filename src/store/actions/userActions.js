@@ -27,7 +27,7 @@ export const signin = (user, history) => async (dispatch) => {
   try {
     const res = await instance.post("/signin", user);
     dispatch(setUser(res.data.token));
-    history.replace("/");
+    history.goBack();
     toastMessage("success", "Welcome back!", 2000);
   } catch (error) {
     console.log("Error: ", error);
