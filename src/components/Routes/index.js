@@ -8,12 +8,17 @@ import Profile from "../Profile";
 import NotFound from "../NotFound";
 import SittersList from "../SittersList";
 import PublicProfile from "../PublicProfile";
+import Booking from "../Booking";
 
 const Routes = () => {
   return (
     <Switch>
       <Route path="/404">
         <NotFound />
+      </Route>
+
+      <Route path="/booking">
+        <Booking />
       </Route>
 
       <Route path="/profile">
