@@ -58,7 +58,7 @@ const Profile = () => {
             <StyledPaperMargin>
               <UserData profile={profile} theme={theme} user={user} />
             </StyledPaperMargin>
-            {user.type === "petSitter" ? (
+            {user && user.type === "petSitter" ? (
               <StyledPaperMargin>
                 <SitterData sitter={profile} theme={theme} userId={user.id} />
               </StyledPaperMargin>

@@ -1,24 +1,8 @@
-import { useState } from "react";
-
 // Styling
-import { Modal } from "react-bootstrap";
 import { Grid, Typography } from "@material-ui/core";
-import {
-  StyledEditButtonMargin,
-  StyledModal,
-  StyledProfileImage,
-} from "./styles";
+import { StyledProfileImage } from "./styles";
 
-// Components
-import UserForm from "./UserForm";
-
-const UserInfo = ({ profile, theme, user }) => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  console.log(user);
+const UserInfo = ({ profile, theme }) => {
   return (
     <>
       <StyledProfileImage
@@ -30,7 +14,7 @@ const UserInfo = ({ profile, theme, user }) => {
         roundedCircle
         theme={theme}
       />
-      <Typography variant="h6">@{user.username}</Typography>
+      <Typography variant="h6">@{profile.user.username}</Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography color="textSecondary">First Name</Typography>
@@ -57,23 +41,6 @@ const UserInfo = ({ profile, theme, user }) => {
           </Typography>
         </Grid>
       </Grid>
-      <StyledEditButtonMargin
-        variant="outlined"
-        color="inherit"
-        theme={theme}
-        onClick={handleShow}
-      >
-        Edit
-      </StyledEditButtonMargin>
-
-      <StyledModal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <UserForm profile={profile} theme={theme} type={user.type} />
-        </Modal.Body>
-      </StyledModal>
     </>
   );
 };

@@ -7,6 +7,7 @@ import SignIn from "../Authentication/Signin";
 import Profile from "../Profile";
 import NotFound from "../NotFound";
 import SittersList from "../SittersList";
+import PublicProfile from "../PublicProfile";
 
 const Routes = () => {
   return (
@@ -29,6 +30,10 @@ const Routes = () => {
 
       <Route path="/search">
         <SittersList />
+      </Route>
+
+      <Route path="/sitters/:username">
+        <PublicProfile />
       </Route>
 
       <Route exact path="/">
