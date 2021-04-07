@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import { Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   margin: 0.5em 1em;
@@ -38,5 +39,17 @@ export const StyledSearchButton = styled(Button)`
   &:hover {
     background-color: ${(props) => props.theme.palette.orange.main};
     color: white;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: inherit;
   }
 `;

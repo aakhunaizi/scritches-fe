@@ -9,6 +9,6 @@ export const searchSitters = (query, history) => async (dispatch) => {
     dispatch({ type: types.SEARCH_SITTERS, payload: res.data });
     history.push("/search");
   } catch (error) {
-    console.log("Error: ", error);
+    console.log("Error: ", error.response.data);
   }
 };
