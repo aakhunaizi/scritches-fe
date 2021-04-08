@@ -12,6 +12,12 @@ import {
 import { useLocation } from "react-router";
 import { fetchProfile } from "../../store/actions/userActions";
 import BookingDuration from "./BookingDuration";
+import PetSelection from "./PetSelection";
+import BookingSummary from "./BookingSummary";
+import Loading from "../Loading";
+import { Container, StyledImage } from "./styles";
+
+import BookedImage from "../../assets/Booked.png";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -20,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(800 + theme.spacing(2) * 2)]: {
-      width: 800,
+      width: 900,
       marginLeft: "auto",
       marginRight: "auto",
     },
@@ -66,15 +72,30 @@ const Booking = () => {
   const steps = ["Booking Duration", "Choose a Pet", "Booking Summary"];
 
   const sitter = useLocation().state.sitter;
-  console.log("🚀 ~  sitter", sitter);
   const user = useSelector((state) => state.userReducer.user);
   const owner = useSelector((state) => state.userReducer.profile);
-  console.log("🚀 ~ owner", owner);
+
   const query = useSelector((state) => state.searchReducer.query);
 
+  const [pet, setPet] = useState(null);
+  console.log("🚀 ~ pet", pet);
+  const [booking, setBooking] = useState({
+    from: query.from,
+    to: query.to,
+    ownerId: owner ? owner.id : "",
+    sitterId: sitter ? sitter.id : "",
+    petId: "",
+    total: 0,
+  });
+  console.log("🚀 ~ booking", booking);
+
   useEffect(() => {
-    if (user?.type === "petOwner") dispatch(fetchProfile(user.type));
+    if (user?.type === "petOwner") {
+      dispatch(fetchProfile(user.type));
+    }
   }, [user, dispatch]);
+
+  if (!owner) return <Loading />;
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -87,11 +108,35 @@ const Booking = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <BookingDuration query={query} sitter={sitter} />;
+        return (
+          <BookingDuration
+            booking={booking}
+            setBooking={setBooking}
+            query={query}
+            sitter={sitter}
+          />
+        );
       case 1:
-        return "Hi";
+        return (
+          <PetSelection
+            booking={booking}
+            setBooking={setBooking}
+            pet={pet}
+            setPet={setPet}
+          />
+        );
       case 2:
-        return "Bye";
+        if (booking.ownerId === "")
+          setBooking({ ...booking, ownerId: owner.id });
+        return (
+          <BookingSummary
+            booking={booking}
+            owner={owner}
+            pet={pet}
+            sitter={sitter}
+            user={user}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
@@ -127,21 +172,27 @@ const Booking = () => {
               <>
                 {activeStep === steps.length ? (
                   <>
-                    <Typography variant="h5" gutterBottom>
-                      Thank you for your order.
+                    <Typography variant="h5" align="center" gutterBottom>
+                      Successfully Booked!
                     </Typography>
-                    <Typography variant="subtitle1">
-                      Your order number is #2001539. We have emailed your order
-                      confirmation, and will send you an update when your order
-                      has shipped.
+                    <Typography align="center" variant="subtitle1">
+                      You can view your booking details in your profile at any
+                      time.
                     </Typography>
+                    <Container>
+                      <StyledImage src={BookedImage} />
+                    </Container>
                   </>
                 ) : (
                   <>
                     {getStepContent(activeStep)}
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (
-                        <Button onClick={handleBack} className={classes.button}>
+                        <Button
+                          variant="outlined"
+                          onClick={handleBack}
+                          className={classes.button}
+                        >
                           Back
                         </Button>
                       )}
@@ -150,6 +201,7 @@ const Booking = () => {
                         color="primary"
                         onClick={handleNext}
                         className={classes.button}
+                        disabled={booking.from === "" || booking.to === ""}
                       >
                         {activeStep === steps.length - 1
                           ? "Place Booking"

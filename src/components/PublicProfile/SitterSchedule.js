@@ -1,5 +1,5 @@
 // Styling
-
+import Loading from "../Loading";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
@@ -8,14 +8,11 @@ const birthdayStyle = `.DayPicker-Day--highlighted {
   color: white;
 }`;
 
-const modifiers = {
-  highlighted: {
-    from: new Date(2021, 3, 12),
-    to: new Date(2021, 3, 16),
-  },
-};
-
-const SitterSchedule = () => {
+const SitterSchedule = ({ sitter }) => {
+  if (!sitter) return <Loading />;
+  const modifiers = {
+    highlighted: sitter.schedule.map((schedule) => new Date(schedule.date)),
+  };
   return (
     <>
       <style>{birthdayStyle}</style>
