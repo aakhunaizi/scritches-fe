@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   makeStyles,
@@ -6,22 +8,19 @@ import {
   Step,
   StepLabel,
   Typography,
-  CssBaseline,
 } from "@material-ui/core";
-import { useState } from "react";
-// import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
+import { fetchProfile } from "../../store/actions/userActions";
+import BookingDuration from "./BookingDuration";
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: "relative",
-  },
   layout: {
     marginTop: theme.spacing(10),
     width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+    [theme.breakpoints.up(800 + theme.spacing(2) * 2)]: {
+      width: 800,
       marginLeft: "auto",
       marginRight: "auto",
     },
@@ -61,13 +60,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Booking = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["Fill Booking Form", "Choose a Pet", "Booking Review"];
+  const steps = ["Booking Duration", "Choose a Pet", "Booking Summary"];
 
-  //   const user = useSelector((state) => state.userReducer.user);
+  const sitter = useLocation().state.sitter;
+  console.log("🚀 ~  sitter", sitter);
+  const user = useSelector((state) => state.userReducer.user);
+  const owner = useSelector((state) => state.userReducer.profile);
+  console.log("🚀 ~ owner", owner);
+  const query = useSelector((state) => state.searchReducer.query);
 
-  //   if (!user) return <Redirect to="/signin" />;
+  useEffect(() => {
+    if (user?.type === "petOwner") dispatch(fetchProfile(user.type));
+  }, [user, dispatch]);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -80,7 +87,7 @@ const Booking = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return "Hello";
+        return <BookingDuration query={query} sitter={sitter} />;
       case 1:
         return "Hi";
       case 2:
@@ -92,68 +99,76 @@ const Booking = () => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <main className={classes.layout}>
+      {user ? (
+        <>
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              <Stepper
+                className={classes.stepper}
+                activeStep={activeStep}
+                alternativeLabel
+              >
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel
+                      StepIconProps={{
+                        classes: {
+                          root: classes.icon,
+                          active: classes.activeIcon,
+                          completed: classes.completedIcon,
+                        },
+                      }}
+                    >
+                      {label}
+                    </StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+              <>
+                {activeStep === steps.length ? (
+                  <>
+                    <Typography variant="h5" gutterBottom>
+                      Thank you for your order.
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      Your order number is #2001539. We have emailed your order
+                      confirmation, and will send you an update when your order
+                      has shipped.
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    {getStepContent(activeStep)}
+                    <div className={classes.buttons}>
+                      {activeStep !== 0 && (
+                        <Button onClick={handleBack} className={classes.button}>
+                          Back
+                        </Button>
+                      )}
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleNext}
+                        className={classes.button}
+                      >
+                        {activeStep === steps.length - 1
+                          ? "Place Booking"
+                          : "Next"}
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </>
+            </Paper>
+          </main>
+        </>
+      ) : (
         <Paper className={classes.paper}>
           <Typography component="h2" variant="h5" align="center">
-            BOOKING PROCESS
+            You have to Sign in to complete the booking process
           </Typography>
-          <Stepper
-            className={classes.stepper}
-            activeStep={activeStep}
-            alternativeLabel
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel
-                  StepIconProps={{
-                    classes: {
-                      root: classes.icon,
-                      active: classes.activeIcon,
-                      completed: classes.completedIcon,
-                    },
-                  }}
-                >
-                  {label}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <>
-            {activeStep === steps.length ? (
-              <>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </>
-            ) : (
-              <>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Place Booking" : "Next"}
-                  </Button>
-                </div>
-              </>
-            )}
-          </>
         </Paper>
-      </main>
+      )}
     </div>
   );
 };

@@ -43,6 +43,7 @@ export const StyledSearchButton = styled(Button)`
 `;
 
 export const StyledLink = styled(Link)`
+  margin: auto;
   text-decoration: none;
   &:focus,
   &:hover,
