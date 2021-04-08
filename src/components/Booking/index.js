@@ -12,6 +12,7 @@ import {
 import { useLocation } from "react-router";
 import { fetchProfile } from "../../store/actions/userActions";
 import BookingDuration from "./BookingDuration";
+import PetSelection from "./PetSelection";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -71,7 +72,11 @@ const Booking = () => {
   const owner = useSelector((state) => state.userReducer.profile);
   console.log("🚀 ~ owner", owner);
   const query = useSelector((state) => state.searchReducer.query);
-  const [dates, setDates] = useState({ from: query.from, to: query.to });
+  const [dates, setDates] = useState({
+    from: query.from,
+    to: query.to,
+    pet: null,
+  });
 
   useEffect(() => {
     if (user?.type === "petOwner") dispatch(fetchProfile(user.type));
@@ -97,7 +102,7 @@ const Booking = () => {
           />
         );
       case 1:
-        return "Hi";
+        return <PetSelection dates={dates} setDates={setDates} />;
       case 2:
         return "Bye";
       default:
