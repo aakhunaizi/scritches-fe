@@ -23,13 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingDuration = ({ dates, setDates, query, sitter }) => {
+const BookingDuration = ({ booking, setBooking, query, sitter }) => {
   const classes = useStyles();
 
-  console.log("🚀 ~ dates", dates);
-
   const handleChange = (event) =>
-    setDates({ ...dates, [event.target.name]: event.target.value });
+    setBooking({ ...booking, [event.target.name]: event.target.value });
 
   sitter.schedule.sort((a, b) => {
     if (a.date < b.date) return -1;
@@ -43,7 +41,7 @@ const BookingDuration = ({ dates, setDates, query, sitter }) => {
     </MenuItem>
   ));
   const toList = fromList.filter(
-    (schedule) => schedule.props.value >= dates.from
+    (schedule) => schedule.props.value >= booking.from
   );
 
   return (

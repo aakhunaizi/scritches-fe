@@ -16,25 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PetSelection = ({ dates, setDates }) => {
+const PetSelection = ({ booking, setBooking, pet, setPet }) => {
   const pets = useSelector((state) => state.petReducer.pets);
 
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   if (!pets) return <Loading />;
-  const handleListItemClick = (event, index, petId) => {
+  const handleListItemClick = (event, index, selectedPet) => {
     setSelectedIndex(index);
-    setDates({ ...dates, pet: petId });
+    setPet(selectedPet);
+    setBooking({ ...booking, petId: selectedPet.id });
   };
 
   const petsList = pets.map((pet, index) => (
-    <Paper variant="outlined">
+    <Paper key={pet.id} variant="outlined">
       <ListItem
-        key={pet.id}
         button
         selected={selectedIndex === index}
-        onClick={(event) => handleListItemClick(event, index, pet.id)}
+        onClick={(event) => handleListItemClick(event, index, pet)}
       >
         <ListItemIcon>
           <Avatar alt={pet.name} src={pet.image} />
