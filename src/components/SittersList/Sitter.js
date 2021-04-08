@@ -50,9 +50,11 @@ const Sitter = ({ sitter, theme }) => {
           </CardActionArea>
         </StyledLink>
         <CardActions>
-          <StyledBookButton variant="outlined" color="inherit" theme={theme}>
-            Book
-          </StyledBookButton>
+          <StyledLink to={{ pathname: "/booking", state: { sitter: sitter } }}>
+            <StyledBookButton variant="outlined" color="inherit" theme={theme}>
+              Book
+            </StyledBookButton>
+          </StyledLink>
         </CardActions>
       </Card>
     </Grid>
