@@ -102,3 +102,8 @@ export const StyledUploadButton = styled(Button)`
     color: white;
   }
 `;
+
+export const ScheduleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

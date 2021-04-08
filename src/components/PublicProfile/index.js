@@ -4,10 +4,9 @@ import { Helmet } from "react-helmet-async";
 
 // Styling
 import { Grid, useTheme } from "@material-ui/core";
-import { StyledPaperMargin, StyledProfile } from "./styles";
+import { ScheduleContainer, StyledPaperMargin, StyledProfile } from "./styles";
 
 // Components
-import Loading from "../Loading";
 import UserData from "./UserData";
 import SitterData from "./SitterData";
 import SitterSchedule from "./SitterSchedule";
@@ -44,14 +43,9 @@ const PublicProfile = () => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <StyledPaperMargin>
-              <SitterData sitter={sitter} />
-            </StyledPaperMargin>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} justify="center">
-          <Grid item xs={12} sm={8}>
-            <StyledPaperMargin>
-              <SitterSchedule />
+              <ScheduleContainer>
+                <SitterSchedule theme={theme} />
+              </ScheduleContainer>
             </StyledPaperMargin>
           </Grid>
         </Grid>
