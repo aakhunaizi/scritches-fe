@@ -44,7 +44,7 @@ const PublicProfile = () => {
           <Grid item xs={12} sm={4}>
             <StyledPaperMargin>
               <ScheduleContainer>
-                <SitterSchedule theme={theme} />
+                <SitterSchedule sitter={sitter} />
               </ScheduleContainer>
             </StyledPaperMargin>
           </Grid>

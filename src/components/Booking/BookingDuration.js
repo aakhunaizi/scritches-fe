@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
@@ -11,6 +10,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { Avatar, Grid, MenuItem, TextField } from "@material-ui/core";
+import SitterSchedule from "../PublicProfile/SitterSchedule";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,13 +23,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingDuration = ({ query, sitter }) => {
+const BookingDuration = ({ dates, setDates, query, sitter }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  console.log("🚀 ~ dates", dates);
+
+  const handleChange = (event) =>
+    setDates({ ...dates, [event.target.name]: event.target.value });
+
+  sitter.schedule.sort((a, b) => {
+    if (a.date < b.date) return -1;
+    if (a.date > b.date) return 1;
+    return 0;
+  });
+
+  const fromList = sitter.schedule.map((schedule) => (
+    <MenuItem key={schedule.date} value={schedule.date}>
+      {schedule.date}
+    </MenuItem>
+  ));
+  const toList = fromList.filter(
+    (schedule) => schedule.props.value >= dates.from
+  );
 
   return (
     <Grid container justify="center" spacing={3}>
@@ -98,19 +113,36 @@ const BookingDuration = ({ query, sitter }) => {
         </List>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Country"
-            name="country"
-            variant="outlined"
-            defaultValue={query.country}
-            //   onChange={handleChange}
-            required
-            fullWidth
-            select
-          >
-            <MenuItem value={"1"}>{"1"}</MenuItem>
-          </TextField>
+        <Grid container justify="center" spacing={1}>
+          <SitterSchedule sitter={sitter} />
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="From"
+              name="from"
+              variant="outlined"
+              defaultValue={query.from}
+              onChange={handleChange}
+              required
+              fullWidth
+              select
+            >
+              {fromList}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="To"
+              name="to"
+              variant="outlined"
+              defaultValue={query.to}
+              onChange={handleChange}
+              required
+              fullWidth
+              select
+            >
+              {toList}
+            </TextField>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

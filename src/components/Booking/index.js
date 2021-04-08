@@ -71,6 +71,7 @@ const Booking = () => {
   const owner = useSelector((state) => state.userReducer.profile);
   console.log("🚀 ~ owner", owner);
   const query = useSelector((state) => state.searchReducer.query);
+  const [dates, setDates] = useState({ from: query.from, to: query.to });
 
   useEffect(() => {
     if (user?.type === "petOwner") dispatch(fetchProfile(user.type));
@@ -87,7 +88,14 @@ const Booking = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <BookingDuration query={query} sitter={sitter} />;
+        return (
+          <BookingDuration
+            dates={dates}
+            setDates={setDates}
+            query={query}
+            sitter={sitter}
+          />
+        );
       case 1:
         return "Hi";
       case 2:
@@ -150,6 +158,7 @@ const Booking = () => {
                         color="primary"
                         onClick={handleNext}
                         className={classes.button}
+                        disabled={dates.from === "" || dates.to === ""}
                       >
                         {activeStep === steps.length - 1
                           ? "Place Booking"
