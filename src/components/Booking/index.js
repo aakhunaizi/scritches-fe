@@ -11,13 +11,15 @@ import {
 } from "@material-ui/core";
 import { useLocation } from "react-router";
 import { fetchProfile } from "../../store/actions/userActions";
+import { createBooking } from "../../store/actions/searchActions";
 import BookingDuration from "./BookingDuration";
 import PetSelection from "./PetSelection";
 import BookingSummary from "./BookingSummary";
-import Loading from "../Loading";
+import { Link } from "react-router-dom";
 import { Container, StyledImage } from "./styles";
 
 import BookedImage from "../../assets/Booked.png";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -95,9 +97,13 @@ const Booking = () => {
     }
   }, [user, dispatch]);
 
-  if (!owner) return <Loading />;
-
   const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleSubmit = () => {
+    console.log(booking);
+    dispatch(createBooking(booking));
     setActiveStep(activeStep + 1);
   };
 
@@ -112,7 +118,6 @@ const Booking = () => {
           <BookingDuration
             booking={booking}
             setBooking={setBooking}
-            query={query}
             sitter={sitter}
           />
         );
@@ -123,11 +128,23 @@ const Booking = () => {
             setBooking={setBooking}
             pet={pet}
             setPet={setPet}
+            sitterPetPref={sitter.petPref}
           />
         );
       case 2:
-        if (booking.ownerId === "")
-          setBooking({ ...booking, ownerId: owner.id });
+        if (booking.ownerId === "" || booking.total === 0)
+          setBooking({
+            ...booking,
+            ownerId: owner.id,
+            total:
+              ((moment(booking.to) - moment(booking.from)) /
+                1000 /
+                60 /
+                60 /
+                24 +
+                1) *
+              sitter.price,
+          });
         return (
           <BookingSummary
             booking={booking}
@@ -182,6 +199,26 @@ const Booking = () => {
                     <Container>
                       <StyledImage src={BookedImage} />
                     </Container>
+                    <div className={classes.buttons}>
+                      <Link to="/">
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          className={classes.button}
+                        >
+                          Home
+                        </Button>
+                      </Link>
+                      <Link to="/profile">
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          className={classes.button}
+                        >
+                          View Booking
+                        </Button>
+                      </Link>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -196,17 +233,36 @@ const Booking = () => {
                           Back
                         </Button>
                       )}
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                        disabled={booking.from === "" || booking.to === ""}
-                      >
-                        {activeStep === steps.length - 1
-                          ? "Place Booking"
-                          : "Next"}
-                      </Button>
+                      {activeStep === steps.length - 1 ? (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={handleSubmit}
+                          className={classes.button}
+                        >
+                          Place Booking
+                        </Button>
+                      ) : activeStep === 0 ? (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={handleNext}
+                          className={classes.button}
+                          disabled={booking.from === "" || booking.to === ""}
+                        >
+                          Next
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={handleNext}
+                          className={classes.button}
+                          disabled={!pet}
+                        >
+                          Next
+                        </Button>
+                      )}
                     </div>
                   </>
                 )}
