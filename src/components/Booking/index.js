@@ -8,6 +8,7 @@ import {
   Step,
   StepLabel,
   Typography,
+  useTheme,
 } from "@material-ui/core";
 import { useLocation } from "react-router";
 import { fetchProfile } from "../../store/actions/userActions";
@@ -69,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Booking = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Booking Duration", "Choose a Pet", "Booking Summary"];
@@ -119,6 +121,7 @@ const Booking = () => {
             booking={booking}
             setBooking={setBooking}
             sitter={sitter}
+            theme={theme}
           />
         );
       case 1:
