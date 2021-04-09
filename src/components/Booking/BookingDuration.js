@@ -1,34 +1,26 @@
-import { makeStyles } from "@material-ui/core/styles";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+// Styling
+import {
+  Avatar,
+  Grid,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  MenuItem,
+} from "@material-ui/core";
+import { StyledAvatar, StyledList, StyledTextField } from "./styles";
+
+// Icons
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import EmailIcon from "@material-ui/icons/Email";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PetsIcon from "@material-ui/icons/Pets";
-import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import { Avatar, Grid, MenuItem, TextField } from "@material-ui/core";
+
+// Components
 import SitterSchedule from "../PublicProfile/SitterSchedule";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-}));
-
-const BookingDuration = ({ booking, setBooking, sitter }) => {
-  const classes = useStyles();
-
-  const handleChange = (event) =>
-    setBooking({ ...booking, [event.target.name]: event.target.value });
-
+const BookingDuration = ({ booking, setBooking, sitter, theme }) => {
   sitter.schedule.sort((a, b) => {
     if (a.date < b.date) return -1;
     if (a.date > b.date) return 1;
@@ -40,15 +32,18 @@ const BookingDuration = ({ booking, setBooking, sitter }) => {
       {schedule.date}
     </MenuItem>
   ));
+
   const toList = fromList.filter(
     (schedule) => schedule.props.value >= booking.from
   );
 
+  const handleChange = (event) =>
+    setBooking({ ...booking, [event.target.name]: event.target.value });
+
   return (
     <Grid container justify="center" spacing={3}>
       <Grid item xs={12} sm={6}>
-        <List
-          className={classes.root}
+        <StyledList
           component="nav"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
@@ -67,9 +62,9 @@ const BookingDuration = ({ booking, setBooking, sitter }) => {
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Avatar>
-                <LocationOnIcon />
-              </Avatar>
+              <StyledAvatar theme={theme}>
+                <LocationOnIcon color={theme.palette.orange.main} />
+              </StyledAvatar>
             </ListItemIcon>
             <ListItemText
               primary={sitter.city.name}
@@ -78,43 +73,43 @@ const BookingDuration = ({ booking, setBooking, sitter }) => {
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Avatar>
+              <StyledAvatar theme={theme}>
                 <PetsIcon />
-              </Avatar>
+              </StyledAvatar>
             </ListItemIcon>
             <ListItemText primary={`${sitter.petPref} Sitting`} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Avatar>
+              <StyledAvatar theme={theme}>
                 <AttachMoneyIcon />
-              </Avatar>
+              </StyledAvatar>
             </ListItemIcon>
             <ListItemText primary={`${sitter.price} BHD`} secondary="per day" />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Avatar>
+              <StyledAvatar theme={theme}>
                 <PhoneIcon />
-              </Avatar>
+              </StyledAvatar>
             </ListItemIcon>
             <ListItemText primary={sitter.user.phoneNumber} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Avatar>
+              <StyledAvatar theme={theme}>
                 <EmailIcon />
-              </Avatar>
+              </StyledAvatar>
             </ListItemIcon>
             <ListItemText primary={sitter.user.email} />
           </ListItem>
-        </List>
+        </StyledList>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Grid container justify="center" spacing={1}>
           <SitterSchedule sitter={sitter} />
-          <Grid item xs={12} sm={6}>
-            <TextField
+          <Grid item xs={12} sm={8}>
+            <StyledTextField
               label="From"
               name="from"
               variant="outlined"
@@ -123,12 +118,11 @@ const BookingDuration = ({ booking, setBooking, sitter }) => {
               required
               fullWidth
               select
+              style={{ marginBottom: "8%" }}
             >
               {fromList}
-            </TextField>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
+            </StyledTextField>
+            <StyledTextField
               label="To"
               name="to"
               variant="outlined"
@@ -139,7 +133,7 @@ const BookingDuration = ({ booking, setBooking, sitter }) => {
               select
             >
               {toList}
-            </TextField>
+            </StyledTextField>
           </Grid>
         </Grid>
       </Grid>

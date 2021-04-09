@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { StyledBookButton, StyledProfileImage, StyledLink } from "./styles";
+
+// Icons
 import { GiCat, GiEgyptianBird, GiSittingDog } from "react-icons/gi";
 
 const Sitter = ({ sitter, theme }) => {
