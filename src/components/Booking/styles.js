@@ -13,7 +13,7 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const StyledImage = styled(Image)`
-  max-width: 50%;
+  max-width: 70%;
 `;
 
 export const StyledList = styled(List)`
@@ -22,6 +22,11 @@ export const StyledList = styled(List)`
 
 export const StyledPaper = styled(Paper)`
   padding: 3%;
+  text-align: center;
+`;
+
+export const StyledPetPaper = styled(Paper)`
+  margin: 3%;
   text-align: center;
 `;
 
