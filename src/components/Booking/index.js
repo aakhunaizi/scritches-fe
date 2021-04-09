@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+
+// Styling
 import {
-  Button,
-  makeStyles,
   Paper,
   Stepper,
   Step,
@@ -10,79 +12,41 @@ import {
   Typography,
   useTheme,
 } from "@material-ui/core";
-import { useLocation } from "react-router";
-import { fetchProfile } from "../../store/actions/userActions";
-import { createBooking } from "../../store/actions/searchActions";
+import {
+  Container,
+  StyledBackButton,
+  StyledButton,
+  StyledImage,
+  StyledLink,
+  useStyles,
+} from "./styles";
+
+// Assets
+import BookedImage from "../../assets/Booked.png";
+
+// Components
 import BookingDuration from "./BookingDuration";
 import PetSelection from "./PetSelection";
 import BookingSummary from "./BookingSummary";
-import { Link } from "react-router-dom";
-import { Container, StyledImage } from "./styles";
 
-import BookedImage from "../../assets/Booked.png";
-import moment from "moment";
-
-const useStyles = makeStyles((theme) => ({
-  layout: {
-    marginTop: theme.spacing(10),
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(800 + theme.spacing(2) * 2)]: {
-      width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-  icon: {
-    color: "#87BCDE",
-    "&$activeIcon": {
-      color: "#26658C",
-    },
-    "&$completedIcon": {
-      color: "#EB5E28",
-    },
-  },
-  activeIcon: {},
-  completedIcon: {},
-}));
+// Actions
+import { fetchProfile } from "../../store/actions/userActions";
+import { createBooking } from "../../store/actions/searchActions";
 
 const Booking = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+
   const steps = ["Booking Duration", "Choose a Pet", "Booking Summary"];
+  const [activeStep, setActiveStep] = useState(0);
+  const [pet, setPet] = useState(null);
 
   const sitter = useLocation().state.sitter;
+  const query = useSelector((state) => state.searchReducer.query);
   const user = useSelector((state) => state.userReducer.user);
   const owner = useSelector((state) => state.userReducer.profile);
 
-  const query = useSelector((state) => state.searchReducer.query);
-
-  const [pet, setPet] = useState(null);
-  console.log("🚀 ~ pet", pet);
   const [booking, setBooking] = useState({
     from: query.from,
     to: query.to,
@@ -91,7 +55,6 @@ const Booking = () => {
     petId: "",
     total: 0,
   });
-  console.log("🚀 ~ booking", booking);
 
   useEffect(() => {
     if (user?.type === "petOwner") {
@@ -106,14 +69,14 @@ const Booking = () => {
     setActiveStep(activeStep + 1);
   };
 
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
   const handleSubmit = () => {
     console.log(booking);
     dispatch(createBooking(booking));
     setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
   };
 
   const getStepContent = (step) => {
@@ -138,12 +101,10 @@ const Booking = () => {
           />
         );
       case 2:
-        if (booking.ownerId === "" || booking.total === 0)
-          setBooking({
-            ...booking,
-            ownerId: owner.id,
-            total: calculateDuration() * sitter.price,
-          });
+        if (booking.ownerId === "")
+          setBooking({ ...booking, ownerId: owner.id });
+        if (booking.total === 0)
+          setBooking({ ...booking, total: calculateDuration() * sitter.price });
         return (
           <BookingSummary
             booking={booking}
@@ -200,24 +161,26 @@ const Booking = () => {
                       <StyledImage src={BookedImage} />
                     </Container>
                     <div className={classes.buttons}>
-                      <Link to="/">
-                        <Button
-                          variant="outlined"
-                          color="primary"
+                      <StyledLink to="/">
+                        <StyledButton
                           className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
                         >
                           Home
-                        </Button>
-                      </Link>
-                      <Link to="/profile">
-                        <Button
-                          variant="outlined"
-                          color="primary"
+                        </StyledButton>
+                      </StyledLink>
+                      <StyledLink to="/profile">
+                        <StyledButton
                           className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
                         >
                           View Booking
-                        </Button>
-                      </Link>
+                        </StyledButton>
+                      </StyledLink>
                     </div>
                   </>
                 ) : (
@@ -225,43 +188,48 @@ const Booking = () => {
                     {getStepContent(activeStep)}
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (
-                        <Button
-                          variant="outlined"
-                          onClick={handleBack}
+                        <StyledBackButton
                           className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
+                          onClick={handleBack}
                         >
                           Back
-                        </Button>
+                        </StyledBackButton>
                       )}
                       {activeStep === steps.length - 1 ? (
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          onClick={handleSubmit}
+                        <StyledButton
                           className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
+                          onClick={handleSubmit}
                         >
                           Place Booking
-                        </Button>
+                        </StyledButton>
                       ) : activeStep === 0 ? (
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          onClick={handleNext}
+                        <StyledButton
                           className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
                           disabled={booking.from === "" || booking.to === ""}
-                        >
-                          Next
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="outlined"
-                          color="primary"
                           onClick={handleNext}
-                          className={classes.button}
-                          disabled={!pet}
                         >
                           Next
-                        </Button>
+                        </StyledButton>
+                      ) : (
+                        <StyledButton
+                          className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
+                          disabled={!pet}
+                          onClick={handleNext}
+                        >
+                          Next
+                        </StyledButton>
                       )}
                     </div>
                   </>

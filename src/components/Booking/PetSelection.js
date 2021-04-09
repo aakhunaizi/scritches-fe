@@ -50,23 +50,26 @@ const PetSelection = ({ booking, setBooking, pet, setPet, sitterPetPref }) => {
 
   return (
     <Grid container justify="center" spacing={3}>
-      <Grid item xs={12} sm={6}>
-        {pets.length === 0 ? (
-          <>
-            <Typography variant="button" display="block" gutterBottom>
-              You don't have any pets!{" "}
-              <Link to="/profile">Add Pets in your profile</Link>
-            </Typography>
-            <Container>
-              <StyledImage src={PlayfulCat} />
-            </Container>
-          </>
-        ) : (
-          <div>
-            <List component="nav">{petsList}</List>
-          </div>
-        )}
-      </Grid>
+      {pets.length === 0 ? (
+        <Grid item xs={12}>
+          <Typography
+            variant="button"
+            display="block"
+            align="center"
+            gutterBottom
+          >
+            You don't have any pets!{" "}
+            <Link to="/profile">Add Pets to your profile</Link>
+          </Typography>
+          <Container>
+            <StyledImage src={PlayfulCat} />
+          </Container>
+        </Grid>
+      ) : (
+        <Grid item xs={12} sm={6}>
+          <List component="nav">{petsList}</List>
+        </Grid>
+      )}
     </Grid>
   );
 };
