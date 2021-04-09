@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Image } from "react-bootstrap";
-import { Avatar, List, TextField } from "@material-ui/core";
+import { Avatar, List, Paper, TextField } from "@material-ui/core";
 
 export const Container = styled.div`
   display: flex;
@@ -18,6 +18,11 @@ export const StyledImage = styled(Image)`
 
 export const StyledList = styled(List)`
   width: 100%;
+`;
+
+export const StyledPaper = styled(Paper)`
+  padding: 3%;
+  text-align: center;
 `;
 
 export const StyledTextField = styled(TextField)`

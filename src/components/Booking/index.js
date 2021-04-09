@@ -99,6 +99,9 @@ const Booking = () => {
     }
   }, [user, dispatch]);
 
+  const calculateDuration = () =>
+    (moment(booking.to) - moment(booking.from)) / 86400000 + 1;
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -139,18 +142,12 @@ const Booking = () => {
           setBooking({
             ...booking,
             ownerId: owner.id,
-            total:
-              ((moment(booking.to) - moment(booking.from)) /
-                1000 /
-                60 /
-                60 /
-                24 +
-                1) *
-              sitter.price,
+            total: calculateDuration() * sitter.price,
           });
         return (
           <BookingSummary
             booking={booking}
+            calculateDuration={calculateDuration}
             owner={owner}
             pet={pet}
             sitter={sitter}
