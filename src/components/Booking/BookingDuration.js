@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingDuration = ({ booking, setBooking, query, sitter }) => {
+const BookingDuration = ({ booking, setBooking, sitter }) => {
   const classes = useStyles();
 
   const handleChange = (event) =>
@@ -118,7 +118,7 @@ const BookingDuration = ({ booking, setBooking, query, sitter }) => {
               label="From"
               name="from"
               variant="outlined"
-              defaultValue={query.from}
+              defaultValue={booking.from}
               onChange={handleChange}
               required
               fullWidth
@@ -132,7 +132,7 @@ const BookingDuration = ({ booking, setBooking, query, sitter }) => {
               label="To"
               name="to"
               variant="outlined"
-              defaultValue={query.to}
+              defaultValue={booking.to}
               onChange={handleChange}
               required
               fullWidth
