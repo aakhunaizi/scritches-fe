@@ -18,7 +18,6 @@ const UserInfo = ({ profile, theme, user }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log(user);
   return (
     <>
       <StyledProfileImage

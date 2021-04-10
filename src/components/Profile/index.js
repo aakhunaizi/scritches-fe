@@ -71,7 +71,7 @@ const Profile = () => {
           <Grid item xs={12} sm={8}>
             {user.type === "petSitter" && (
               <StyledPaperMargin>
-                <SitterSchedule user={user} theme={theme} sitter={profile} />
+                <SitterSchedule sitter={profile} theme={theme} />
               </StyledPaperMargin>
             )}
             <StyledPaper>
