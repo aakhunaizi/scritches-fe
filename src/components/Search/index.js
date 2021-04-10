@@ -3,9 +3,13 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 // Styling
-import { makeStyles } from "@material-ui/core/styles";
-import { Card, Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
-import { StyledSearchButton } from "./styles";
+import { Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
+import {
+  SearchContainer,
+  StyledCard,
+  StyledGrid,
+  StyledSearchButton,
+} from "./styles";
 
 // Components
 import Loading from "../Loading";
@@ -13,25 +17,10 @@ import Loading from "../Loading";
 // Actions
 import { searchSitters } from "../../store/actions/searchActions";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing(5),
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
-
 const Search = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
-  const classes = useStyles();
 
   const countries = useSelector((state) => state.locationReducer.countries);
   const services = useSelector((state) => state.petReducer.petTypes);
@@ -60,22 +49,9 @@ const Search = () => {
   };
 
   return (
-    <div className={classes.root}>
-      <Card
-        style={{
-          padding: "5%",
-          width: "80%",
-          margin: "0 auto",
-          backgroundColor: "rgba(254, 254, 253, 0.9)",
-        }}
-        className="shadow"
-      >
-        <Grid
-          container
-          spacing={3}
-          justify="center"
-          style={{ marginBottom: "1%" }}
-        >
+    <SearchContainer>
+      <StyledCard className="shadow">
+        <StyledGrid container spacing={3} justify="center">
           <Grid item xs={12} sm={4}>
             <TextField
               label="Country"
@@ -126,12 +102,12 @@ const Search = () => {
             >
               {services.map((service) => (
                 <MenuItem key={service.id} value={service.type}>
-                  {service.type}
+                  {service.type} Sitting
                 </MenuItem>
               ))}
             </TextField>
           </Grid>
-        </Grid>
+        </StyledGrid>
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} sm={4}>
             <TextField
@@ -162,12 +138,7 @@ const Search = () => {
             />
           </Grid>
         </Grid>
-        <Grid
-          container
-          spacing={3}
-          justify="center"
-          style={{ marginTop: "1%" }}
-        >
+        <StyledGrid container spacing={3} justify="center">
           <Grid item xs={12} sm={4}>
             <StyledSearchButton
               variant="outlined"
@@ -180,9 +151,9 @@ const Search = () => {
               Search
             </StyledSearchButton>
           </Grid>
-        </Grid>
-      </Card>
-    </div>
+        </StyledGrid>
+      </StyledCard>
+    </SearchContainer>
   );
 };
 

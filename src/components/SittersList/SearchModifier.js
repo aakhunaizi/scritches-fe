@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 // Styling
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid, MenuItem, TextField, useTheme } from "@material-ui/core";
-import { StyledSearchButton } from "./styles";
+import {
+  FieldContainer,
+  SearchContainer,
+  StyledGrid,
+  StyledSearchButton,
+} from "./styles";
 
 // Components
 import Loading from "../Loading";
@@ -13,25 +17,10 @@ import Loading from "../Loading";
 // Actions
 import { searchSitters } from "../../store/actions/searchActions";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing(8),
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
-
 const SearchModifier = ({ foundQuery }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
-  const classes = useStyles();
 
   const [query, setQuery] = useState(
     foundQuery ?? {
@@ -59,22 +48,9 @@ const SearchModifier = ({ foundQuery }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <div
-        style={{
-          padding: "5%",
-          width: "90%",
-          margin: "0 auto",
-          backgroundColor: "rgba(254, 254, 253, 0.9)",
-        }}
-        // className="shadow"
-      >
-        <Grid
-          container
-          spacing={3}
-          justify="center"
-          style={{ marginBottom: "1%" }}
-        >
+    <SearchContainer>
+      <FieldContainer>
+        <StyledGrid container spacing={3} justify="center">
           <Grid item xs={12} sm={2}>
             <TextField
               label="Country"
@@ -125,7 +101,7 @@ const SearchModifier = ({ foundQuery }) => {
             >
               {services.map((service) => (
                 <MenuItem key={service.id} value={service.type}>
-                  {service.type}
+                  {service.type} Sitting
                 </MenuItem>
               ))}
             </TextField>
@@ -158,13 +134,8 @@ const SearchModifier = ({ foundQuery }) => {
               }}
             />
           </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={3}
-          justify="center"
-          style={{ marginTop: "1%" }}
-        >
+        </StyledGrid>
+        <StyledGrid container spacing={3} justify="center">
           <Grid item xs={12} sm={2}>
             <StyledSearchButton
               variant="outlined"
@@ -178,9 +149,9 @@ const SearchModifier = ({ foundQuery }) => {
               Search
             </StyledSearchButton>
           </Grid>
-        </Grid>
-      </div>
-    </div>
+        </StyledGrid>
+      </FieldContainer>
+    </SearchContainer>
   );
 };
 
