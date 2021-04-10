@@ -17,10 +17,12 @@ const SittersList = () => {
   const query = useSelector((state) => state.searchReducer.query);
 
   const theme = useTheme();
+
   if (!sitters || !query) return <Loading />;
-  const sittersList = sitters.map((sitter) => (
-    <Sitter sitter={sitter} key={sitter.id} theme={theme} />
-  ));
+
+  const sittersList = sitters
+    .filter((sitter) => sitter.schedule.length > 0)
+    .map((sitter) => <Sitter sitter={sitter} key={sitter.id} theme={theme} />);
 
   return (
     <>
