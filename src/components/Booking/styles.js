@@ -16,6 +16,12 @@ export const Container = styled.div`
   margin: auto;
 `;
 
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: auto;
+`;
+
 export const StyledAvatar = styled(Avatar)`
   background-color: ${(props) => props.theme.palette.lightBlue.main};
 `;
@@ -37,6 +43,10 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledImage = styled(Image)`
+  max-width: 70%;
+`;
+
+export const StyledSigninImage = styled(Image)`
   max-width: 70%;
 `;
 

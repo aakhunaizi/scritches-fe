@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-// assets
+// Assets
 import PlayfulCat from "../../assets/PlayfulCat.png";
 
 // Components
