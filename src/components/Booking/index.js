@@ -14,15 +14,18 @@ import {
 } from "@material-ui/core";
 import {
   Container,
+  ImageContainer,
   StyledBackButton,
   StyledButton,
   StyledImage,
   StyledLink,
+  StyledSigninImage,
   useStyles,
 } from "./styles";
 
 // Assets
 import BookedImage from "../../assets/Booked.png";
+import SignIn from "../../assets/SignIn.png";
 
 // Components
 import BookingDuration from "./BookingDuration";
@@ -239,11 +242,35 @@ const Booking = () => {
           </main>
         </>
       ) : (
-        <Paper className={classes.paper}>
-          <Typography component="h2" variant="h5" align="center">
-            You have to Sign in to complete the booking process
-          </Typography>
-        </Paper>
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <ImageContainer>
+              <StyledSigninImage src={SignIn} />
+            </ImageContainer>
+            <div className={classes.buttons}>
+              <StyledLink to="/">
+                <StyledButton
+                  variant="outlined"
+                  color="inherit"
+                  theme={theme}
+                  className={classes.button}
+                >
+                  Back
+                </StyledButton>
+              </StyledLink>
+              <StyledLink to="/signin">
+                <StyledButton
+                  variant="outlined"
+                  color="inherit"
+                  theme={theme}
+                  className={classes.button}
+                >
+                  Sign In
+                </StyledButton>
+              </StyledLink>
+            </div>
+          </Paper>
+        </main>
       )}
     </div>
   );
