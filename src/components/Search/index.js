@@ -41,6 +41,26 @@ const Search = () => {
   const _country = countries.find((_country) => _country.id === query.country);
   const cities = _country ? _country.cities : null;
 
+  const countryList = countries.map((country) => (
+    <MenuItem key={country.id} value={country.id}>
+      {country.name}
+    </MenuItem>
+  ));
+
+  const cityList =
+    cities &&
+    cities.map((city) => (
+      <MenuItem key={city.id} value={city.id}>
+        {city.name}
+      </MenuItem>
+    ));
+
+  const serviceList = services.map((service) => (
+    <MenuItem key={service.id} value={service.type}>
+      {service.type} Sitting
+    </MenuItem>
+  ));
+
   const handleChange = (event) =>
     setQuery({ ...query, [event.target.name]: event.target.value });
 
@@ -63,11 +83,7 @@ const Search = () => {
               fullWidth
               select
             >
-              {countries.map((country) => (
-                <MenuItem key={country.id} value={country.id}>
-                  {country.name}
-                </MenuItem>
-              ))}
+              {countryList}
             </TextField>
           </Grid>
           {query.country !== "" && (
@@ -81,12 +97,7 @@ const Search = () => {
                 fullWidth
                 select
               >
-                {cities &&
-                  cities.map((city) => (
-                    <MenuItem key={city.id} value={city.id}>
-                      {city.name}
-                    </MenuItem>
-                  ))}
+                {cityList}
               </TextField>
             </Grid>
           )}
@@ -100,11 +111,7 @@ const Search = () => {
               fullWidth
               select
             >
-              {services.map((service) => (
-                <MenuItem key={service.id} value={service.type}>
-                  {service.type} Sitting
-                </MenuItem>
-              ))}
+              {serviceList}
             </TextField>
           </Grid>
         </StyledGrid>
