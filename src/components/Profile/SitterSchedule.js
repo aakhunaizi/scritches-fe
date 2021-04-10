@@ -1,65 +1,130 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 // Styling
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { useTheme } from "@material-ui/core";
-import { BsCalendar } from "react-icons/bs";
-import { StyledEditButton, StyledAddButtonFloat, StyledAvatar } from "./styles";
+import "react-day-picker/lib/style.css";
+import DayPicker from "react-day-picker";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import { Grid, MenuItem, TextField, Typography } from "@material-ui/core";
+import { StyledAddButtonMargin, StyledGrid, StyledIcon } from "./styles";
 
-// Dummy data
+// Components
+import Loading from "../Loading";
 
-function createData(from, to, options) {
-  return { from, to, options };
-}
+// Actions
+import { addDate, deleteDate } from "../../store/actions/scheduleActions";
 
-const SitterSchedule = ({ user, sitter }) => {
-  const theme = useTheme();
-  const rows = [
-    createData(
-      "2020-03-22",
-      "2020-03-23",
-      <StyledEditButton variant="outlined" color="inherit" theme={theme}>
-        Edit
-      </StyledEditButton>
-    ),
-  ];
+const SitterSchedule = ({ sitter, theme }) => {
+  const dispatch = useDispatch();
+
+  const style = `.DayPicker-Day--highlighted {
+    background-color: ${theme.palette.orange.main};
+    color: white;
+  }`;
+
+  const schedule = useSelector((state) => state.scheduleReducer.schedule);
+  console.log("🚀 ~ schedule", schedule);
+
+  const [dates, setDates] = useState({ addDate: null, deleteDate: null });
+  console.log("🚀 ~ dates", dates);
+
+  if (!sitter || !schedule) return <Loading />;
+
+  const handleChange = (event) =>
+    setDates({ ...dates, [event.target.name]: event.target.value });
+
+  const handleDayChange = (day) => {
+    setDates({ ...dates, addDate: day.toISOString().slice(0, 10) });
+  };
+
+  const handleAdd = () => {
+    dispatch(addDate(sitter.id, dates.addDate));
+    setDates({ ...dates, addDate: null });
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteDate(dates.deleteDate));
+    setDates({ ...dates, deleteDate: null });
+  };
+
+  const modifiers = {
+    highlighted: schedule.map((item) => new Date(item.date)),
+  };
+
+  schedule.sort((a, b) => {
+    if (a.date < b.date) return -1;
+    if (a.date > b.date) return 1;
+    return 0;
+  });
+
+  const datesList = schedule.map((item) => (
+    <MenuItem key={item.id} value={item.id}>
+      {item.date}
+    </MenuItem>
+  ));
+
   return (
     <>
-      {user.type === "petSitter" && (
-        <StyledAddButtonFloat variant="outlined" color="inherit" theme={theme}>
-          Add
-        </StyledAddButtonFloat>
-      )}
-      <StyledAvatar theme={theme}>
-        <BsCalendar />
-      </StyledAvatar>
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>From</TableCell>
-              <TableCell>To</TableCell>
-              {user.type === "petSitter" && <TableCell>Options</TableCell>}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.from}
-                </TableCell>
-                <TableCell>{row.to}</TableCell>
-                {user.type === "petSitter" && (
-                  <TableCell>{row.options}</TableCell>
-                )}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Grid container alignContent="center">
+        <StyledGrid item xs={12} sm={4}>
+          <Typography>
+            <StyledIcon theme={theme} />
+            Available Dates
+          </Typography>
+          <style>{style}</style>
+          <DayPicker modifiers={modifiers} showOutsideDays />
+        </StyledGrid>
+        <StyledGrid item xs={12} sm={4}>
+          <Grid item xs={12}>
+            <TextField
+              label="Delete Date"
+              name="deleteDate"
+              variant="outlined"
+              onChange={handleChange}
+              fullWidth
+              select
+            >
+              {datesList}
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <StyledAddButtonMargin
+              variant="outlined"
+              color="inherit"
+              theme={theme}
+              onClick={handleDelete}
+              disabled={!dates.deleteDate}
+            >
+              Delete
+            </StyledAddButtonMargin>
+          </Grid>
+          <Grid item xs={12}>
+            <DayPickerInput
+              value={dates.addDate}
+              placeholder="Add Date"
+              onDayChange={(day) => handleDayChange(day)}
+              inputProps={{ style: { height: 55 } }}
+              dayPickerProps={{
+                disabledDays: [
+                  { before: new Date() },
+                  ...modifiers.highlighted,
+                ],
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <StyledAddButtonMargin
+              variant="outlined"
+              color="inherit"
+              theme={theme}
+              onClick={handleAdd}
+              disabled={!dates.addDate}
+            >
+              Add
+            </StyledAddButtonMargin>
+          </Grid>
+        </StyledGrid>
+      </Grid>
     </>
   );
 };
