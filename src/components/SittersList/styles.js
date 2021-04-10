@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import { Button, Card, Grid } from "@material-ui/core";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -53,4 +53,28 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
     color: inherit;
   }
+`;
+
+export const StyledGrid = styled(Grid)`
+  margin-bottom: 1%;
+`;
+
+export const StyledCard = styled(Card)`
+  padding: 5%;
+  width: 80%;
+  margin: auto;
+  background-color: rgba(254, 254, 253, 0.9);
+`;
+
+export const SearchContainer = styled.div`
+  margin-top: 5em;
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-bottom: -4%;
+`;
+
+export const FieldContainer = styled.div`
+  padding: 5%;
+  width: 90%;
+  margin: auto;
 `;
