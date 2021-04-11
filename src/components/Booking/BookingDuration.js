@@ -18,7 +18,7 @@ import PetsIcon from "@material-ui/icons/Pets";
 import PhoneIcon from "@material-ui/icons/Phone";
 
 // Components
-import SitterSchedule from "../PublicProfile/SitterSchedule";
+import Schedule from "../SitterPublicProfile/Schedule";
 
 const BookingDuration = ({ booking, setBooking, sitter, theme }) => {
   sitter.schedule.sort((a, b) => {
@@ -107,7 +107,9 @@ const BookingDuration = ({ booking, setBooking, sitter, theme }) => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <Grid container justify="center" spacing={1}>
-          <SitterSchedule sitter={sitter} />
+          <Grid item xs={12} sm={9}>
+            <Schedule sitter={sitter} theme={theme} type="duration" />
+          </Grid>
           <Grid item xs={12} sm={8}>
             <StyledTextField
               label="From"

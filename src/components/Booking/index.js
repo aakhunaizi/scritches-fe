@@ -77,7 +77,6 @@ const Booking = () => {
   };
 
   const handleSubmit = () => {
-    console.log(booking);
     dispatch(createBooking(booking));
     setActiveStep(activeStep + 1);
   };
