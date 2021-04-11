@@ -118,30 +118,32 @@ const Search = () => {
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} sm={4}>
             <TextField
-              variant="outlined"
-              fullWidth
               label="From"
-              type="date"
-              onChange={handleChange}
               name="from"
-              defaultValue={query.from === "" ? new Date() : query.from}
-              InputLabelProps={{
-                shrink: true,
+              type="date"
+              variant="outlined"
+              onChange={handleChange}
+              defaultValue={query.from === "" ? "" : query.from}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: { min: new Date().toISOString().slice(0, 10) },
               }}
+              fullWidth
             />
           </Grid>
           <Grid item xs={12} sm={4}>
             <TextField
-              variant="outlined"
-              fullWidth
               label="To"
-              type="date"
-              defaultValue={query.to === "" ? new Date() : query.to}
-              onChange={handleChange}
               name="to"
-              InputLabelProps={{
-                shrink: true,
+              type="date"
+              variant="outlined"
+              defaultValue={query.to === "" ? "" : query.to}
+              onChange={handleChange}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: { min: new Date().toISOString().slice(0, 10) },
               }}
+              fullWidth
             />
           </Grid>
         </Grid>
@@ -151,9 +153,9 @@ const Search = () => {
               variant="outlined"
               color="inherit"
               theme={theme}
-              fullWidth
               onClick={handleSubmit}
               disabled={query.country === ""}
+              fullWidth
             >
               Search
             </StyledSearchButton>

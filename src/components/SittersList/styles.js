@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Card, Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -9,16 +9,27 @@ export const Container = styled.div`
   text-align: center;
 `;
 
+export const FieldContainer = styled.div`
+  padding: 5%;
+  width: 90%;
+  margin: auto;
+`;
+
 export const NoResultsContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: auto;
 `;
 
-export const StyledProfileImage = styled(Image)`
-  width: 150px;
-  height: 150px;
-  margin: 5%;
+export const NoResultsImage = styled(Image)`
+  max-width: 40%;
+`;
+
+export const SearchContainer = styled.div`
+  margin-top: 5em;
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-bottom: -4%;
 `;
 
 export const StyledBookButton = styled(Button)`
@@ -29,17 +40,8 @@ export const StyledBookButton = styled(Button)`
     color: white;
   }
 `;
-
-export const NoResultsImage = styled(Image)`
-  max-width: 40%;
-`;
-
-export const StyledSearchButton = styled(Button)`
-  color: ${(props) => props.theme.palette.orange.main};
-  &:hover {
-    background-color: ${(props) => props.theme.palette.orange.main};
-    color: white;
-  }
+export const StyledGrid = styled(Grid)`
+  margin-bottom: 1%;
 `;
 
 export const StyledLink = styled(Link)`
@@ -55,26 +57,16 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const StyledGrid = styled(Grid)`
-  margin-bottom: 1%;
+export const StyledProfileImage = styled(Image)`
+  width: 150px;
+  height: 150px;
+  margin: 5%;
 `;
 
-export const StyledCard = styled(Card)`
-  padding: 5%;
-  width: 80%;
-  margin: auto;
-  background-color: rgba(254, 254, 253, 0.9);
-`;
-
-export const SearchContainer = styled.div`
-  margin-top: 5em;
-  margin-left: 3em;
-  margin-right: 3em;
-  margin-bottom: -4%;
-`;
-
-export const FieldContainer = styled.div`
-  padding: 5%;
-  width: 90%;
-  margin: auto;
+export const StyledSearchButton = styled(Button)`
+  color: ${(props) => props.theme.palette.orange.main};
+  &:hover {
+    background-color: ${(props) => props.theme.palette.orange.main};
+    color: white;
+  }
 `;

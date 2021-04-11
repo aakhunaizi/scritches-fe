@@ -40,6 +40,26 @@ const SearchModifier = ({ foundQuery }) => {
   const _country = countries.find((_country) => _country.id === query.country);
   const cities = _country ? _country.cities : null;
 
+  const countryList = countries.map((country) => (
+    <MenuItem key={country.id} value={country.id}>
+      {country.name}
+    </MenuItem>
+  ));
+
+  const cityList =
+    cities &&
+    cities.map((city) => (
+      <MenuItem key={city.id} value={city.id}>
+        {city.name}
+      </MenuItem>
+    ));
+
+  const serviceList = services.map((service) => (
+    <MenuItem key={service.id} value={service.type}>
+      {service.type} Sitting
+    </MenuItem>
+  ));
+
   const handleChange = (event) =>
     setQuery({ ...query, [event.target.name]: event.target.value });
 
@@ -51,7 +71,7 @@ const SearchModifier = ({ foundQuery }) => {
     <SearchContainer>
       <FieldContainer>
         <StyledGrid container spacing={3} justify="center">
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={4} md={4} lg={2}>
             <TextField
               label="Country"
               name="country"
@@ -62,15 +82,11 @@ const SearchModifier = ({ foundQuery }) => {
               fullWidth
               select
             >
-              {countries.map((country) => (
-                <MenuItem key={country.id} value={country.id}>
-                  {country.name}
-                </MenuItem>
-              ))}
+              {countryList}
             </TextField>
           </Grid>
           {query.country !== "" && (
-            <Grid item xs={12} sm={2}>
+            <Grid item xs={12} sm={4} md={4} lg={2}>
               <TextField
                 label="City"
                 name="city"
@@ -80,16 +96,11 @@ const SearchModifier = ({ foundQuery }) => {
                 fullWidth
                 select
               >
-                {cities &&
-                  cities.map((city) => (
-                    <MenuItem key={city.id} value={city.id}>
-                      {city.name}
-                    </MenuItem>
-                  ))}
+                {cityList}
               </TextField>
             </Grid>
           )}
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={4} md={4} lg={2}>
             <TextField
               label="Service"
               name="petPref"
@@ -99,39 +110,37 @@ const SearchModifier = ({ foundQuery }) => {
               fullWidth
               select
             >
-              {services.map((service) => (
-                <MenuItem key={service.id} value={service.type}>
-                  {service.type} Sitting
-                </MenuItem>
-              ))}
+              {serviceList}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={5} md={4} lg={2}>
             <TextField
-              variant="outlined"
-              fullWidth
               label="From"
-              type="date"
-              onChange={handleChange}
               name="from"
-              defaultValue={query.from === "" ? new Date() : query.from}
-              InputLabelProps={{
-                shrink: true,
+              type="date"
+              variant="outlined"
+              onChange={handleChange}
+              defaultValue={query.from === "" ? "" : query.from}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: { min: new Date().toISOString().slice(0, 10) },
               }}
+              fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={5} md={4} lg={2}>
             <TextField
-              variant="outlined"
-              fullWidth
               label="To"
-              type="date"
-              defaultValue={query.to === "" ? new Date() : query.to}
-              onChange={handleChange}
               name="to"
-              InputLabelProps={{
-                shrink: true,
+              type="date"
+              variant="outlined"
+              defaultValue={query.to === "" ? "" : query.to}
+              onChange={handleChange}
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: { min: new Date().toISOString().slice(0, 10) },
               }}
+              fullWidth
             />
           </Grid>
         </StyledGrid>
@@ -140,11 +149,11 @@ const SearchModifier = ({ foundQuery }) => {
             <StyledSearchButton
               variant="outlined"
               color="inherit"
-              size="large"
               theme={theme}
-              fullWidth
+              size="large"
               onClick={handleSubmit}
               disabled={query.country === ""}
+              fullWidth
             >
               Search
             </StyledSearchButton>
