@@ -1,10 +1,13 @@
 import * as types from "../actions/types";
 
+// Icons
+import { GiCat, GiEgyptianBird, GiSittingDog } from "react-icons/gi";
+
 const initialState = {
   petTypes: [
-    { id: 1, type: "Dog" },
-    { id: 2, type: "Cat" },
-    { id: 3, type: "Bird" },
+    { id: 1, type: "Dog", emoji: <GiSittingDog /> },
+    { id: 2, type: "Cat", emoji: <GiCat /> },
+    { id: 3, type: "Bird", emoji: <GiEgyptianBird /> },
   ],
   pets: [],
 };

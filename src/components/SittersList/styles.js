@@ -40,6 +40,7 @@ export const StyledBookButton = styled(Button)`
     color: white;
   }
 `;
+
 export const StyledGrid = styled(Grid)`
   margin-bottom: 1%;
 `;
