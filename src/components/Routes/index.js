@@ -7,7 +7,7 @@ import SignIn from "../Authentication/Signin";
 import Profile from "../Profile";
 import NotFound from "../NotFound";
 import SittersList from "../SittersList";
-import PublicProfile from "../PublicProfile";
+import SitterPublicProfile from "../SitterPublicProfile";
 import Booking from "../Booking";
 
 const Routes = () => {
@@ -38,7 +38,7 @@ const Routes = () => {
       </Route>
 
       <Route path="/sitters/:username">
-        <PublicProfile />
+        <SitterPublicProfile />
       </Route>
 
       <Route exact path="/">
