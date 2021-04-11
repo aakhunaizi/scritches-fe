@@ -22,11 +22,8 @@ const SitterSchedule = ({ sitter, theme }) => {
     color: white;
   }`;
 
-  const schedule = useSelector((state) => state.scheduleReducer.schedule);
-  console.log("🚀 ~ schedule", schedule);
-
   const [dates, setDates] = useState({ addDate: null, deleteDate: null });
-  console.log("🚀 ~ dates", dates);
+  const schedule = useSelector((state) => state.scheduleReducer.schedule);
 
   if (!sitter || !schedule) return <Loading />;
 
