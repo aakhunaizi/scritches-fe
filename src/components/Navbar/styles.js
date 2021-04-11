@@ -44,6 +44,7 @@ export const StyledLabel = styled.label`
 
 export const StyledTitle = styled(Typography)`
   flex-grow: 1;
+  margin-left: 1.5%;
 `;
 
 export const useStyles = makeStyles(() => ({
