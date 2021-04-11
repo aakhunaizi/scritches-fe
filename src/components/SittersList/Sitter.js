@@ -42,9 +42,8 @@ const Sitter = ({ sitter, theme }) => {
                 {serviceEmoji()}
               </Typography>
               <Typography variant="h6" component="p">
-                {sitter.price} BHD
+                {sitter.price} BHD{" "}
                 <Typography variant="caption" color="textSecondary">
-                  {" "}
                   (per day)
                 </Typography>
               </Typography>
