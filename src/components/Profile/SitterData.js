@@ -77,14 +77,16 @@ const SitterData = ({ theme, sitter, userId }) => {
           )}
         </Grid>
       </Grid>
-      <StyledEditButtonMargin
-        variant="outlined"
-        color="inherit"
-        theme={theme}
-        onClick={handleShow}
-      >
-        Edit
-      </StyledEditButtonMargin>
+      {userId && (
+        <StyledEditButtonMargin
+          variant="outlined"
+          color="inherit"
+          theme={theme}
+          onClick={handleShow}
+        >
+          Edit
+        </StyledEditButtonMargin>
+      )}
       <StyledModal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Profile</Modal.Title>

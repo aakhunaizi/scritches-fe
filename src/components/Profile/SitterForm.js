@@ -25,9 +25,9 @@ const SitterForm = ({
   );
 
   const countries = useSelector((state) => state.locationReducer.countries);
-  const pets = useSelector((state) => state.petReducer.petTypes);
+  const services = useSelector((state) => state.petReducer.petTypes);
 
-  if (!countries || !pets) return <Loading />;
+  if (!countries || !services) return <Loading />;
 
   const foundCountry = countries.find((_country) => _country.id === country);
   const citiesList = !foundCountry
@@ -53,7 +53,7 @@ const SitterForm = ({
     </MenuItem>
   ));
 
-  const petsList = pets.map((pet) => (
+  const serviceList = services.map((pet) => (
     <MenuItem key={pet.id} value={pet.type}>
       {pet.type} Sitting
     </MenuItem>
@@ -109,7 +109,7 @@ const SitterForm = ({
             fullWidth
             select
           >
-            {petsList}
+            {serviceList}
           </TextField>
         </Grid>
         <Grid item xs={12}>

@@ -12,7 +12,7 @@ import {
 // Components
 import UserForm from "./UserForm";
 
-const UserInfo = ({ profile, theme, user }) => {
+const UserInfo = ({ profile, theme, user, type }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -56,14 +56,16 @@ const UserInfo = ({ profile, theme, user }) => {
           </Typography>
         </Grid>
       </Grid>
-      <StyledEditButtonMargin
-        variant="outlined"
-        color="inherit"
-        theme={theme}
-        onClick={handleShow}
-      >
-        Edit
-      </StyledEditButtonMargin>
+      {!type && (
+        <StyledEditButtonMargin
+          variant="outlined"
+          color="inherit"
+          theme={theme}
+          onClick={handleShow}
+        >
+          Edit
+        </StyledEditButtonMargin>
+      )}
 
       <StyledModal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

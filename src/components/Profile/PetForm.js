@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Styling
 import { Modal } from "react-bootstrap";
@@ -9,10 +9,22 @@ import { StyledAddButton, StyledModal, StyledUploadButton } from "./styles";
 // Actions
 import { addPet, updatePet } from "../../store/actions/petActions";
 
+// Components
+import Loading from "../Loading";
+
 const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
   const dispatch = useDispatch();
 
   const [pet, setPet] = useState(foundPet ?? { name: "", type: "", image: "" });
+  const services = useSelector((state) => state.petReducer.petTypes);
+
+  if (!services) return <Loading />;
+
+  const serviceList = services.map((service) => (
+    <MenuItem key={service.id} value={service.type}>
+      {service.type}
+    </MenuItem>
+  ));
 
   const handleChange = (event) =>
     setPet({ ...pet, [event.target.name]: event.target.value });
@@ -58,12 +70,7 @@ const PetForm = ({ handleClose, ownerId, foundPet, show, theme, type }) => {
                 required
                 select
               >
-                <MenuItem key={pet.type} value="Cat">
-                  Cat
-                </MenuItem>
-                <MenuItem key={pet.type} value="Dog">
-                  Dog
-                </MenuItem>
+                {serviceList}
               </TextField>
             </Grid>
             <Grid item xs={12}>

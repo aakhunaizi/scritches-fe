@@ -106,6 +106,13 @@ export const StyledSaveButton = styled(Button)`
   }
 `;
 
+export const StyledSchedule = (theme) => `
+  .DayPicker-Day--highlighted {
+    background-color: ${theme.palette.orange.main};
+    color: white;
+  }
+`;
+
 export const StyledTypography = styled(Typography)`
   word-wrap: break-word;
 `;
