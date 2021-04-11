@@ -2,7 +2,7 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 // Styling
-import { Button, Toolbar, useTheme } from "@material-ui/core";
+import { Avatar, Button, Toolbar, useTheme } from "@material-ui/core";
 import { AiOutlineLogout } from "react-icons/ai";
 import {
   LogoLink,
@@ -13,6 +13,9 @@ import {
   StyledTitle,
   useStyles,
 } from "./styles";
+
+// Assets
+import LogoImage from "../../assets/Logo.png";
 
 // Actions
 import { signout } from "../../store/actions/userActions";
@@ -34,9 +37,10 @@ const Navbar = () => {
     <div className={classes.root}>
       <StyledAppBar elevation={0} theme={theme}>
         <Toolbar>
-          <StyledTitle variant="h6">
-            <LogoLink to="/">Scritches</LogoLink>
-          </StyledTitle>
+          <LogoLink to="/">
+            <Avatar alt="Scritches" src={LogoImage} />
+          </LogoLink>
+          <StyledTitle variant="h6">Scritches</StyledTitle>
 
           {user ? (
             <>

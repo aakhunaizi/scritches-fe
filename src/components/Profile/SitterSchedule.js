@@ -6,7 +6,12 @@ import "react-day-picker/lib/style.css";
 import DayPicker from "react-day-picker";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { Grid, MenuItem, TextField, Typography } from "@material-ui/core";
-import { StyledAddButtonMargin, StyledGrid, StyledIcon } from "./styles";
+import {
+  StyledAddButtonMargin,
+  StyledGrid,
+  StyledIcon,
+  StyledSchedule,
+} from "./styles";
 
 // Components
 import Loading from "../Loading";
@@ -16,11 +21,6 @@ import { addDate, deleteDate } from "../../store/actions/scheduleActions";
 
 const SitterSchedule = ({ sitter, theme }) => {
   const dispatch = useDispatch();
-
-  const style = `.DayPicker-Day--highlighted {
-    background-color: ${theme.palette.orange.main};
-    color: white;
-  }`;
 
   const [dates, setDates] = useState({ addDate: null, deleteDate: null });
   const schedule = useSelector((state) => state.scheduleReducer.schedule);
@@ -68,7 +68,7 @@ const SitterSchedule = ({ sitter, theme }) => {
             <StyledIcon theme={theme} />
             Available Dates
           </Typography>
-          <style>{style}</style>
+          <style>{StyledSchedule(theme)}</style>
           <DayPicker modifiers={modifiers} showOutsideDays />
         </StyledGrid>
         <StyledGrid item xs={12} sm={4}>

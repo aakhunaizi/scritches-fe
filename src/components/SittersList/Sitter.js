@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 // Styling
 import {
   Card,
@@ -9,20 +11,28 @@ import {
 } from "@material-ui/core";
 import { StyledBookButton, StyledProfileImage, StyledLink } from "./styles";
 
-// Icons
-import { GiCat, GiEgyptianBird, GiSittingDog } from "react-icons/gi";
+// Components
+import Loading from "../Loading";
 
 const Sitter = ({ sitter, theme }) => {
+  const services = useSelector((state) => state.petReducer.petTypes);
+
+  if (!services) return <Loading />;
+
   const serviceEmoji = () => {
-    if (sitter.petPref === "Cat") return <GiCat />;
-    else if (sitter.petPref === "Dog") return <GiSittingDog />;
-    else if (sitter.petPref === "Bird") return <GiEgyptianBird />;
+    const pet = services.find((item) => item.type === sitter.petPref);
+    return pet.emoji;
   };
 
   return (
     <Grid item xs={12} sm={4} md={3} lg={2}>
       <Card>
-        <StyledLink to={`/sitters/${sitter.user.username}`}>
+        <StyledLink
+          to={{
+            pathname: `/sitters/${sitter.user.username}`,
+            state: { sitter: sitter },
+          }}
+        >
           <CardActionArea>
             <StyledProfileImage
               src={
