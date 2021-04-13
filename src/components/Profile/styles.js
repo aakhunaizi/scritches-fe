@@ -7,8 +7,10 @@ import {
   Divider,
   Typography,
   Grid,
+  Chip,
 } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 export const StyledAddButton = styled(Button)`
   color: ${(props) => props.theme.palette.orange.main};
@@ -124,4 +126,13 @@ export const StyledUploadButton = styled(Button)`
     background-color: ${(props) => props.theme.palette.orange.main};
     color: white;
   }
+`;
+
+export const StyledChip = styled(Chip)`
+  background-color: ${(props) => props.customColor};
+  color: white;
+`;
+
+export const StyledArrowDropDown = styled(ArrowDropDownIcon)`
+  cursor: pointer;
 `;

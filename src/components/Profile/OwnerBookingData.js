@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 // Styling
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -5,51 +7,60 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { StyledAvatar, StyledDetailsButton } from "./styles";
+import {
+  StyledArrowDropDown,
+  StyledAvatar,
+  StyledChip,
+  StyledDetailsButton,
+} from "./styles";
 import { FaCalendarCheck } from "react-icons/fa";
 
-// Dummy data
-
-function createData(
-  reference,
-  petName,
-  sitterName,
-  from,
-  to,
-  price,
-  status,
-  options
-) {
-  return { reference, petName, sitterName, from, to, price, status, options };
-}
-
 const OwnerBookingData = ({ theme }) => {
-  const rows = [
-    createData(
-      "32",
-      "Oreo",
-      "Hamza",
-      "2020-03-22",
-      "2020-03-23",
-      "7 BHD",
-      "Completed",
-      <StyledDetailsButton variant="outlined" color="inherit" theme={theme}>
-        Details
-      </StyledDetailsButton>
-    ),
-    createData(
-      "58",
-      "Oreo",
-      "Hamza",
-      "2020-03-27",
-      "2020-03-31",
-      "25 BHD",
-      "In Progress",
-      <StyledDetailsButton variant="outlined" color="inherit" theme={theme}>
-        Details
-      </StyledDetailsButton>
-    ),
-  ];
+  const statusColor = (bookingStatus) => {
+    switch (bookingStatus) {
+      case "Pending":
+        return theme.palette.darkGrey.light;
+      case "Confirmed":
+        return theme.palette.lightBlue.main;
+      case "In Progress":
+        return theme.palette.orange.light;
+      case "Completed":
+        return "#4CA97F";
+
+      default:
+        break;
+    }
+  };
+  const bookings = useSelector((state) => state.bookingReducer.bookings);
+
+  const bookingList = bookings.map((booking) => (
+    <TableRow key={booking.id}>
+      <TableCell component="th" scope="row">
+        {booking.id}
+      </TableCell>
+      <TableCell>{booking.pet.name}</TableCell>
+      <TableCell>
+        {booking.sitter.user.firstName} {booking.sitter.user.lastName}
+      </TableCell>
+      <TableCell>{booking.from}</TableCell>
+      <TableCell>{booking.to}</TableCell>
+      <TableCell>{booking.total} BHD</TableCell>
+      <TableCell>
+        <StyledChip
+          label={booking.status}
+          color="inherit"
+          customColor={statusColor(booking.status)}
+        />
+        <StyledArrowDropDown />
+      </TableCell>
+      <TableCell>
+        <StyledDetailsButton variant="outlined" color="inherit" theme={theme}>
+          Details
+        </StyledDetailsButton>
+      </TableCell>
+    </TableRow>
+  ));
+
   return (
     <>
       <StyledAvatar theme={theme}>
@@ -69,22 +80,7 @@ const OwnerBookingData = ({ theme }) => {
               <TableCell>Options</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.reference}
-                </TableCell>
-                <TableCell>{row.petName}</TableCell>
-                <TableCell>{row.sitterName}</TableCell>
-                <TableCell>{row.from}</TableCell>
-                <TableCell>{row.to}</TableCell>
-                <TableCell>{row.price}</TableCell>
-                <TableCell>{row.status}</TableCell>
-                <TableCell>{row.options}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody>{bookingList}</TableBody>
         </Table>
       </TableContainer>
     </>
