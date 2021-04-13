@@ -1,3 +1,7 @@
+// Booking Types
+export const SET_BOOKINGS = "SET_BOOKINGS";
+export const UPDATE_BOOKING = "UPDATE_BOOKING";
+
 // Location Types
 export const FETCH_COUNTRIES = "FETCH_COUNTRIES";
 
