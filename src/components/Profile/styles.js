@@ -1,16 +1,7 @@
 import styled from "styled-components";
 import { Image, Modal } from "react-bootstrap";
-import {
-  Button,
-  Avatar,
-  Paper,
-  Divider,
-  Typography,
-  Grid,
-  Chip,
-} from "@material-ui/core";
+import { Button, Paper, Divider, Typography, Grid } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 export const StyledAddButton = styled(Button)`
   color: ${(props) => props.theme.palette.orange.main};
@@ -30,17 +21,18 @@ export const StyledAddButtonMargin = styled(Button)`
   }
 `;
 
-export const StyledArrowDropDown = styled(ArrowDropDownIcon)`
-  cursor: pointer;
+export const StyledCancelButton = styled(Button)`
+  color: ${(props) => props.theme.palette.darkGrey.light};
+  margin-right: 2%;
+  &:hover {
+    color: white;
+    background-color: ${(props) => props.theme.palette.darkGrey.light};
+  }
 `;
 
-export const StyledAvatar = styled(Avatar)`
-  background-color: ${(props) => props.theme.palette.lightBlue.main};
-`;
-
-export const StyledChip = styled(Chip)`
-  background-color: ${(props) => props.custom};
-  color: white;
+export const StyledDivider = styled(Divider)`
+  margin-top: 2%;
+  margin-bottom: 2%;
 `;
 
 export const StyledEditButton = styled(Button)`
@@ -58,19 +50,6 @@ export const StyledEditButtonMargin = styled(Button)`
     background-color: ${(props) => props.theme.palette.orange.main};
     color: white;
   }
-`;
-
-export const StyledDetailsButton = styled(Button)`
-  color: ${(props) => props.theme.palette.orange.main};
-  &:hover {
-    background-color: ${(props) => props.theme.palette.orange.main};
-    color: white;
-  }
-`;
-
-export const StyledDivider = styled(Divider)`
-  margin-top: 2%;
-  margin-bottom: 2%;
 `;
 
 export const StyledGrid = styled(Grid)`
@@ -117,9 +96,37 @@ export const StyledSaveButton = styled(Button)`
   }
 `;
 
+export const StyledSaveStatusButton = styled(Button)`
+  color: ${(props) => props.theme.palette.orange.main};
+  float: right;
+  &:hover {
+    background-color: ${(props) => props.theme.palette.orange.main};
+    color: white;
+  }
+`;
+
 export const StyledSchedule = (theme) => `
   .DayPicker-Day--highlighted {
     background-color: ${theme.palette.orange.main};
+    color: white;
+  }
+`;
+
+export const StyledStatus = styled(Button)`
+  background-color: ${(props) => props.theme};
+  color: white;
+  &:hover {
+    background-color: ${(props) => props.theme};
+    color: white;
+    cursor: default;
+  }
+`;
+
+export const StyledStatusButton = styled(Button)`
+  background-color: white;
+  color: ${(props) => props.theme};
+  &:hover {
+    background-color: ${(props) => props.theme};
     color: white;
   }
 `;

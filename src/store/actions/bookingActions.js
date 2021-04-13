@@ -16,7 +16,10 @@ export const updateBooking = (bookingId, bookingStatus) => async (dispatch) => {
     const res = await instance.put(`/bookings/${bookingId}`, {
       status: bookingStatus,
     });
-    dispatch({ type: types.UPDATE_BOOKING, payload: res.data });
+    dispatch({
+      type: types.UPDATE_BOOKING,
+      payload: { bookingId: res.data.id, status: res.data.status },
+    });
   } catch (error) {
     console.log("Error: ", error);
   }
