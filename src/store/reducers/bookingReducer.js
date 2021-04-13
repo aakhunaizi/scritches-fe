@@ -8,10 +8,15 @@ const reducer = (state = initialState, action) => {
       return { ...state, bookings: action.payload };
 
     case types.UPDATE_BOOKING:
+      const { bookingId, status } = action.payload;
+      const foundBooking = state.bookings.find(
+        (booking) => booking.id === bookingId
+      );
+      foundBooking.status = status;
       return {
         ...state,
         bookings: state.bookings.map((booking) =>
-          action.payload.id === booking.id ? action.payload : booking
+          booking.id === bookingId ? foundBooking : booking
         ),
       };
 
