@@ -10,9 +10,8 @@ import { StyledPaper, StyledPaperMargin, StyledProfile } from "./styles";
 
 // Components
 import Loading from "../Loading";
-import OwnerBookingData from "./OwnerBookingData";
+import BookingData from "./BookingData";
 import OwnerPetList from "./OwnerPetList";
-import SitterBookingData from "./SitterBookingData";
 import SitterData from "./SitterData";
 import SitterSchedule from "./SitterSchedule";
 import UserData from "./UserData";
@@ -75,11 +74,7 @@ const Profile = () => {
               </StyledPaperMargin>
             )}
             <StyledPaper>
-              {user.type === "petOwner" ? (
-                <OwnerBookingData theme={theme} />
-              ) : (
-                <SitterBookingData theme={theme} />
-              )}
+              <BookingData theme={theme} />
             </StyledPaper>
           </Grid>
         </Grid>
