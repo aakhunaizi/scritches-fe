@@ -61,6 +61,7 @@ export const signout = () => (dispatch) => {
   Cookies.remove("token");
   delete instance.defaults.headers.common.Authorization;
   dispatch({ type: types.SET_SCHEDULE, payload: null });
+  dispatch({ type: types.SET_BOOKINGS, payload: null });
   dispatch({ type: types.SET_PETS, payload: null });
   dispatch({ type: types.FETCH_PROFILE, payload: null });
   dispatch({ type: types.SET_USER, payload: null });
@@ -73,10 +74,12 @@ export const fetchProfile = (type) => async (dispatch) => {
     if (type === "petOwner") {
       const res = await instance.get("/owners");
       dispatch({ type: types.SET_PETS, payload: res.data.pets });
+      dispatch({ type: types.SET_BOOKINGS, payload: res.data.bookings });
       dispatch({ type: types.FETCH_PROFILE, payload: res.data });
     } else {
       const res = await instance.get("/sitters");
       dispatch({ type: types.SET_SCHEDULE, payload: res.data.schedule });
+      dispatch({ type: types.SET_BOOKINGS, payload: res.data.bookings });
       dispatch({ type: types.FETCH_PROFILE, payload: res.data });
     }
   } catch (error) {

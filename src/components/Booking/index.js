@@ -34,7 +34,7 @@ import BookingSummary from "./BookingSummary";
 
 // Actions
 import { fetchProfile } from "../../store/actions/userActions";
-import { createBooking } from "../../store/actions/searchActions";
+import { createBooking } from "../../store/actions/bookingActions";
 
 const Booking = () => {
   const dispatch = useDispatch();

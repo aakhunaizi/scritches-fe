@@ -12,12 +12,3 @@ export const searchSitters = (query, history) => async (dispatch) => {
     console.log("Error: ", error);
   }
 };
-
-// Create Booking
-export const createBooking = (booking) => async () => {
-  try {
-    await instance.post("/bookings", booking);
-  } catch (error) {
-    console.log("Error: ", error);
-  }
-};
