@@ -1,21 +1,19 @@
 import { useSelector } from "react-redux";
 
 // Styling
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import {
-  StyledArrowDropDown,
-  StyledAvatar,
-  StyledChip,
-  StyledDetailsButton,
-} from "./styles";
-import { FaCalendarCheck } from "react-icons/fa";
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
+import { StyledChip, StyledDetailsButton } from "./styles";
 
-const OwnerBookingData = ({ theme }) => {
+const BookingData = ({ theme }) => {
+  const bookings = useSelector((state) => state.bookingReducer.bookings);
+
   const statusColor = (bookingStatus) => {
     switch (bookingStatus) {
       case "Pending":
@@ -31,17 +29,19 @@ const OwnerBookingData = ({ theme }) => {
         break;
     }
   };
-  const bookings = useSelector((state) => state.bookingReducer.bookings);
 
   const bookingList = bookings.map((booking) => (
     <TableRow key={booking.id}>
-      <TableCell component="th" scope="row">
-        {booking.id}
-      </TableCell>
       <TableCell>{booking.pet.name}</TableCell>
-      <TableCell>
-        {booking.sitter.user.firstName} {booking.sitter.user.lastName}
-      </TableCell>
+      {booking.sitter ? (
+        <TableCell>
+          {booking.sitter.user.firstName} {booking.sitter.user.lastName}
+        </TableCell>
+      ) : (
+        <TableCell>
+          {booking.owner.user.firstName} {booking.owner.user.lastName}
+        </TableCell>
+      )}
       <TableCell>{booking.from}</TableCell>
       <TableCell>{booking.to}</TableCell>
       <TableCell>{booking.total} BHD</TableCell>
@@ -49,9 +49,8 @@ const OwnerBookingData = ({ theme }) => {
         <StyledChip
           label={booking.status}
           color="inherit"
-          customColor={statusColor(booking.status)}
+          custom={statusColor(booking.status)}
         />
-        <StyledArrowDropDown />
       </TableCell>
       <TableCell>
         <StyledDetailsButton variant="outlined" color="inherit" theme={theme}>
@@ -63,16 +62,14 @@ const OwnerBookingData = ({ theme }) => {
 
   return (
     <>
-      <StyledAvatar theme={theme}>
-        <FaCalendarCheck />
-      </StyledAvatar>
       <TableContainer>
-        <Table aria-label="simple table">
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Reference</TableCell>
               <TableCell>Pet Name</TableCell>
-              <TableCell>Sitter Name</TableCell>
+              <TableCell>
+                {bookings[0].sitter ? "Sitter" : "Owner"} Name
+              </TableCell>
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Price</TableCell>
@@ -87,4 +84,4 @@ const OwnerBookingData = ({ theme }) => {
   );
 };
 
-export default OwnerBookingData;
+export default BookingData;

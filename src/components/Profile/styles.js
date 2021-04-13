@@ -30,8 +30,17 @@ export const StyledAddButtonMargin = styled(Button)`
   }
 `;
 
+export const StyledArrowDropDown = styled(ArrowDropDownIcon)`
+  cursor: pointer;
+`;
+
 export const StyledAvatar = styled(Avatar)`
   background-color: ${(props) => props.theme.palette.lightBlue.main};
+`;
+
+export const StyledChip = styled(Chip)`
+  background-color: ${(props) => props.custom};
+  color: white;
 `;
 
 export const StyledEditButton = styled(Button)`
@@ -126,13 +135,4 @@ export const StyledUploadButton = styled(Button)`
     background-color: ${(props) => props.theme.palette.orange.main};
     color: white;
   }
-`;
-
-export const StyledChip = styled(Chip)`
-  background-color: ${(props) => props.customColor};
-  color: white;
-`;
-
-export const StyledArrowDropDown = styled(ArrowDropDownIcon)`
-  cursor: pointer;
 `;
