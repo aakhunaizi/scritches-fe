@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -32,8 +32,12 @@ const Signin = () => {
   const { register, handleSubmit, errors } = useForm();
 
   const [password, setPassword] = useState(true);
+  const lastLocation = useSelector(
+    (state) => state.locationReducer.lastLocation
+  );
 
-  const handleOnSubmit = (data) => dispatch(signin(data, history));
+  const handleOnSubmit = (data) =>
+    dispatch(signin(data, history, lastLocation));
 
   return (
     <Container component="main" maxWidth="xs">

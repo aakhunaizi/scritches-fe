@@ -10,3 +10,8 @@ export const fetchCountries = () => async (dispatch) => {
     console.log("Error: ", error);
   }
 };
+
+// Update Last Location
+export const updateLastLocation = (location) => {
+  return { type: types.SET_LOCATION, payload: location };
+};

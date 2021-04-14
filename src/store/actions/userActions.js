@@ -23,11 +23,13 @@ const setUser = (token) => {
 };
 
 // Sign In
-export const signin = (user, history) => async (dispatch) => {
+export const signin = (user, history, lastLocation) => async (dispatch) => {
   try {
+    console.log(lastLocation);
     const res = await instance.post("/signin", user);
     dispatch(setUser(res.data.token));
-    history.goBack();
+    if (lastLocation) history.push(lastLocation);
+    else history.replace("/");
     toastMessage("success", "Welcome back!", 2000);
   } catch (error) {
     console.log("Error: ", error);
@@ -36,11 +38,12 @@ export const signin = (user, history) => async (dispatch) => {
 };
 
 // Sign Up
-export const signup = (newUser, history) => async (dispatch) => {
+export const signup = (newUser, history, lastLocation) => async (dispatch) => {
   try {
     const res = await instance.post("/signup", newUser);
     dispatch(setUser(res.data.token));
-    history.replace("/");
+    if (lastLocation) history.push(lastLocation);
+    else history.replace("/");
     toastMessage(
       "success",
       "Your account has been successfully created!",
