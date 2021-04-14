@@ -4,6 +4,7 @@ export const UPDATE_BOOKING = "UPDATE_BOOKING";
 
 // Location Types
 export const FETCH_COUNTRIES = "FETCH_COUNTRIES";
+export const SET_LOCATION = "SET_LOCATION";
 
 // Pet Types
 export const SET_PETS = "SET_PETS";

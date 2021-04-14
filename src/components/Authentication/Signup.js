@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
@@ -33,10 +33,13 @@ const Signup = () => {
 
   const type = useLocation().state.type;
   const [password, setPassword] = useState(true);
+  const lastLocation = useSelector(
+    (state) => state.locationReducer.lastLocation
+  );
 
   const handleOnSubmit = (data) => {
     if (type === "petSitter") data.type = "petSitter";
-    dispatch(signup(data, history));
+    dispatch(signup(data, history, lastLocation));
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
@@ -35,9 +35,11 @@ import BookingSummary from "./BookingSummary";
 // Actions
 import { fetchProfile } from "../../store/actions/userActions";
 import { createBooking } from "../../store/actions/bookingActions";
+import { updateLastLocation } from "../../store/actions/locationActions";
 
 const Booking = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const theme = useTheme();
   const classes = useStyles();
 
@@ -63,7 +65,10 @@ const Booking = () => {
     if (user?.type === "petOwner") {
       dispatch(fetchProfile(user.type));
     }
-  }, [user, dispatch]);
+    dispatch(
+      updateLastLocation({ pathname: "/booking", state: { sitter: sitter } })
+    );
+  }, [dispatch, sitter, user]);
 
   const calculateDuration = () =>
     (moment(booking.to) - moment(booking.from)) / 86400000 + 1;
@@ -74,6 +79,10 @@ const Booking = () => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleBackToSitters = () => {
+    history.replace("/search");
   };
 
   const handleSubmit = () => {
@@ -189,13 +198,23 @@ const Booking = () => {
                   <>
                     {getStepContent(activeStep)}
                     <div className={classes.buttons}>
-                      {activeStep !== 0 && (
+                      {activeStep !== 0 ? (
                         <StyledBackButton
                           className={classes.button}
                           variant="outlined"
                           color="inherit"
                           theme={theme}
                           onClick={handleBack}
+                        >
+                          Back
+                        </StyledBackButton>
+                      ) : (
+                        <StyledBackButton
+                          className={classes.button}
+                          variant="outlined"
+                          color="inherit"
+                          theme={theme}
+                          onClick={handleBackToSitters}
                         >
                           Back
                         </StyledBackButton>

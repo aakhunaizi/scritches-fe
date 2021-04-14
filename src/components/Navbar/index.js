@@ -19,6 +19,7 @@ import LogoImage from "../../assets/Logo.png";
 
 // Actions
 import { signout } from "../../store/actions/userActions";
+import { updateLastLocation } from "../../store/actions/locationActions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.userReducer.user);
 
   const handleSignout = () => {
+    dispatch(updateLastLocation("/"));
     dispatch(signout());
     history.replace("/");
   };

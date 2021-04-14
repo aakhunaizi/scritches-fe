@@ -44,7 +44,10 @@ const OwnerPetList = ({ owner, theme }) => {
   };
 
   const handleCloseAdd = () => setShowAdd(false);
-  const handleCloseEdit = () => setShowEdit(false);
+  const handleCloseEdit = () => {
+    setPet(null);
+    setShowEdit(false);
+  };
 
   const handleDelete = (petId) => {
     Swal.fire({
