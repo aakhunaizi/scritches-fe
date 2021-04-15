@@ -42,7 +42,7 @@ const Navbar = () => {
           <LogoLink to="/">
             <Avatar alt="Scritches" src={LogoImage} />
           </LogoLink>
-          <StyledTitle variant="h6">Scritches</StyledTitle>
+          <StyledTitle variant="h4">Scritches</StyledTitle>
 
           {user ? (
             <>
