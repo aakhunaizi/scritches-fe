@@ -14,7 +14,7 @@ import { Container, StyledTypography, AccordionContainer } from "./styles";
 const Accordions = () => {
   return (
     <Container>
-      <StyledTypography gutterBottom variant="h5" component="h2">
+      <StyledTypography gutterBottom variant="h4" component="h2">
         Frequently Asked Questions
       </StyledTypography>
       <Grid container justify="center">

@@ -3,6 +3,7 @@ import { Card, Grid, Typography } from "@material-ui/core";
 
 export const AccordionContainer = styled.div`
   margin: auto;
+  margin-bottom: 5%;
 `;
 
 export const BackgroundContainer = styled.div`
@@ -30,4 +31,9 @@ export const StyledGrid = styled(Grid)`
 
 export const StyledTypography = styled(Typography)`
   margin-bottom: 2%;
+  font-family: "Indie Flower", cursive;
+`;
+
+export const StepsTypography = styled(Typography)`
+  font-family: "Indie Flower", cursive;
 `;

@@ -44,7 +44,8 @@ export const StyledLabel = styled.label`
 
 export const StyledTitle = styled(Typography)`
   flex-grow: 1;
-  margin-left: 1.5%;
+  margin-left: 0.5%;
+  font-family: "Indie Flower", cursive;
 `;
 
 export const useStyles = makeStyles(() => ({
