@@ -40,6 +40,7 @@ const Sitter = ({ sitter, theme }) => {
                 "http://localhost:8000/media/1617175202259-default_profile_pic.jpg"
               }
               fluid
+              roundedCircle
             />
             <CardContent>
               <Typography gutterBottom variant="h5">
